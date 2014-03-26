@@ -13,40 +13,39 @@ public class Team implements Serializable {
 
 	private static final long serialVersionUID = -5816252921978718918L;
 	
-	private String team;
-	private String mascot;
 	private String abbreviation;
+	private String name;
+	private String mascot;
 	private String conference;
 	private String division;
 	
 	
-	public Team(String team, String mascot, String abbreviation,
+	public Team(String abbreviation, String name, String mascot, 
 			String conference, String division) {
-		super();
-		this.team = team;
-		this.mascot = mascot;
 		this.abbreviation = abbreviation;
+		this.name = name;
+		this.mascot = mascot;
 		this.conference = conference;
 		this.division = division;
 	}
 	
-	public String getTeam() {
-		return team;
+	public String getAbbreviation() {
+		return abbreviation;
 	}
-	public void setTeam(String team) {
-		this.team = team;
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getMascot() {
 		return mascot;
 	}
 	public void setMascot(String mascot) {
 		this.mascot = mascot;
-	}
-	public String getAbbreviation() {
-		return abbreviation;
-	}
-	public void setAbbreviation(String abbreviation) {
-		this.abbreviation = abbreviation;
 	}
 	public String getConference() {
 		return conference;
@@ -60,8 +59,5 @@ public class Team implements Serializable {
 	public void setDivision(String division) {
 		this.division = division;
 	}
-	
-	
-	
 
 }

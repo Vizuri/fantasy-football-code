@@ -13,10 +13,11 @@ public class Player implements Serializable {
 
 	private static final long serialVersionUID = -3605975122593164477L;
 	
+	private String firstname;
 	private String position;
-	private String name;
+	private String lastname;
 	private String number;
-	private String team;
+	private Team team;
 	
 
 	public String getPosition() {
@@ -25,11 +26,17 @@ public class Player implements Serializable {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public String getName() {
-		return name;
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	public String getNumber() {
 		return number;
@@ -37,19 +44,17 @@ public class Player implements Serializable {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	public String getTeam() {
+	public Team getTeam() {
 		return team;
 	}
-	public void setTeam(String team) {
+	public void setTeam(Team team) {
 		this.team = team;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "Player [position=" + position + ", name=" + name + ", number="
-				+ number + ", team=" + team + "]";
+		return "Player [firstname=" + firstname + ", position=" + position
+				+ ", lastname=" + lastname + ", number=" + number + ", teamName="
+				+ team.getName() + "]";
 	}
-	
-
 }
