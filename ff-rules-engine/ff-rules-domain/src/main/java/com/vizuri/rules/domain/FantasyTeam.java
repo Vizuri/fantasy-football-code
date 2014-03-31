@@ -4,8 +4,8 @@
 package com.vizuri.rules.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
 
 /**
  * @author amirge
@@ -16,11 +16,12 @@ public class FantasyTeam implements Serializable {
 	private static final long serialVersionUID = 7702660076763078961L;
 	
 	private BigInteger fantasyTeamId;
+	private Position position;
 	private User owner;
 	private League league;
 	private String name;
-	private List<Player> players;
-	
+	private Roster roster;
+	private BigDecimal totalPoints;
 	
 	public BigInteger getFantasyTeamId() {
 		return fantasyTeamId;
@@ -46,11 +47,24 @@ public class FantasyTeam implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Player> getPlayers() {
-		return players;
+	public Roster getRoster() {
+		return roster;
 	}
-	public void setPlayers(List<Player> players) {
-		this.players = players;
+	public void setRoster(Roster roster) {
+		this.roster = roster;
 	}
+	public Position getPosition() {
+		return position;
+	}
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+	public BigDecimal getTotalPoints() {
+		return totalPoints;
+	}
+	public void setTotalPoints(BigDecimal totalPoints) {
+		this.totalPoints = totalPoints;
+	}
+
 	
 }

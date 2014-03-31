@@ -7,9 +7,7 @@
     <artifactId>ff-rules-engine</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.vizuri</groupId>
   <artifactId>ff-web-app</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <name>ff-web-app</name>
   <packaging>war</packaging>
   <url>http://maven.apache.org</url>
@@ -29,11 +27,26 @@
       </plugins>
   </build>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>3.8.1</version>
+	      <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	  		<groupId>org.drools</groupId>
+	  		<artifactId>drools-compiler</artifactId>
+	  		<version>6.0.0.Final</version>
+	  	</dependency>
+    	 <dependency>
+	  		<groupId>com.vizuri</groupId>
+	  		<artifactId>ff-rules-domain</artifactId>
+	  		<version>1.0-SNAPSHOT</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>com.vizuri</groupId>
+	  		<artifactId>Fantasy_Football_BRMS</artifactId>
+	  		<version>1.0</version>
+	  	</dependency>
   </dependencies>
 </project>

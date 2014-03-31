@@ -80,8 +80,7 @@ public class NFL implements Serializable {
 		positions.add(new Position("WR", "Wide Receiver"));
 		positions.add(new Position("TE", "Tight End"));
 		positions.add(new Position("K", "Kicker"));
-		positions.add(new Position("D/ST", "Defense/Special Teams"));
-		positions.add(new Position("QB", "Quarterback"));
+		positions.add(new Position("DST", "Defense/Special Teams"));
 	}
 
 	public List<Team> getNflTeams() {
