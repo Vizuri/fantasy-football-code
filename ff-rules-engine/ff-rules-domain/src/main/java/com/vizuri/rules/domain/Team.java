@@ -60,4 +60,62 @@ public class Team implements Serializable {
 		this.division = division;
 	}
 
+	@Override
+	public String toString() {
+		return "Team [abbreviation=" + abbreviation + ", name=" + name
+				+ ", mascot=" + mascot + ", conference=" + conference
+				+ ", division=" + division + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((abbreviation == null) ? 0 : abbreviation.hashCode());
+		result = prime * result
+				+ ((conference == null) ? 0 : conference.hashCode());
+		result = prime * result
+				+ ((division == null) ? 0 : division.hashCode());
+		result = prime * result + ((mascot == null) ? 0 : mascot.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Team other = (Team) obj;
+		if (abbreviation == null) {
+			if (other.abbreviation != null)
+				return false;
+		} else if (!abbreviation.equals(other.abbreviation))
+			return false;
+		if (conference == null) {
+			if (other.conference != null)
+				return false;
+		} else if (!conference.equals(other.conference))
+			return false;
+		if (division == null) {
+			if (other.division != null)
+				return false;
+		} else if (!division.equals(other.division))
+			return false;
+		if (mascot == null) {
+			if (other.mascot != null)
+				return false;
+		} else if (!mascot.equals(other.mascot))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
 }
