@@ -40,7 +40,7 @@ Setup and Configuration
 
     6) Open a web browser and login to Business Central by navigating to http://localhost:8080/business-central/. 
 	
-	Login using the username/password combination for accessing the BPM Suite application that you created at installation time. 
+    7) Login using the username/password combination for accessing the BPM Suite application that you created at installation time. 
 
     	You have successfully installed and run BPM Suiteinspect project in BPM Suite, login http://localhost:8080/business central
 
