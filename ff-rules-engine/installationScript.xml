@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AutomatedInstallation langpack="eng">
+<com.izforge.izpack.panels.HTMLLicencePanel id="HTMLLicencePanel"/>
+<com.izforge.izpack.panels.TargetPanel id="DirectoryPanel">
+<installpath>/Users/amirge/temp/BPMS_Installer</installpath>
+</com.izforge.izpack.panels.TargetPanel>
+<com.izforge.izpack.panels.UserInputPanel id="security">
+<userInput>
+<entry autoPrompt="true" key="adminPassword"/>
+<entry key="adminUser" value="admin"/>
+</userInput>
+</com.izforge.izpack.panels.UserInputPanel>
+<com.izforge.izpack.panels.UserInputPanel id="bpmsUser">
+<userInput>
+<entry key="bpms.user" value="admin"/>
+<entry autoPrompt="true" key="bpms.password"/>
+</userInput>
+</com.izforge.izpack.panels.UserInputPanel>
+<com.izforge.izpack.panels.UserInputPanel id="JavaSecurityManager">
+<userInput>
+<entry key="jvm.security.enabled" value="true"/>
+</userInput>
+</com.izforge.izpack.panels.UserInputPanel>
+<com.izforge.izpack.panels.UserInputPanel id="postinstall">
+<userInput>
+<entry key="postinstallServer" value="false"/>
+</userInput>
+</com.izforge.izpack.panels.UserInputPanel>
+<com.izforge.izpack.panels.UserInputPanel id="vaultsecurity"/>
+<com.izforge.izpack.panels.UserInputPanel id="vaultsecuritypreexisting"/>
+<com.izforge.izpack.panels.UserInputPanel id="sslsecurity"/>
+<com.izforge.izpack.panels.UserInputPanel id="ldapsecurity"/>
+<com.izforge.izpack.panels.UserInputPanel id="ldapsecurity2"/>
+<com.izforge.izpack.panels.UserInputPanel id="securitydomain"/>
+<com.izforge.izpack.panels.UserInputPanel id="jsssecuritydomain"/>
+<com.izforge.izpack.panels.SummaryPanel id="SummaryPanel"/>
+<com.izforge.izpack.panels.InstallPanel id="InstallPanel"/>
+<com.izforge.izpack.panels.ProcessPanel id="ProcessPanel"/>
+<com.izforge.izpack.panels.FinishPanel id="FinishPanel"/>
+</AutomatedInstallation>
