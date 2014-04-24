@@ -18,7 +18,8 @@ public class League implements Serializable {
 	private String name;
 	private User commissioner; //League provider
 	private List<FantasyTeam> fantasyTeams;
-	private String type; //Private or Public
+	private String type; 
+	private Long rulesetId;
 	private boolean isValid;
 	private String comment;
 	private int fantasyTeamsCount;
@@ -71,6 +72,12 @@ public class League implements Serializable {
 	public void setFantasyTeamsCount(int fantasyTeamsCount) {
 		this.fantasyTeamsCount = fantasyTeamsCount;
 	}
+	public Long getRulesetId() {
+		return rulesetId;
+	}
+	public void setRulesetId(Long rulesetId) {
+		this.rulesetId = rulesetId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,6 +92,8 @@ public class League implements Serializable {
 		result = prime * result
 				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((rulesetId == null) ? 0 : rulesetId.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
@@ -126,6 +135,11 @@ public class League implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (rulesetId == null) {
+			if (other.rulesetId != null)
+				return false;
+		} else if (!rulesetId.equals(other.rulesetId))
+			return false;
 		if (type == null) {
 			if (other.type != null)
 				return false;
@@ -137,8 +151,9 @@ public class League implements Serializable {
 	public String toString() {
 		return "League [leagueId=" + leagueId + ", name=" + name
 				+ ", commissioner=" + commissioner + ", fantasyTeams="
-				+ fantasyTeams + ", type=" + type + ", isValid=" + isValid
-				+ ", comment=" + comment + ", fantasyTeamsCount="
-				+ fantasyTeamsCount + "]";
+				+ fantasyTeams + ", type=" + type + ", rulesetId=" + rulesetId
+				+ ", isValid=" + isValid + ", comment=" + comment
+				+ ", fantasyTeamsCount=" + fantasyTeamsCount + "]";
 	}
+	
 }
