@@ -1,12 +1,14 @@
 JBoss BPM Suite Fantasy Football Demo
 
-The goal of this demo project is to highlight the latest features offered by JBoss BPM Suite 6 product using fantasy football demo 
-where you will find rules, decision tables, events, and a process that is leveraged by a web application. The web application is a WAR 
+An online Fantasy Football system offers lots of opportunities to explore the new jBPM6 and Drools 6.0.1 and/or Red Hat BRMS/BPMS.  
+
+The goal of this demo project is to highlight the product features using fantasy football demo where you will find rules, 
+decision tables, events, and a process that is leveraged by a web application. The web application is a WAR 
 built using the JBoss BPM Suite generated kjar as a dependency, providing an example project showing how developers can focus on the 
 application code while the business analysts can focus on the rules, event, and processed in the JBoss BPM Suite product web user interface.
 
-Note: In this demo, we will be using the JBoss BPM Suite product which is a downstream version of Drools project. You can download the software on Jboss.org 
-at https://www.jboss.org/products/bpmsuite.html   
+Note: In this demo, we will be using the JBoss BPM Suite product which is a downstream version of jBPM6 and Drools 6.0.1 project. You can 
+download the BPM Suite software on Jboss.org community site at https://www.jboss.org/products/bpmsuite.html   
 
 Setup and Configuration
 
