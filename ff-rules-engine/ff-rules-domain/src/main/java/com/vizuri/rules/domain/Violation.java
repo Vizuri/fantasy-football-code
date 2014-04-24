@@ -11,7 +11,6 @@ public class Violation implements Serializable {
 	private String description;
 	private String details;
 	
-	
 	public Severity getSeverity() {
 		return severity;
 	}
@@ -35,6 +34,15 @@ public class Violation implements Serializable {
 	}
 	public void setDetails(String details) {
 		this.details = details;
+	}
+	
+	//convenience methods
+	public String getSeverityString() {
+		return String.valueOf(this.severity);
+	}
+	
+	public void setSeverityString(String severityString) {
+		this.severity = Severity.valueOf(severityString);
 	}
 	
 	@Override
@@ -85,6 +93,7 @@ public class Violation implements Serializable {
 		return true;
 	}
 
+	
 	
 
 }

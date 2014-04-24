@@ -19,7 +19,7 @@ public class FantasyTeam implements Serializable {
 	private List<Violation> violationList;
 	private Position position;
 	private User owner;
-	private League league;
+	private Long leagueId;
 	private String name;
 	private Roster roster;
 	private BigDecimal totalPoints;
@@ -42,11 +42,12 @@ public class FantasyTeam implements Serializable {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-	public League getLeague() {
-		return league;
+
+	public Long getLeagueId() {
+		return leagueId;
 	}
-	public void setLeague(League league) {
-		this.league = league;
+	public void setLeagueId(Long leagueId) {
+		this.leagueId = leagueId;
 	}
 	public String getName() {
 		return name;
@@ -76,17 +77,17 @@ public class FantasyTeam implements Serializable {
 	@Override
 	public String toString() {
 		return "FantasyTeam [id=" + id + ", violationList=" + violationList
-				+ ", position=" + position + ", owner=" + owner + ", league="
-				+ league + ", name=" + name + ", roster=" + roster
+				+ ", position=" + position + ", owner=" + owner + ", leagueId="
+				+ leagueId + ", name=" + name + ", roster=" + roster
 				+ ", totalPoints=" + totalPoints + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((league == null) ? 0 : league.hashCode());
+		result = prime * result
+				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result
@@ -98,7 +99,6 @@ public class FantasyTeam implements Serializable {
 				+ ((violationList == null) ? 0 : violationList.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -113,10 +113,10 @@ public class FantasyTeam implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (league == null) {
-			if (other.league != null)
+		if (leagueId == null) {
+			if (other.leagueId != null)
 				return false;
-		} else if (!league.equals(other.league))
+		} else if (!leagueId.equals(other.leagueId))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -150,5 +150,6 @@ public class FantasyTeam implements Serializable {
 			return false;
 		return true;
 	}
+	
 
 }

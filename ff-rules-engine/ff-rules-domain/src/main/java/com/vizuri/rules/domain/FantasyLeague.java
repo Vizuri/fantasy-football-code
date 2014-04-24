@@ -4,6 +4,7 @@
 package com.vizuri.rules.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +19,8 @@ public class FantasyLeague implements Serializable {
 	private String name;
 	private User commissioner;
 	private Long rulesetId;
-	private List<Violation> violationList;
-	
+	private List<Violation> violationList = new ArrayList<Violation>();
+	private List<FantasyTeam> fantasyTeamList = new ArrayList<FantasyTeam>();
 	
 	public Long getId() {
 		return id;
@@ -52,11 +53,19 @@ public class FantasyLeague implements Serializable {
 		this.violationList = violationList;
 	}
 	
+	public List<FantasyTeam> getFantasyTeamList() {
+		return fantasyTeamList;
+	}
+	public void setFantasyTeamList(List<FantasyTeam> fantasyTeamList) {
+		this.fantasyTeamList = fantasyTeamList;
+	}
+	
 	@Override
 	public String toString() {
 		return "FantasyLeague [id=" + id + ", name=" + name + ", commissioner="
 				+ commissioner + ", rulesetId=" + rulesetId
-				+ ", violationList=" + violationList + "]";
+				+ ", violationList=" + violationList + ", fantasyTeamList="
+				+ fantasyTeamList + "]";
 	}
 	
 	@Override
@@ -65,6 +74,8 @@ public class FantasyLeague implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((commissioner == null) ? 0 : commissioner.hashCode());
+		result = prime * result
+				+ ((fantasyTeamList == null) ? 0 : fantasyTeamList.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
@@ -88,6 +99,11 @@ public class FantasyLeague implements Serializable {
 				return false;
 		} else if (!commissioner.equals(other.commissioner))
 			return false;
+		if (fantasyTeamList == null) {
+			if (other.fantasyTeamList != null)
+				return false;
+		} else if (!fantasyTeamList.equals(other.fantasyTeamList))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -110,4 +126,9 @@ public class FantasyLeague implements Serializable {
 			return false;
 		return true;
 	}
+	
+	public void addFantasyTeam(FantasyTeam fantasyTeam){
+		fantasyTeamList.add(fantasyTeam);
+	}
+	
 }

@@ -8,5 +8,18 @@ package com.vizuri.rules.domain;
  *
  */
 public enum Severity {
-	INFO,WARNING,ERROR,FATAL
+	INFO("INFO"),
+	WARNING("WARNING"),
+	ERROR("ERROR"),
+	FATAL("FATAL");
+	
+	private String name;
+	
+	Severity(String name){
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
 }

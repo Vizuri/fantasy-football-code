@@ -4,7 +4,6 @@
 package com.vizuri.rules.domain;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ public class League implements Serializable {
 
 	private static final long serialVersionUID = -2498514903317856131L;
 	
-	private BigInteger leagueId;
+	private Long leagueId;
 	private String name;
 	private User commissioner; //League provider
 	private List<FantasyTeam> fantasyTeams;
@@ -24,10 +23,10 @@ public class League implements Serializable {
 	private String comment;
 	private int fantasyTeamsCount;
 	
-	public BigInteger getLeagueId() {
+	public Long getLeagueId() {
 		return leagueId;
 	}
-	public void setLeagueId(BigInteger leagueId) {
+	public void setLeagueId(Long leagueId) {
 		this.leagueId = leagueId;
 	}
 	public String getName() {
