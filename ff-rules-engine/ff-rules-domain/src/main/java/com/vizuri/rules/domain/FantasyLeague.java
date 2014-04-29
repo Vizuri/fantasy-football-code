@@ -10,11 +10,11 @@ import java.util.List;
  * @author amirge
  *
  */
-public class League implements Serializable {
+public class FantasyLeague implements Serializable {
 
 	private static final long serialVersionUID = -2498514903317856131L;
 	
-	private Long leagueId;
+	private Long id;
 	private String name;
 	private User commissioner; //League provider
 	private List<FantasyTeam> fantasyTeams;
@@ -22,13 +22,12 @@ public class League implements Serializable {
 	private Long rulesetId;
 	private boolean isValid;
 	private String comment;
-	private int fantasyTeamsCount;
 	
-	public Long getLeagueId() {
-		return leagueId;
+	public Long getId() {
+		return id;
 	}
-	public void setLeagueId(Long leagueId) {
-		this.leagueId = leagueId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -66,17 +65,18 @@ public class League implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public int getFantasyTeamsCount() {
-		return fantasyTeamsCount;
-	}
-	public void setFantasyTeamsCount(int fantasyTeamsCount) {
-		this.fantasyTeamsCount = fantasyTeamsCount;
-	}
 	public Long getRulesetId() {
 		return rulesetId;
 	}
 	public void setRulesetId(Long rulesetId) {
 		this.rulesetId = rulesetId;
+	}
+	@Override
+	public String toString() {
+		return "FantasyLeague [id=" + id + ", name=" + name + ", commissioner="
+				+ commissioner + ", fantasyTeams=" + fantasyTeams + ", type="
+				+ type + ", rulesetId=" + rulesetId + ", isValid=" + isValid
+				+ ", comment=" + comment + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -87,10 +87,8 @@ public class League implements Serializable {
 				+ ((commissioner == null) ? 0 : commissioner.hashCode());
 		result = prime * result
 				+ ((fantasyTeams == null) ? 0 : fantasyTeams.hashCode());
-		result = prime * result + fantasyTeamsCount;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (isValid ? 1231 : 1237);
-		result = prime * result
-				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
 				+ ((rulesetId == null) ? 0 : rulesetId.hashCode());
@@ -105,7 +103,7 @@ public class League implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		League other = (League) obj;
+		FantasyLeague other = (FantasyLeague) obj;
 		if (comment == null) {
 			if (other.comment != null)
 				return false;
@@ -121,14 +119,12 @@ public class League implements Serializable {
 				return false;
 		} else if (!fantasyTeams.equals(other.fantasyTeams))
 			return false;
-		if (fantasyTeamsCount != other.fantasyTeamsCount)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (isValid != other.isValid)
-			return false;
-		if (leagueId == null) {
-			if (other.leagueId != null)
-				return false;
-		} else if (!leagueId.equals(other.leagueId))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -147,13 +143,5 @@ public class League implements Serializable {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "League [leagueId=" + leagueId + ", name=" + name
-				+ ", commissioner=" + commissioner + ", fantasyTeams="
-				+ fantasyTeams + ", type=" + type + ", rulesetId=" + rulesetId
-				+ ", isValid=" + isValid + ", comment=" + comment
-				+ ", fantasyTeamsCount=" + fantasyTeamsCount + "]";
-	}
-	
+
 }

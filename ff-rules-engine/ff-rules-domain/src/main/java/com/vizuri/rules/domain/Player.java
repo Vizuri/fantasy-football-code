@@ -17,7 +17,7 @@ public class Player implements Serializable {
 	private Integer number;
 	private String firstname;
 	private String lastname;
-	private Team team;
+    private Long fantasyTeamId;
 	
 	public Long getId() {
 		return id;
@@ -43,33 +43,32 @@ public class Player implements Serializable {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	public Team getTeam() {
-		return team;
+	public Long getFantasyTeamId() {
+		return fantasyTeamId;
 	}
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setFantasyTeamId(Long fantasyTeamId) {
+		this.fantasyTeamId = fantasyTeamId;
 	}
-	
 	@Override
 	public String toString() {
 		return "Player [id=" + id + ", number=" + number + ", firstname="
-				+ firstname + ", lastname=" + lastname + ", team=" + team + "]";
+				+ firstname + ", lastname=" + lastname + ", fantasyTeamId="
+				+ fantasyTeamId + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((fantasyTeamId == null) ? 0 : fantasyTeamId.hashCode());
 		result = prime * result
 				+ ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((lastname == null) ? 0 : lastname.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result + ((team == null) ? 0 : team.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -79,6 +78,11 @@ public class Player implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
+		if (fantasyTeamId == null) {
+			if (other.fantasyTeamId != null)
+				return false;
+		} else if (!fantasyTeamId.equals(other.fantasyTeamId))
+			return false;
 		if (firstname == null) {
 			if (other.firstname != null)
 				return false;
@@ -99,11 +103,7 @@ public class Player implements Serializable {
 				return false;
 		} else if (!number.equals(other.number))
 			return false;
-		if (team == null) {
-			if (other.team != null)
-				return false;
-		} else if (!team.equals(other.team))
-			return false;
 		return true;
-	}	
+	}
+
 }
