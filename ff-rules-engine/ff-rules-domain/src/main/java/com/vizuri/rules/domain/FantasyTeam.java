@@ -6,6 +6,7 @@ package com.vizuri.rules.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author amirge
@@ -16,13 +17,13 @@ public class FantasyTeam implements Serializable {
 	private static final long serialVersionUID = 7702660076763078961L;
 	
 	private Long id;
-	private List<Violation> violationList;
+	private List<Violation> violationList = new ArrayList<Violation>();
 	private Position position;
 	private User owner;
 	private Long leagueId;
 	private String name;
 	private BigDecimal totalPoints;
-	private List<Player> players;
+	private List<Player> players = new ArrayList<Player>();
 	
 	public Long getId() {
 		return id;

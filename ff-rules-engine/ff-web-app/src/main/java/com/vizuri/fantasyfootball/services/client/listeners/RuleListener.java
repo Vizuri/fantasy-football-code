@@ -7,6 +7,8 @@ import org.kie.api.event.rule.ObjectInsertedEvent;
 import org.kie.api.event.rule.ObjectUpdatedEvent;
 import org.kie.api.event.rule.RuleRuntimeEventListener;
 
+import com.vizuri.rules.domain.Violation;
+
 public class RuleListener implements RuleRuntimeEventListener {
 	private final static transient Logger logger = Logger.getLogger(RuleListener.class);
 
@@ -20,6 +22,10 @@ public class RuleListener implements RuleRuntimeEventListener {
 			logger.info("Rule fired : " + ruleFired.getName());
 		}
 		logger.info("Fact Object :" + factObject);
+		if(factObject instanceof Violation){
+			Violation violation = new Violation();
+			logger.info("Violation occured: "+violation.getDetails());
+		}
 	}
 
 	public void objectUpdated(ObjectUpdatedEvent event) {

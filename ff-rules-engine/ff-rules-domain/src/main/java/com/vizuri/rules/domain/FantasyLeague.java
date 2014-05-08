@@ -5,6 +5,7 @@ package com.vizuri.rules.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author amirge
@@ -17,7 +18,7 @@ public class FantasyLeague implements Serializable {
 	private Long id;
 	private String name;
 	private User commissioner; //League provider
-	private List<FantasyTeam> fantasyTeams;
+	private List<FantasyTeam> fantasyTeams = new ArrayList<FantasyTeam>();
 	private String type; 
 	private Long rulesetId;
 	private boolean isValid;
