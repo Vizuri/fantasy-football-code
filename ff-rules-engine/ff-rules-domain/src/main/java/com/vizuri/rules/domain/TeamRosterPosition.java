@@ -16,6 +16,7 @@ public class TeamRosterPosition implements Serializable {
 	private Integer slotNumber;
 	private Long playerId;
 	private Integer week;
+	private Long leagueId;
 	
 	public Long getTeamId() {
 		return teamId;
@@ -41,18 +42,26 @@ public class TeamRosterPosition implements Serializable {
 	public void setWeek(Integer week) {
 		this.week = week;
 	}
+	public Long getLeagueId() {
+		return leagueId;
+	}
+	public void setLeagueId(Long leagueId) {
+		this.leagueId = leagueId;
+	}
 	
 	@Override
 	public String toString() {
 		return "TeamRosterPosition [teamId=" + teamId + ", slotNumber="
 				+ slotNumber + ", playerId=" + playerId + ", week=" + week
-				+ "]";
+				+ ", leagueId=" + leagueId + "]";
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result
 				+ ((playerId == null) ? 0 : playerId.hashCode());
 		result = prime * result
@@ -71,6 +80,11 @@ public class TeamRosterPosition implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TeamRosterPosition other = (TeamRosterPosition) obj;
+		if (leagueId == null) {
+			if (other.leagueId != null)
+				return false;
+		} else if (!leagueId.equals(other.leagueId))
+			return false;
 		if (playerId == null) {
 			if (other.playerId != null)
 				return false;
@@ -93,5 +107,4 @@ public class TeamRosterPosition implements Serializable {
 			return false;
 		return true;
 	}
-
 }

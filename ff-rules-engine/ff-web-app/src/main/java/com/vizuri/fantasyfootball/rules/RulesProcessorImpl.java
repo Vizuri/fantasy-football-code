@@ -1,6 +1,5 @@
 package com.vizuri.fantasyfootball.rules;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.vizuri.rules.domain.Violation;
  */
 public class RulesProcessorImpl implements RulesProcessor {
 	private static final Logger log = Logger.getLogger(RulesProcessorImpl.class);
-	private List<FantasyTeam> fantasyTeams = new ArrayList<FantasyTeam>();
 	KieServices kieServices = KieServices.Factory.get();
 	KieContainer kieContainer = kieServices.getKieClasspathContainer();
 	AgendaListener agendaListener  = new AgendaListener();
@@ -42,8 +40,11 @@ public class RulesProcessorImpl implements RulesProcessor {
 				kieSession.addEventListener(ruleListener);
 			}
 			if (league != null) {
+				log.info("Adding Fantasy League: "+league.getName());				
+				kieSession.insert(league);
+				
 				List<FantasyTeam> teams = league.getFantasyTeams();
-				if(teams != null) {
+				if(teams != null) {					
 					for(FantasyTeam team : teams){
 						log.info("Adding Fantasy Team: "+team.getName());
 						kieSession.insert(team);
@@ -51,7 +52,7 @@ public class RulesProcessorImpl implements RulesProcessor {
 						for (Player player : players) {
 							kieSession.insert(player);
 						}
-						fantasyTeams.add(team);
+						//fantasyTeams.add(team);
 					}
 				}
 			}
@@ -64,24 +65,26 @@ public class RulesProcessorImpl implements RulesProcessor {
 				kieSession.dispose();
 			}
 		}
-		return  getTeamViolationResultMap();
+		return  getViolationResultMap(league);
 	}
 	
-	private Map<String, List<Violation>> getTeamViolationResultMap() {
-		if(fantasyTeams == null || fantasyTeams.size() < 1) {
+	private Map<String, List<Violation>> getViolationResultMap(FantasyLeague league) {
+		if(league == null) {
 			return null;
 		}
 		
-		Map<String, List<Violation>> teamViolationMap = new HashMap<String, List<Violation>>();
-		for(FantasyTeam fantasyTeam : fantasyTeams) {
-			teamViolationMap.put(fantasyTeam.getName(), fantasyTeam.getViolationList());
+		Map<String, List<Violation>> violationMap = new HashMap<String, List<Violation>>();
+		violationMap.put(league.getName(), league.getViolationList());
+		for(FantasyTeam fantasyTeam : league.getFantasyTeams()) {
+			violationMap.put(fantasyTeam.getName(), fantasyTeam.getViolationList());
 		}
-		return teamViolationMap;
+		return violationMap;
 	}
 
 	public void clear() {
-		//Reset the fantasy teams
-		fantasyTeams = new ArrayList<FantasyTeam>();
+		//You may need to clear the FantasyLeague object
+		
+		
 	}
 
 }

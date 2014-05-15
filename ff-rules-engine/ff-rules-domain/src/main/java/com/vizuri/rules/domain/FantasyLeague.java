@@ -15,7 +15,7 @@ public class FantasyLeague implements Serializable {
 
 	private static final long serialVersionUID = -2498514903317856131L;
 	
-	private Long id;
+	private Long id;	
 	private String name;
 	private User commissioner; //League provider
 	private List<FantasyTeam> fantasyTeams = new ArrayList<FantasyTeam>();
@@ -23,6 +23,7 @@ public class FantasyLeague implements Serializable {
 	private Long rulesetId;
 	private boolean isValid;
 	private String comment;
+	private List<Violation> violationList = new ArrayList<Violation>();
 	
 	public Long getId() {
 		return id;
@@ -71,14 +72,23 @@ public class FantasyLeague implements Serializable {
 	}
 	public void setRulesetId(Long rulesetId) {
 		this.rulesetId = rulesetId;
+	}		
+	public List<Violation> getViolationList() {
+		return violationList;
 	}
+	public void setViolationList(List<Violation> violationList) {
+		this.violationList = violationList;
+	}
+	
 	@Override
 	public String toString() {
 		return "FantasyLeague [id=" + id + ", name=" + name + ", commissioner="
 				+ commissioner + ", fantasyTeams=" + fantasyTeams + ", type="
 				+ type + ", rulesetId=" + rulesetId + ", isValid=" + isValid
-				+ ", comment=" + comment + "]";
+				+ ", comment=" + comment + ", violationList=" + violationList
+				+ "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,8 +104,11 @@ public class FantasyLeague implements Serializable {
 		result = prime * result
 				+ ((rulesetId == null) ? 0 : rulesetId.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result
+				+ ((violationList == null) ? 0 : violationList.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -141,6 +154,11 @@ public class FantasyLeague implements Serializable {
 			if (other.type != null)
 				return false;
 		} else if (!type.equals(other.type))
+			return false;
+		if (violationList == null) {
+			if (other.violationList != null)
+				return false;
+		} else if (!violationList.equals(other.violationList))
 			return false;
 		return true;
 	}

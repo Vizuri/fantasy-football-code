@@ -15,15 +15,14 @@ import java.util.ArrayList;
 public class FantasyTeam implements Serializable {
 
 	private static final long serialVersionUID = 7702660076763078961L;
-	
 	private Long id;
-	private List<Violation> violationList = new ArrayList<Violation>();
 	private Position position;
 	private User owner;
 	private Long leagueId;
 	private String name;
 	private BigDecimal totalPoints;
 	private List<Player> players = new ArrayList<Player>();
+	private List<Violation> violationList = new ArrayList<Violation>();
 	
 	public Long getId() {
 		return id;

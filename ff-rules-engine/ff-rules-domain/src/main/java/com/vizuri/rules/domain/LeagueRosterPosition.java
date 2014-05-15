@@ -4,6 +4,7 @@
 package com.vizuri.rules.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author amirge
@@ -15,7 +16,7 @@ public class LeagueRosterPosition implements Serializable {
 	
 	private Long leagueId;
 	private Integer slotNumber;
-	private PositionType positionType;
+	private List<PositionType> positionTypes;
 	
 	public Long getLeagueId() {
 		return leagueId;
@@ -29,17 +30,17 @@ public class LeagueRosterPosition implements Serializable {
 	public void setSlotNumber(Integer slotNumber) {
 		this.slotNumber = slotNumber;
 	}
-	public PositionType getPositionType() {
-		return positionType;
+	public List<PositionType> getPositionTypes() {
+		return positionTypes;
 	}
-	public void setPositionType(PositionType positionType) {
-		this.positionType = positionType;
+	public void setPositionTypes(List<PositionType> positionTypes) {
+		this.positionTypes = positionTypes;
 	}
 	
 	@Override
 	public String toString() {
 		return "LeagueRosterPosition [leagueId=" + leagueId + ", slotNumber="
-				+ slotNumber + ", positionType=" + positionType + "]";
+				+ slotNumber + ", positionTypes=" + positionTypes + "]";
 	}
 	
 	@Override
@@ -49,7 +50,7 @@ public class LeagueRosterPosition implements Serializable {
 		result = prime * result
 				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result
-				+ ((positionType == null) ? 0 : positionType.hashCode());
+				+ ((positionTypes == null) ? 0 : positionTypes.hashCode());
 		result = prime * result
 				+ ((slotNumber == null) ? 0 : slotNumber.hashCode());
 		return result;
@@ -69,7 +70,10 @@ public class LeagueRosterPosition implements Serializable {
 				return false;
 		} else if (!leagueId.equals(other.leagueId))
 			return false;
-		if (positionType != other.positionType)
+		if (positionTypes == null) {
+			if (other.positionTypes != null)
+				return false;
+		} else if (!positionTypes.equals(other.positionTypes))
 			return false;
 		if (slotNumber == null) {
 			if (other.slotNumber != null)
@@ -78,5 +82,4 @@ public class LeagueRosterPosition implements Serializable {
 			return false;
 		return true;
 	}
-
 }
