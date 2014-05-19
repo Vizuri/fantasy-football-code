@@ -18,6 +18,9 @@ public class LeagueRosterPosition implements Serializable {
 	private Integer slotNumber;
 	private List<PositionType> positionTypes;
 	
+	public LeagueRosterPosition(Long id) {
+		this.leagueId = id;
+	}
 	public Long getLeagueId() {
 		return leagueId;
 	}

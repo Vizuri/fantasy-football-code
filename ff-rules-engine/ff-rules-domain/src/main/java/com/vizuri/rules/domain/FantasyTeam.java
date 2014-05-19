@@ -16,7 +16,6 @@ public class FantasyTeam implements Serializable {
 
 	private static final long serialVersionUID = 7702660076763078961L;
 	private Long id;
-	private Position position;
 	private User owner;
 	private Long leagueId;
 	private String name;
@@ -42,7 +41,6 @@ public class FantasyTeam implements Serializable {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-
 	public Long getLeagueId() {
 		return leagueId;
 	}
@@ -54,12 +52,6 @@ public class FantasyTeam implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Position getPosition() {
-		return position;
-	}
-	public void setPosition(Position position) {
-		this.position = position;
 	}
 	public BigDecimal getTotalPoints() {
 		return totalPoints;
@@ -73,13 +65,19 @@ public class FantasyTeam implements Serializable {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
+	
+	public TeamRosterPosition getRosterPosition() {
+		return new TeamRosterPosition(id);
+	}
+	
 	@Override
 	public String toString() {
-		return "FantasyTeam [id=" + id + ", violationList=" + violationList
-				+ ", position=" + position + ", owner=" + owner + ", leagueId="
+		return "FantasyTeam [id=" + id + ", owner=" + owner + ", leagueId="
 				+ leagueId + ", name=" + name + ", totalPoints=" + totalPoints
-				+ ", players=" + players + "]";
+				+ ", players=" + players + ", violationList=" + violationList
+				+ "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,13 +89,12 @@ public class FantasyTeam implements Serializable {
 		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result + ((players == null) ? 0 : players.hashCode());
 		result = prime * result
-				+ ((position == null) ? 0 : position.hashCode());
-		result = prime * result
 				+ ((totalPoints == null) ? 0 : totalPoints.hashCode());
 		result = prime * result
 				+ ((violationList == null) ? 0 : violationList.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,11 +129,6 @@ public class FantasyTeam implements Serializable {
 				return false;
 		} else if (!players.equals(other.players))
 			return false;
-		if (position == null) {
-			if (other.position != null)
-				return false;
-		} else if (!position.equals(other.position))
-			return false;
 		if (totalPoints == null) {
 			if (other.totalPoints != null)
 				return false;
@@ -149,5 +141,4 @@ public class FantasyTeam implements Serializable {
 			return false;
 		return true;
 	}
-
 }

@@ -17,8 +17,6 @@ public class NFL implements Serializable {
 	
 	private List<Team> nflTeams;
 	
-	private List<Position> positions;
-	
 	public NFL() {
 		init();
 	}
@@ -27,7 +25,7 @@ public class NFL implements Serializable {
 	 * Initializing the static values
 	 */
 	private void init() {		
-		populatePositions();		
+		//populatePositions();		
 		populateNFLTeams();		
 	}
 
@@ -73,7 +71,7 @@ public class NFL implements Serializable {
 	/**
 	 * This will populate the 7 positions
 	 */
-	private void populatePositions() {
+/*	private void populatePositions() {
 		positions = new ArrayList<Position>();
 		positions.add(new Position("QB", "Quarterback"));
 		positions.add(new Position("RB", "Runningback"));
@@ -81,7 +79,7 @@ public class NFL implements Serializable {
 		positions.add(new Position("TE", "Tight End"));
 		positions.add(new Position("K", "Kicker"));
 		positions.add(new Position("DST", "Defense/Special Teams"));
-	}
+	}*/
 
 	public List<Team> getNflTeams() {
 		return nflTeams;
@@ -89,14 +87,6 @@ public class NFL implements Serializable {
 
 	public void setNflTeams(List<Team> nflTeams) {
 		this.nflTeams = nflTeams;
-	}
-
-	public List<Position> getPositions() {
-		return positions;
-	}
-
-	public void setPositions(List<Position> positions) {
-		this.positions = positions;
 	}
 	
 }

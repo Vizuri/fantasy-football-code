@@ -13,8 +13,7 @@ import java.util.ArrayList;
  */
 public class FantasyLeague implements Serializable {
 
-	private static final long serialVersionUID = -2498514903317856131L;
-	
+	private static final long serialVersionUID = -2498514903317856131L;	
 	private Long id;	
 	private String name;
 	private User commissioner; //League provider
@@ -78,6 +77,9 @@ public class FantasyLeague implements Serializable {
 	}
 	public void setViolationList(List<Violation> violationList) {
 		this.violationList = violationList;
+	}
+	public LeagueRosterPosition getRosterPosition() {
+		return new LeagueRosterPosition(id);
 	}
 	
 	@Override
@@ -162,5 +164,5 @@ public class FantasyLeague implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 }

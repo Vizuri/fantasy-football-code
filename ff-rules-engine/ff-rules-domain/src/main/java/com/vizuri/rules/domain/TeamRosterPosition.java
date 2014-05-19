@@ -18,6 +18,10 @@ public class TeamRosterPosition implements Serializable {
 	private Integer week;
 	private Long leagueId;
 	
+	public TeamRosterPosition(Long id) {
+		this.teamId = id;
+	}
+	
 	public Long getTeamId() {
 		return teamId;
 	}
@@ -47,6 +51,10 @@ public class TeamRosterPosition implements Serializable {
 	}
 	public void setLeagueId(Long leagueId) {
 		this.leagueId = leagueId;
+	}
+	
+	public Player getPlayer(){
+		return new Player(playerId);
 	}
 	
 	@Override
