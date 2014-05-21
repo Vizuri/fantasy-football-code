@@ -17,4 +17,13 @@ public enum PositionType {
 	public String getName(){
 		return name;
 	}
+	
+	public static PositionType lookUp(String name){
+		for(PositionType positionType : PositionType.values()){
+			if(positionType.name.equalsIgnoreCase(name)){
+				return positionType;
+			}
+		}
+		return null;
+	}
 }

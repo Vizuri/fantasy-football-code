@@ -17,18 +17,17 @@ public class Player implements Serializable {
 	private String name;
 	private String nflTeam;
 	private Integer number;
-    private PositionType positionType;
+    private Position position;
     private PlayerStatus status;
     private Boolean doNotCut;
     private Long fantasyTeamId;
 	
-    Player(Long id){
-    	this.id = id;
+    public Player(){
     }
     
-	public Player() {
-		
-	}
+    public Player(Long id){
+    	this.id = id;
+    }
 
 	public Long getId() {
 		return id;
@@ -54,12 +53,6 @@ public class Player implements Serializable {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	public PositionType getPositionType() {
-		return positionType;
-	}
-	public void setPositionType(PositionType positionType) {
-		this.positionType = positionType;
-	}
 	public PlayerStatus getStatus() {
 		return status;
 	}
@@ -78,13 +71,30 @@ public class Player implements Serializable {
 	public void setFantasyTeamId(Long fantasyTeamId) {
 		this.fantasyTeamId = fantasyTeamId;
 	}
+	public Position getPosition() {
+		return position;
+	}
+	public void setPosition(Position position) {
+		this.position = position;
+	}
 
+	private String positionTypeString;
+	
+
+	public String getPositionTypeString() {
+		return positionTypeString;
+	}
+
+	public void setPositionTypeString(String positionTypeString) {
+		this.positionTypeString = positionTypeString;
+		
+	}
 	@Override
 	public String toString() {
 		return "Player [id=" + id + ", name=" + name + ", nflTeam=" + nflTeam
-				+ ", number=" + number + ", positionType=" + positionType
-				+ ", status=" + status + ", doNotCut=" + doNotCut
-				+ ", fantasyTeamId=" + fantasyTeamId + "]";
+				+ ", number=" + number + ", position=" + position + ", status="
+				+ status + ", doNotCut=" + doNotCut + ", fantasyTeamId="
+				+ fantasyTeamId + "]";
 	}
 
 	@Override
@@ -100,7 +110,7 @@ public class Player implements Serializable {
 		result = prime * result + ((nflTeam == null) ? 0 : nflTeam.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result
-				+ ((positionType == null) ? 0 : positionType.hashCode());
+				+ ((position == null) ? 0 : position.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -144,11 +154,13 @@ public class Player implements Serializable {
 				return false;
 		} else if (!number.equals(other.number))
 			return false;
-		if (positionType != other.positionType)
+		if (position == null) {
+			if (other.position != null)
+				return false;
+		} else if (!position.equals(other.position))
 			return false;
 		if (status != other.status)
 			return false;
 		return true;
-	}
-
+	}	
 }

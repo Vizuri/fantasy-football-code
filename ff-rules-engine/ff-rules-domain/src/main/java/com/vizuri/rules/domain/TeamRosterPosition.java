@@ -14,12 +14,15 @@ public class TeamRosterPosition implements Serializable {
 	private static final long serialVersionUID = -792587462066702777L;
 	private Long teamId;
 	private Integer slotNumber;
-	private Long playerId;
+	private Player player;
 	private Integer week;
 	private Long leagueId;
 	
-	public TeamRosterPosition(Long id) {
-		this.teamId = id;
+	public TeamRosterPosition() {
+	}
+	
+	public TeamRosterPosition(Long teamId){
+		this.teamId = teamId;
 	}
 	
 	public Long getTeamId() {
@@ -34,12 +37,6 @@ public class TeamRosterPosition implements Serializable {
 	public void setSlotNumber(Integer slotNumber) {
 		this.slotNumber = slotNumber;
 	}
-	public Long getPlayerId() {
-		return playerId;
-	}
-	public void setPlayerId(Long playerId) {
-		this.playerId = playerId;
-	}
 	public Integer getWeek() {
 		return week;
 	}
@@ -52,33 +49,31 @@ public class TeamRosterPosition implements Serializable {
 	public void setLeagueId(Long leagueId) {
 		this.leagueId = leagueId;
 	}
-	
-	public Player getPlayer(){
-		return new Player(playerId);
+	public Player getPlayer() {
+		return player;
 	}
-	
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 	@Override
 	public String toString() {
 		return "TeamRosterPosition [teamId=" + teamId + ", slotNumber="
-				+ slotNumber + ", playerId=" + playerId + ", week=" + week
+				+ slotNumber + ", player=" + player + ", week=" + week
 				+ ", leagueId=" + leagueId + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((leagueId == null) ? 0 : leagueId.hashCode());
-		result = prime * result
-				+ ((playerId == null) ? 0 : playerId.hashCode());
+		result = prime * result + ((player == null) ? 0 : player.hashCode());
 		result = prime * result
 				+ ((slotNumber == null) ? 0 : slotNumber.hashCode());
 		result = prime * result + ((teamId == null) ? 0 : teamId.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,10 +88,10 @@ public class TeamRosterPosition implements Serializable {
 				return false;
 		} else if (!leagueId.equals(other.leagueId))
 			return false;
-		if (playerId == null) {
-			if (other.playerId != null)
+		if (player == null) {
+			if (other.player != null)
 				return false;
-		} else if (!playerId.equals(other.playerId))
+		} else if (!player.equals(other.player))
 			return false;
 		if (slotNumber == null) {
 			if (other.slotNumber != null)

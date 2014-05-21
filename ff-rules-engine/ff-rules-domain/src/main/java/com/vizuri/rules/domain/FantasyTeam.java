@@ -5,8 +5,8 @@ package com.vizuri.rules.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author amirge
@@ -66,7 +66,7 @@ public class FantasyTeam implements Serializable {
 		this.players = players;
 	}
 	
-	public TeamRosterPosition getRosterPosition() {
+	public TeamRosterPosition getTeamRosterPosition(){
 		return new TeamRosterPosition(id);
 	}
 	

@@ -29,7 +29,7 @@ public class RulesProcessorImpl implements RulesProcessor {
 	
 
 	public Map<String, List<Violation>> fireViolationRules(FantasyLeague league) {
-		log.info("Entered fireViolationRules...");
+		log.info("Entered fireViolationRules...using FantasyLeague as an argument");
 		KieSession kieSession = null;
 		try {
 			kieSession = kieContainer.getKieBase().newKieSession();

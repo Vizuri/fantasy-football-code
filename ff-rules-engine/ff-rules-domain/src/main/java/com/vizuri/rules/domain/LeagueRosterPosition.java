@@ -4,7 +4,6 @@
 package com.vizuri.rules.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author amirge
@@ -16,8 +15,12 @@ public class LeagueRosterPosition implements Serializable {
 	
 	private Long leagueId;
 	private Integer slotNumber;
-	private List<PositionType> positionTypes;
+	private PositionType positionType;
+	private String positionTypeString;
 	
+	public LeagueRosterPosition(){
+		
+	}
 	public LeagueRosterPosition(Long id) {
 		this.leagueId = id;
 	}
@@ -33,17 +36,28 @@ public class LeagueRosterPosition implements Serializable {
 	public void setSlotNumber(Integer slotNumber) {
 		this.slotNumber = slotNumber;
 	}
-	public List<PositionType> getPositionTypes() {
-		return positionTypes;
+	public PositionType getPositionType() {
+		return positionType;
 	}
-	public void setPositionTypes(List<PositionType> positionTypes) {
-		this.positionTypes = positionTypes;
+	public void setPositionType(PositionType positionType) {
+		this.positionType = positionType;
+	}
+
+	
+
+	public String getPositionTypeString() {
+		return positionTypeString;
+	}
+
+	public void setPositionTypeString(String positionTypeString) {
+		this.positionTypeString = positionTypeString;
+		
 	}
 	
 	@Override
 	public String toString() {
 		return "LeagueRosterPosition [leagueId=" + leagueId + ", slotNumber="
-				+ slotNumber + ", positionTypes=" + positionTypes + "]";
+				+ slotNumber + ", positionType=" + positionType + "]";
 	}
 	
 	@Override
@@ -53,7 +67,7 @@ public class LeagueRosterPosition implements Serializable {
 		result = prime * result
 				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result
-				+ ((positionTypes == null) ? 0 : positionTypes.hashCode());
+				+ ((positionType == null) ? 0 : positionType.hashCode());
 		result = prime * result
 				+ ((slotNumber == null) ? 0 : slotNumber.hashCode());
 		return result;
@@ -73,10 +87,10 @@ public class LeagueRosterPosition implements Serializable {
 				return false;
 		} else if (!leagueId.equals(other.leagueId))
 			return false;
-		if (positionTypes == null) {
-			if (other.positionTypes != null)
+		if (positionType == null) {
+			if (other.positionType != null)
 				return false;
-		} else if (!positionTypes.equals(other.positionTypes))
+		} else if (!positionType.equals(other.positionType))
 			return false;
 		if (slotNumber == null) {
 			if (other.slotNumber != null)
