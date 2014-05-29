@@ -42,24 +42,19 @@ public class LeagueRosterPosition implements Serializable {
 	public void setPositionType(PositionType positionType) {
 		this.positionType = positionType;
 	}
-
-	
-
 	public String getPositionTypeString() {
 		return positionTypeString;
 	}
-
 	public void setPositionTypeString(String positionTypeString) {
 		this.positionTypeString = positionTypeString;
-		
 	}
 	
 	@Override
 	public String toString() {
 		return "LeagueRosterPosition [leagueId=" + leagueId + ", slotNumber="
-				+ slotNumber + ", positionType=" + positionType + "]";
+				+ slotNumber + ", positionType=" + positionType
+				+ ", positionTypeString=" + positionTypeString + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,11 +63,14 @@ public class LeagueRosterPosition implements Serializable {
 				+ ((leagueId == null) ? 0 : leagueId.hashCode());
 		result = prime * result
 				+ ((positionType == null) ? 0 : positionType.hashCode());
+		result = prime
+				* result
+				+ ((positionTypeString == null) ? 0 : positionTypeString
+						.hashCode());
 		result = prime * result
 				+ ((slotNumber == null) ? 0 : slotNumber.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,10 +85,12 @@ public class LeagueRosterPosition implements Serializable {
 				return false;
 		} else if (!leagueId.equals(other.leagueId))
 			return false;
-		if (positionType == null) {
-			if (other.positionType != null)
+		if (positionType != other.positionType)
+			return false;
+		if (positionTypeString == null) {
+			if (other.positionTypeString != null)
 				return false;
-		} else if (!positionType.equals(other.positionType))
+		} else if (!positionTypeString.equals(other.positionTypeString))
 			return false;
 		if (slotNumber == null) {
 			if (other.slotNumber != null)
@@ -99,4 +99,5 @@ public class LeagueRosterPosition implements Serializable {
 			return false;
 		return true;
 	}
+	
 }

@@ -13,5 +13,7 @@ import com.vizuri.rules.domain.Violation;
 public interface RulesProcessor {
 
 	public Map <String, List<Violation>> fireViolationRules(FantasyLeague league);
+	public void fireSpecificRule(Object object, String ruleName);
+	public List<Violation> getViolations();
 	public void clear();
 }

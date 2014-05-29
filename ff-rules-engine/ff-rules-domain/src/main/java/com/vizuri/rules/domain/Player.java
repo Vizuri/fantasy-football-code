@@ -21,6 +21,7 @@ public class Player implements Serializable {
     private PlayerStatus status;
     private Boolean doNotCut;
     private Long fantasyTeamId;
+	private String positionTypeString;
 	
     public Player(){
     }
@@ -76,25 +77,21 @@ public class Player implements Serializable {
 	}
 	public void setPosition(Position position) {
 		this.position = position;
-	}
-
-	private String positionTypeString;
-	
-
+	}	
 	public String getPositionTypeString() {
 		return positionTypeString;
 	}
-
 	public void setPositionTypeString(String positionTypeString) {
-		this.positionTypeString = positionTypeString;
-		
+		this.positionTypeString = positionTypeString;	
 	}
+
 	@Override
 	public String toString() {
 		return "Player [id=" + id + ", name=" + name + ", nflTeam=" + nflTeam
 				+ ", number=" + number + ", position=" + position + ", status="
 				+ status + ", doNotCut=" + doNotCut + ", fantasyTeamId="
-				+ fantasyTeamId + "]";
+				+ fantasyTeamId + ", positionTypeString=" + positionTypeString
+				+ "]";
 	}
 
 	@Override
@@ -111,6 +108,10 @@ public class Player implements Serializable {
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result
 				+ ((position == null) ? 0 : position.hashCode());
+		result = prime
+				* result
+				+ ((positionTypeString == null) ? 0 : positionTypeString
+						.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -159,8 +160,13 @@ public class Player implements Serializable {
 				return false;
 		} else if (!position.equals(other.position))
 			return false;
+		if (positionTypeString == null) {
+			if (other.positionTypeString != null)
+				return false;
+		} else if (!positionTypeString.equals(other.positionTypeString))
+			return false;
 		if (status != other.status)
 			return false;
 		return true;
-	}	
+	}
 }
