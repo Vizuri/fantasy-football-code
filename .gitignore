@@ -5,3 +5,6 @@ target
 /bin
 /target
 dist
+.forge_settings
+fantasy-dev.log
+test-output
