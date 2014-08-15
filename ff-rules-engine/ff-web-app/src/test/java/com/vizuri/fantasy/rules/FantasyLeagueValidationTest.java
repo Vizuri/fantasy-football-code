@@ -11,12 +11,12 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.vizuri.fantasy.domain.LeagueDto;
+import com.vizuri.fantasy.domain.TeamDto;
+import com.vizuri.fantasy.domain.PlayerDto;
+import com.vizuri.fantasy.domain.Violation;
 import com.vizuri.fantasy.rules.RulesProcessor;
 import com.vizuri.fantasy.rules.RulesProcessorImpl;
-import com.vizuri.fantasy.rules.domain.FantasyLeague;
-import com.vizuri.fantasy.rules.domain.FantasyTeam;
-import com.vizuri.fantasy.rules.domain.Player;
-import com.vizuri.fantasy.rules.domain.Violation;
 
 public class FantasyLeagueValidationTest {
 
@@ -62,13 +62,13 @@ public class FantasyLeagueValidationTest {
 	
 	private Map<String, List<Violation>> testFantasyTeam(long teamSize, String leagueName){
 		Map<String, List<Violation>> leagueViolationMap = new HashMap<String, List<Violation>>();
-		FantasyLeague league = new FantasyLeague();
+		LeagueDto league = new LeagueDto();
 		league.setId(100l);
 		league.setName(leagueName);
 		
-		List<FantasyTeam> teams = new ArrayList<FantasyTeam>();
+		List<TeamDto> teams = new ArrayList<TeamDto>();
 		for(long i=1; i<=teamSize; i++){
-			FantasyTeam team = new FantasyTeam();
+			TeamDto team = new TeamDto();
 			team.setId(i);
 			team.setLeagueId(league.getId());
 			teams.add(team);
@@ -80,20 +80,20 @@ public class FantasyLeagueValidationTest {
 
 	private Map<String, List<Violation>> testFantasyTeamRoster(long rosterSize, String teamName) {
 		Map<String, List<Violation>> teamViolationMap = new HashMap<String, List<Violation>>();		
-		List<Player> players = new ArrayList<Player>();		
-		FantasyTeam team = new FantasyTeam();
+		List<PlayerDto> players = new ArrayList<PlayerDto>();		
+		TeamDto team = new TeamDto();
 		team.setName(teamName);
 		team.setId(1000l);
 		
 		for(long i=1; i<=rosterSize; i++){
-			Player player = new Player();
+			PlayerDto player = new PlayerDto();
 			player.setId(i);
 			player.setFantasyTeamId(team.getId());
 			players.add(player);
 		}
 			
 		team.setPlayers(players);		
-		FantasyLeague league = new FantasyLeague();
+		LeagueDto league = new LeagueDto();
 		league.setId(100l);
 		league.setName("leagueA");
 		league.getFantasyTeams().add(team);

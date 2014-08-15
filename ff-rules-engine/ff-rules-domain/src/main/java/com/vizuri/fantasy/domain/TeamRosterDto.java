@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 
@@ -9,19 +9,19 @@ import java.io.Serializable;
  * @author amirge
  *
  */
-public class TeamRosterPosition implements Serializable {
+public class TeamRosterDto implements Serializable {
 
 	private static final long serialVersionUID = -792587462066702777L;
 	private Long teamId;
 	private Integer slotNumber;
-	private Player player;
+	private PlayerDto player;
 	private Integer week;
 	private Long leagueId;
 	
-	public TeamRosterPosition() {
+	public TeamRosterDto() {
 	}
 	
-	public TeamRosterPosition(Long teamId){
+	public TeamRosterDto(Long teamId){
 		this.teamId = teamId;
 	}
 	
@@ -49,10 +49,10 @@ public class TeamRosterPosition implements Serializable {
 	public void setLeagueId(Long leagueId) {
 		this.leagueId = leagueId;
 	}
-	public Player getPlayer() {
+	public PlayerDto getPlayer() {
 		return player;
 	}
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerDto player) {
 		this.player = player;
 	}
 	@Override
@@ -82,7 +82,7 @@ public class TeamRosterPosition implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TeamRosterPosition other = (TeamRosterPosition) obj;
+		TeamRosterDto other = (TeamRosterDto) obj;
 		if (leagueId == null) {
 			if (other.leagueId != null)
 				return false;

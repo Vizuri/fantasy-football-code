@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,46 +10,65 @@ import java.math.BigDecimal;
  * @author amirge
  *
  */
-public class PlayerStatistic implements Serializable {
-
-	private static final long serialVersionUID = -9147702184481977325L;
+public class PlayerWeeklyStatisticDto implements Serializable {
+	private static final long serialVersionUID = -397954409696315901L;
+	
 	private Long playerId;
+	private Integer year;
 	private Integer week;
-	private StatisticType statisticType;
+	private String statisticType; 
 	private BigDecimal statisticValue;
 	
+	public PlayerWeeklyStatisticDto() {
+	}
+
 	public Long getPlayerId() {
 		return playerId;
 	}
+
 	public void setPlayerId(Long playerId) {
 		this.playerId = playerId;
 	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	public Integer getWeek() {
 		return week;
 	}
+
 	public void setWeek(Integer week) {
 		this.week = week;
 	}
-	public StatisticType getStatisticType() {
+
+	public String getStatisticType() {
 		return statisticType;
 	}
-	public void setStatisticType(StatisticType statisticType) {
+
+	public void setStatisticType(String statisticType) {
 		this.statisticType = statisticType;
 	}
+
 	public BigDecimal getStatisticValue() {
 		return statisticValue;
 	}
+
 	public void setStatisticValue(BigDecimal statisticValue) {
 		this.statisticValue = statisticValue;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "PlayerStatistic [playerId=" + playerId + ", week=" + week
-				+ ", statisticType=" + statisticType + ", statisticValue="
-				+ statisticValue + "]";
+		return "PlayerWeeklyStatisticDTO [playerId=" + playerId + ", year="
+				+ year + ", week=" + week + ", statisticType=" + statisticType
+				+ ", statisticValue=" + statisticValue + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,12 +77,11 @@ public class PlayerStatistic implements Serializable {
 				+ ((playerId == null) ? 0 : playerId.hashCode());
 		result = prime * result
 				+ ((statisticType == null) ? 0 : statisticType.hashCode());
-		result = prime * result
-				+ ((statisticValue == null) ? 0 : statisticValue.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -72,25 +90,28 @@ public class PlayerStatistic implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlayerStatistic other = (PlayerStatistic) obj;
+		PlayerWeeklyStatisticDto other = (PlayerWeeklyStatisticDto) obj;
 		if (playerId == null) {
 			if (other.playerId != null)
 				return false;
 		} else if (!playerId.equals(other.playerId))
 			return false;
-		if (statisticType != other.statisticType)
-			return false;
-		if (statisticValue == null) {
-			if (other.statisticValue != null)
+		if (statisticType == null) {
+			if (other.statisticType != null)
 				return false;
-		} else if (!statisticValue.equals(other.statisticValue))
+		} else if (!statisticType.equals(other.statisticType))
 			return false;
 		if (week == null) {
 			if (other.week != null)
 				return false;
 		} else if (!week.equals(other.week))
 			return false;
+		if (year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!year.equals(other.year))
+			return false;
 		return true;
 	}
-
+	
 }

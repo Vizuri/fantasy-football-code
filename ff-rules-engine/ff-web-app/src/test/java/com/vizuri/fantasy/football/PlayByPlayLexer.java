@@ -93,7 +93,7 @@ public class PlayByPlayLexer {
         // Clean up
         for (TokenType type : TokenType.values()) {
         	if (tokenMap.get(type).size() > 0) {
-	        	if (log.isDebugEnabled()) { log.info(type + " tokenCount: " + tokenMap.get(type).size()); }
+	        	if (log.isDebugEnabled()) { log.debug(type + " tokenCount: " + tokenMap.get(type).size()); }
 	        	for (Token token : tokenMap.get(type)) {
 	        		switch (type) {
 	        		case YARDAGE:
@@ -111,7 +111,7 @@ public class PlayByPlayLexer {
 	        		default:
 	        			break;
 	        		}
-	        		if (log.isDebugEnabled()) { log.info(" >>> " + token); }
+	        		if (log.isDebugEnabled()) { log.debug(" >>> " + token); }
 	        	}
         	} else {
         		tokenMap.remove(type);

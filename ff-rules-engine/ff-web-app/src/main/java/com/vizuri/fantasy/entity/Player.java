@@ -26,6 +26,9 @@ public class Player extends BaseEntity {
 	@Column
 	private Boolean active;
 	
+	@Column
+	private Boolean doNotCut;
+	
 	@Column(name = "years_experience")
 	private Integer yearsExperience;
 	
@@ -48,6 +51,10 @@ public class Player extends BaseEntity {
 	public void prePersist() {
 		if (active == null) {
 			active = true;
+		}
+		
+		if (doNotCut == null) {
+			doNotCut = false;
 		}
 	}
 
@@ -89,6 +96,14 @@ public class Player extends BaseEntity {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+	
+	public Boolean getDoNotCut() {
+		return doNotCut;
+	}
+
+	public void setDoNotCut(Boolean doNotCut) {
+		this.doNotCut = doNotCut;
 	}
 
 	public Integer getYearsExperience() {
@@ -141,12 +156,13 @@ public class Player extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", position=" + position + ", number=" + number 
-				+ ", team=" + team + ", active=" + active + ", yearsExperience="
-				+ yearsExperience + ", dob=" + dob + ", heightInches="
-				+ heightInches + ", weightPounds=" + weightPounds
-				+ ", college=" + college + ", getId()=" + getId() 
-				+ ", officialPosition=" + officialPosition +"]";
+		return "Player [name=" + name + ", position=" + position + ", team="
+				+ team + ", number=" + number + ", active=" + active
+				+ ", doNotCut=" + doNotCut + ", yearsExperience=" + yearsExperience
+				+ ", dob=" + dob + ", heightInches=" + heightInches
+				+ ", weightPounds=" + weightPounds + ", college=" + college
+				+ ", officialPosition=" + officialPosition + ", getId()="
+				+ getId() + "]";
 	}
-	
+
 }

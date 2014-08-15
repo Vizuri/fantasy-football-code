@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.types;
 
 /**
  * @author amirge

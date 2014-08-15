@@ -12,7 +12,7 @@
 		<class>com.vizuri.fantasy.entity.FantasyTeam</class>
 		<class>com.vizuri.fantasy.entity.FantasyTeamRoster</class>
 		<class>com.vizuri.fantasy.entity.Player</class>
-		<class>com.vizuri.fantasy.entity.PlayerMatchStatistic</class>
+		<class>com.vizuri.fantasy.entity.PlayStatistic</class>
 		<class>com.vizuri.fantasy.entity.PlayerStatus</class>
 		<class>com.vizuri.fantasy.entity.Position</class>
 		<class>com.vizuri.fantasy.entity.ScheduledMatch</class>
@@ -21,6 +21,8 @@
 		<class>com.vizuri.fantasy.entity.TeamBye</class>
 		<class>com.vizuri.fantasy.entity.OverallRanking</class>
 		<class>com.vizuri.fantasy.entity.PositionRanking</class>
+		<class>com.vizuri.fantasy.entity.PlayerWeeklyScore</class>
+		<class>com.vizuri.fantasy.entity.FantasyRuleSet</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

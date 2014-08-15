@@ -17,6 +17,10 @@ public class FantasyLeague extends BaseEntity {
 	@JoinColumn(name="commisioner_id")
 	private FantasyOwner commissioner;
 	
+	@ManyToOne
+	@JoinColumn(name="rule_set_id")
+	private FantasyRuleSet ruleSet;
+	
 	@Column
 	private String name;
 	
@@ -35,6 +39,14 @@ public class FantasyLeague extends BaseEntity {
 
 	public void setCommissioner(FantasyOwner commissioner) {
 		this.commissioner = commissioner;
+	}
+	
+	public FantasyRuleSet getRuleSet() {
+		return ruleSet;
+	}
+
+	public void setRuleSet(FantasyRuleSet ruleSet) {
+		this.ruleSet = ruleSet;
 	}
 
 	public String getName() {
@@ -71,9 +83,10 @@ public class FantasyLeague extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "FantasyLeague [commissioner=" + commissioner + ", name=" + name
-				+ ", year=" + year + ", currentWeek=" + currentWeek + ", simulatedTime=" + simulatedTime
-				+ ", getId()=" + getId() + "]";
+		return "FantasyLeague [commissioner=" + commissioner + ", ruleSet="
+				+ ruleSet + ", name=" + name + ", year=" + year
+				+ ", currentWeek=" + currentWeek + ", simulatedTime="
+				+ simulatedTime + ", getId()=" + getId() + "]";
 	}
 
 }

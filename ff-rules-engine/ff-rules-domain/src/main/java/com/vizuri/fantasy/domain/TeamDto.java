@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,15 +12,15 @@ import java.util.List;
  * @author amirge
  *
  */
-public class FantasyTeam implements Serializable {
+public class TeamDto implements Serializable {
 
 	private static final long serialVersionUID = 7702660076763078961L;
 	private Long id;
-	private User owner;
+	private OwnerDto owner;
 	private Long leagueId;
 	private String name;
 	private BigDecimal totalPoints;
-	private List<Player> players = new ArrayList<Player>();
+	private List<PlayerDto> players = new ArrayList<PlayerDto>();
 	private List<Violation> violationList = new ArrayList<Violation>();
 	
 	public Long getId() {
@@ -35,10 +35,10 @@ public class FantasyTeam implements Serializable {
 	public void setViolationList(List<Violation> violationList) {
 		this.violationList = violationList;
 	}
-	public User getOwner() {
+	public OwnerDto getOwner() {
 		return owner;
 	}
-	public void setOwner(User owner) {
+	public void setOwner(OwnerDto owner) {
 		this.owner = owner;
 	}
 	public Long getLeagueId() {
@@ -59,15 +59,15 @@ public class FantasyTeam implements Serializable {
 	public void setTotalPoints(BigDecimal totalPoints) {
 		this.totalPoints = totalPoints;
 	}
-	public List<Player> getPlayers() {
+	public List<PlayerDto> getPlayers() {
 		return players;
 	}
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(List<PlayerDto> players) {
 		this.players = players;
 	}
 	
-	public TeamRosterPosition getTeamRosterPosition(){
-		return new TeamRosterPosition(id);
+	public TeamRosterDto getTeamRosterPosition(){
+		return new TeamRosterDto(id);
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public class FantasyTeam implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FantasyTeam other = (FantasyTeam) obj;
+		TeamDto other = (TeamDto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

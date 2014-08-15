@@ -7,29 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "player_match_statistic")
-public class PlayerMatchStatistic extends BaseEntity {
+@Table(name = "player_weekly_statistic", uniqueConstraints = @UniqueConstraint(columnNames = {"player_id", "year", "week", "stat_type_id"}))
+public class PlayerWeeklyStatistic extends BaseEntity {
 	private static final long serialVersionUID = 7659661699704377770L;
 
 	@ManyToOne
 	@JoinColumn(name = "player_id")
 	private Player player;
 	
-	@ManyToOne
-	@JoinColumn(name = "match_id")
-	private ScheduledMatch scheduledMatch;
+	@Column
+	@NotNull
+	private Integer year;
+	
+	@Column
+	@NotNull
+	private Integer week;
 	
 	@ManyToOne
 	@JoinColumn(name = "stat_type_id")
+	@NotNull
 	private StatisticType type;
 	
 	@Column(columnDefinition = "DECIMAL(8,2)")
+	@NotNull
 	private BigDecimal quantity;
-	
-	@Column
-	private String gameTime;
 
 	public Player getPlayer() {
 		return player;
@@ -39,12 +44,20 @@ public class PlayerMatchStatistic extends BaseEntity {
 		this.player = player;
 	}
 
-	public ScheduledMatch getScheduledMatch() {
-		return scheduledMatch;
+	public Integer getYear() {
+		return year;
 	}
 
-	public void setScheduledMatch(ScheduledMatch scheduledMatch) {
-		this.scheduledMatch = scheduledMatch;
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getWeek() {
+		return week;
+	}
+
+	public void setWeek(Integer week) {
+		this.week = week;
 	}
 
 	public StatisticType getType() {
@@ -63,19 +76,10 @@ public class PlayerMatchStatistic extends BaseEntity {
 		this.quantity = quantity;
 	}
 
-	public String getGameTime() {
-		return gameTime;
-	}
-
-	public void setGameTime(String gameTime) {
-		this.gameTime = gameTime;
-	}
-
 	@Override
 	public String toString() {
-		return "PlayerMatchStatistic [player=" + player + ", scheduledMatch="
-				+ scheduledMatch.getId() + ", type=" + type + ", quantity=" + quantity
-				+ ", gameTime=" + gameTime + ", getId()=" + getId() + "]";
+		return "PlayerWeeklyStatistic [player=" + player + ", year=" + year
+				+ ", week=" + week + ", type=" + type + ", quantity="
+				+ quantity + ", getId()=" + getId() + "]";
 	}
-
 }

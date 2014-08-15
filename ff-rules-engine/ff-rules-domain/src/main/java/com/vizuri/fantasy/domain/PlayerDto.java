@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author amirge
  *
  */
-public class Player implements Serializable {
+public class PlayerDto implements Serializable {
 
 	private static final long serialVersionUID = -3605975122593164477L;
 	
@@ -17,16 +17,16 @@ public class Player implements Serializable {
 	private String name;
 	private String team;
 	private Integer number;
-    private Position position;
-    private PlayerStatus status;
+    private String position;
+    private PlayerStatusDto status;
     private Boolean doNotCut;
     private Long fantasyTeamId;
 	private String positionTypeString;
 	
-    public Player(){
+    public PlayerDto(){
     }
     
-    public Player(Long id){
+    public PlayerDto(Long id){
     	this.id = id;
     }
 
@@ -54,10 +54,10 @@ public class Player implements Serializable {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	public PlayerStatus getStatus() {
+	public PlayerStatusDto getStatus() {
 		return status;
 	}
-	public void setStatus(PlayerStatus status) {
+	public void setStatus(PlayerStatusDto status) {
 		this.status = status;
 	}
 	public Boolean getDoNotCut() {
@@ -72,10 +72,10 @@ public class Player implements Serializable {
 	public void setFantasyTeamId(Long fantasyTeamId) {
 		this.fantasyTeamId = fantasyTeamId;
 	}
-	public Position getPosition() {
+	public String getPosition() {
 		return position;
 	}
-	public void setPosition(Position position) {
+	public void setPosition(String position) {
 		this.position = position;
 	}	
 	public String getPositionTypeString() {
@@ -98,21 +98,7 @@ public class Player implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((doNotCut == null) ? 0 : doNotCut.hashCode());
-		result = prime * result
-				+ ((fantasyTeamId == null) ? 0 : fantasyTeamId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((team == null) ? 0 : team.hashCode());
-		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result
-				+ ((position == null) ? 0 : position.hashCode());
-		result = prime
-				* result
-				+ ((positionTypeString == null) ? 0 : positionTypeString
-						.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -124,49 +110,14 @@ public class Player implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Player other = (Player) obj;
-		if (doNotCut == null) {
-			if (other.doNotCut != null)
-				return false;
-		} else if (!doNotCut.equals(other.doNotCut))
-			return false;
-		if (fantasyTeamId == null) {
-			if (other.fantasyTeamId != null)
-				return false;
-		} else if (!fantasyTeamId.equals(other.fantasyTeamId))
-			return false;
+		PlayerDto other = (PlayerDto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (team == null) {
-			if (other.team != null)
-				return false;
-		} else if (!team.equals(other.team))
-			return false;
-		if (number == null) {
-			if (other.number != null)
-				return false;
-		} else if (!number.equals(other.number))
-			return false;
-		if (position == null) {
-			if (other.position != null)
-				return false;
-		} else if (!position.equals(other.position))
-			return false;
-		if (positionTypeString == null) {
-			if (other.positionTypeString != null)
-				return false;
-		} else if (!positionTypeString.equals(other.positionTypeString))
-			return false;
-		if (status != other.status)
-			return false;
 		return true;
 	}
+
+	
 }

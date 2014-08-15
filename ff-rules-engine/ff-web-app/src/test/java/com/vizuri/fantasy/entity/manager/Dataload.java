@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -24,8 +22,8 @@ import com.vizuri.fantasy.entity.FantasyOwner;
 import com.vizuri.fantasy.entity.FantasyTeam;
 import com.vizuri.fantasy.entity.FantasyTeamRoster;
 import com.vizuri.fantasy.entity.OverallRanking;
+import com.vizuri.fantasy.entity.PlayStatistic;
 import com.vizuri.fantasy.entity.Player;
-import com.vizuri.fantasy.entity.PlayerMatchStatistic;
 import com.vizuri.fantasy.entity.PlayerStatus;
 import com.vizuri.fantasy.entity.Position;
 import com.vizuri.fantasy.entity.PositionRanking;
@@ -325,7 +323,7 @@ public class Dataload extends JpaBaseTestCase {
 			String nextGameString = play[0];
 			
 			if (!nextGameString.equals(lastGameString)) {
-				log.info("Different game: " + nextGameString);
+				log.info("Loading game: " + nextGameString);
 				lastGameString = nextGameString;
 				homeTeamNickname = nextGameString.split("@")[1];
 				awayTeamNickName = nextGameString.substring(lastGameString.indexOf('_') + 1, lastGameString.indexOf('@'));
@@ -336,7 +334,7 @@ public class Dataload extends JpaBaseTestCase {
 				Date matchDate = pbpDateFormat.parse(dateString);
 				
 				match = ScheduledMatchManager.findMatchByTeams(offense, defense, matchDate, em);
-				log.info("Loaded match: " + match);
+				if (log.isDebugEnabled()) { log.debug("Loaded match: " + match); }
 				
 				// Load players
 				matchPlayers = new HashMap<String,Player>();
@@ -358,7 +356,7 @@ public class Dataload extends JpaBaseTestCase {
 				description = description.substring(description.indexOf("REVERSED.") + 9);
 			}
 			String plays[] = description.split("\\. ", -1);
-			log.info("Read play from file: " + description);
+			if (log.isDebugEnabled()) { log.debug("Read play from file: " + description); }
 			
 			Integer quarter = Integer.parseInt(play[1]);
 			
@@ -371,7 +369,7 @@ public class Dataload extends JpaBaseTestCase {
 			try {
 				boolean overallPlayIgnored = PlayByPlayLexer.lexit(description).containsKey(TokenType.IGNORE);
 				for (String individualPlay : plays) {
-					log.info("Individual play component: " + individualPlay);
+					if (log.isDebugEnabled()) { log.debug("Individual play component: " + individualPlay); }
 					Map<TokenType, List<Token>> tokenizedPlay = PlayByPlayLexer.lexit(individualPlay);
 					if (!overallPlayIgnored && (tokenizedPlay.containsKey(TokenType.PLAYER) || players.size() > 0)) {
 						Integer yardage = 0;
@@ -483,11 +481,12 @@ public class Dataload extends JpaBaseTestCase {
 					}
 					
 					if (tokenizedPlay.containsKey(TokenType.FINALSCORE)) {
-						// this is just a sanity check
 						Integer offensiveScore = Integer.parseInt((play[15]).trim());
 						Integer defensiveScore = Integer.parseInt((play[16]).trim());
-						log.info(">>>> Game score should be: " + offense.getNickname() + " " + offensiveScore + " to " + defense.getNickname() + " " + defensiveScore);
-						log.info(">>>> Computed result is: " + match.getHomeTeam().getNickname() + " " + match.getHomeTeamScore() + " to " + match.getAwayTeam().getNickname() + " " + match.getAwayTeamScore());
+						if (log.isDebugEnabled()) {
+							log.debug(">>>> Game score should be: " + offense.getNickname() + " " + offensiveScore + " to " + defense.getNickname() + " " + defensiveScore);
+							log.debug(">>>> Computed result is: " + match.getHomeTeam().getNickname() + " " + match.getHomeTeamScore() + " to " + match.getAwayTeam().getNickname() + " " + match.getAwayTeamScore());
+						}
 						saveEntity(match);
 						break;
 					}
@@ -498,7 +497,7 @@ public class Dataload extends JpaBaseTestCase {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testSinglePlay() {
 		String play = "J.Flacco sacked at BAL 27 for -6 yards (S.Phillips). FUMBLES (S.Phillips) recovered by BAL-R.Wagner at BAL 27. R.Wagner to BAL 27 for no gain (D.Wolfe).";
 		String plays[] = play.split("\\. ", -1);
@@ -551,9 +550,9 @@ public class Dataload extends JpaBaseTestCase {
 			FantasyLeagueRoster leagueRoster = new FantasyLeagueRoster();
 			leagueRoster.setLeague(league);
 			leagueRoster.setSlot(++slot);
-			log.info("Slot: " + slot);
+			log.debug("Slot: " + slot);
 			for (String position : positions.split(",", 0)) {
-				log.info("Adding position: " + position);
+				log.debug("Adding position: " + position);
 				leagueRoster.addPosition(positionMap.get(position));
 			}
 			saveEntity(leagueRoster);
@@ -592,17 +591,17 @@ public class Dataload extends JpaBaseTestCase {
 	}
 	
 	private void addStat(Player player, ScheduledMatch match, StatisticType type, Integer quantity, String gameTime) {
-		PlayerMatchStatistic stat = new PlayerMatchStatistic();
+		PlayStatistic stat = new PlayStatistic();
 		stat.setGameTime(gameTime);
 		stat.setPlayer(player);
 		stat.setScheduledMatch(match);
 		stat.setType(type);
 		stat.setQuantity(new BigDecimal(quantity));
 		if (player != null) {
-			log.info("Saving stat: " + stat);
+			if (log.isDebugEnabled()) { log.debug("Saving stat: " + stat); }
 			saveEntity(stat);
 		} else {
-			log.info("Null player for stat: " + stat);
+			if (log.isDebugEnabled()) { log.debug("Null player for stat: " + stat); }
 		}
 	}
 	

@@ -1,6 +1,8 @@
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
+
+import com.vizuri.fantasy.types.Severity;
 
 public class Violation implements Serializable {
 

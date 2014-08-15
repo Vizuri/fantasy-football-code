@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vizuri.fantasy.rules.domain;
+package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author amirge
  *
  */
-public class User implements Serializable {
+public class OwnerDto implements Serializable {
 
 	private static final long serialVersionUID = -6760385649394277667L;
 	
@@ -39,7 +39,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		OwnerDto other = (OwnerDto) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

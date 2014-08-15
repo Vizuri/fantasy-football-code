@@ -7,7 +7,7 @@ import org.kie.api.event.rule.ObjectInsertedEvent;
 import org.kie.api.event.rule.ObjectUpdatedEvent;
 import org.kie.api.event.rule.RuleRuntimeEventListener;
 
-import com.vizuri.fantasy.rules.domain.Violation;
+import com.vizuri.fantasy.domain.Violation;
 
 public class RuleListener implements RuleRuntimeEventListener {
 	private final static transient Logger logger = Logger.getLogger(RuleListener.class);
