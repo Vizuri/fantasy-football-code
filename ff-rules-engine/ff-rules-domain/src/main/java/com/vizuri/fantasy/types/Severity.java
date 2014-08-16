@@ -10,8 +10,7 @@ package com.vizuri.fantasy.types;
 public enum Severity {
 	INFO("INFO"),
 	WARNING("WARNING"),
-	ERROR("ERROR"),
-	FATAL("FATAL");
+	ERROR("ERROR");
 	
 	private String name;
 	
