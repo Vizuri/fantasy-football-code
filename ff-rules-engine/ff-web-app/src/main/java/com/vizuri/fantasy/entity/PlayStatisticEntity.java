@@ -10,48 +10,48 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "play_statistic")
-public class PlayStatistic extends BaseEntity {
+public class PlayStatisticEntity extends BaseEntity {
 	private static final long serialVersionUID = 7659661699704377770L;
 
 	@ManyToOne
 	@JoinColumn(name = "player_id")
-	private Player player;
+	private PlayerEntity player;
 	
 	@ManyToOne
 	@JoinColumn(name = "match_id")
-	private ScheduledMatch scheduledMatch;
+	private ScheduledMatchEntity scheduledMatch;
 	
 	@ManyToOne
 	@JoinColumn(name = "stat_type_id")
-	private StatisticType type;
+	private StatisticTypeEntity type;
 	
 	@Column(columnDefinition = "DECIMAL(8,2)")
 	private BigDecimal quantity;
 	
-	@Column
+	@Column(name = "game_time")
 	private String gameTime;
 
-	public Player getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEntity player) {
 		this.player = player;
 	}
 
-	public ScheduledMatch getScheduledMatch() {
+	public ScheduledMatchEntity getScheduledMatch() {
 		return scheduledMatch;
 	}
 
-	public void setScheduledMatch(ScheduledMatch scheduledMatch) {
+	public void setScheduledMatch(ScheduledMatchEntity scheduledMatch) {
 		this.scheduledMatch = scheduledMatch;
 	}
 
-	public StatisticType getType() {
+	public StatisticTypeEntity getType() {
 		return type;
 	}
 
-	public void setType(StatisticType type) {
+	public void setType(StatisticTypeEntity type) {
 		this.type = type;
 	}
 

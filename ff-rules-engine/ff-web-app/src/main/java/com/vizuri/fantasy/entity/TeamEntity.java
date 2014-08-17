@@ -2,9 +2,11 @@ package com.vizuri.fantasy.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-public class Team extends BaseEntity {
+@Table(name = "team")
+public class TeamEntity extends BaseEntity {
 	private static final long serialVersionUID = -2035884275923411058L;
 
 	@Column

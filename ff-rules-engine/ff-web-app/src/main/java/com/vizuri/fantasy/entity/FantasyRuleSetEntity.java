@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "fantasy_rule_set")
-public class FantasyRuleSet extends BaseEntity {
+public class FantasyRuleSetEntity extends BaseEntity {
 	private static final long serialVersionUID = 2451276070173739163L;
 
 	@Column

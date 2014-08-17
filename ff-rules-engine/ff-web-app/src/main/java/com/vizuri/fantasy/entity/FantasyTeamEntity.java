@@ -10,16 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fantasy_team")
-public class FantasyTeam extends BaseEntity {
+public class FantasyTeamEntity extends BaseEntity {
 	private static final long serialVersionUID = 5410637910476136656L;
 
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
-	private FantasyOwner owner;
+	private FantasyOwnerEntity owner;
 	
 	@ManyToOne
 	@JoinColumn(name = "league_id")
-	private FantasyLeague league;
+	private FantasyLeagueEntity league;
 	
 	@Column
 	private String name;
@@ -27,19 +27,19 @@ public class FantasyTeam extends BaseEntity {
 	@Column (name="current_score", columnDefinition = "DECIMAL(8,2)")
 	private BigDecimal currentScore;
 
-	public FantasyOwner getOwner() {
+	public FantasyOwnerEntity getOwner() {
 		return owner;
 	}
 
-	public void setOwner(FantasyOwner owner) {
+	public void setOwner(FantasyOwnerEntity owner) {
 		this.owner = owner;
 	}
 
-	public FantasyLeague getLeague() {
+	public FantasyLeagueEntity getLeague() {
 		return league;
 	}
 
-	public void setLeague(FantasyLeague league) {
+	public void setLeague(FantasyLeagueEntity league) {
 		this.league = league;
 	}
 

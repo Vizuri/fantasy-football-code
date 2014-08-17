@@ -11,31 +11,31 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "position_ranking")
-public class PositionRanking extends BaseEntity {
+public class PositionRankingEntity extends BaseEntity {
 	private static final long serialVersionUID = 7412985146869878364L;
 
 	@ManyToOne
 	@JoinColumn(name = "player_id")
 	@NotNull
-	private Player player;
+	private PlayerEntity player;
 	
 	@Column
 	private Integer year;
 	
 	@ManyToOne
-	private Position position;
+	private PositionEntity position;
 	
 	@Column
 	private Integer rank;
 	
-	@Column
+	@Column(name = "average_ranking")
 	private BigDecimal averageRanking;
 
-	public Player getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEntity player) {
 		this.player = player;
 	}
 
@@ -47,11 +47,11 @@ public class PositionRanking extends BaseEntity {
 		this.year = year;
 	}
 
-	public Position getPosition() {
+	public PositionEntity getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionEntity position) {
 		this.position = position;
 	}
 

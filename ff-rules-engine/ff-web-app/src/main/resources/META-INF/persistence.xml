@@ -5,24 +5,24 @@
 	<persistence-unit name="fantasy-football-unit">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.vizuri.fantasy.entity.BaseEntity</class>
-		<class>com.vizuri.fantasy.entity.FantasyLeague</class>
-		<class>com.vizuri.fantasy.entity.FantasyLeagueRoster</class>
-		<class>com.vizuri.fantasy.entity.FantasyLeagueStandings</class>
-		<class>com.vizuri.fantasy.entity.FantasyOwner</class>
-		<class>com.vizuri.fantasy.entity.FantasyTeam</class>
-		<class>com.vizuri.fantasy.entity.FantasyTeamRoster</class>
-		<class>com.vizuri.fantasy.entity.Player</class>
-		<class>com.vizuri.fantasy.entity.PlayStatistic</class>
-		<class>com.vizuri.fantasy.entity.PlayerStatus</class>
-		<class>com.vizuri.fantasy.entity.Position</class>
-		<class>com.vizuri.fantasy.entity.ScheduledMatch</class>
-		<class>com.vizuri.fantasy.entity.StatisticType</class>
-		<class>com.vizuri.fantasy.entity.Team</class>
-		<class>com.vizuri.fantasy.entity.TeamBye</class>
-		<class>com.vizuri.fantasy.entity.OverallRanking</class>
-		<class>com.vizuri.fantasy.entity.PositionRanking</class>
-		<class>com.vizuri.fantasy.entity.PlayerWeeklyScore</class>
-		<class>com.vizuri.fantasy.entity.FantasyRuleSet</class>
+		<class>com.vizuri.fantasy.entity.FantasyLeagueEntity</class>
+		<class>com.vizuri.fantasy.entity.FantasyLeagueRosterEntity</class>
+		<class>com.vizuri.fantasy.entity.FantasyLeagueStandingsEntity</class>
+		<class>com.vizuri.fantasy.entity.FantasyOwnerEntity</class>
+		<class>com.vizuri.fantasy.entity.FantasyTeamEntity</class>
+		<class>com.vizuri.fantasy.entity.FantasyTeamRosterEntity</class>
+		<class>com.vizuri.fantasy.entity.PlayerEntity</class>
+		<class>com.vizuri.fantasy.entity.PlayStatisticEntity</class>
+		<class>com.vizuri.fantasy.entity.PlayerStatusEntity</class>
+		<class>com.vizuri.fantasy.entity.PositionEntity</class>
+		<class>com.vizuri.fantasy.entity.ScheduledMatchEntity</class>
+		<class>com.vizuri.fantasy.entity.StatisticTypeEntity</class>
+		<class>com.vizuri.fantasy.entity.TeamEntity</class>
+		<class>com.vizuri.fantasy.entity.TeamByeEntity</class>
+		<class>com.vizuri.fantasy.entity.OverallRankingEntity</class>
+		<class>com.vizuri.fantasy.entity.PositionRankingEntity</class>
+		<class>com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity</class>
+		<class>com.vizuri.fantasy.entity.FantasyRuleSetEntity</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

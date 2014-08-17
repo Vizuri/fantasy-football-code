@@ -10,16 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "scheduled_match")
-public class ScheduledMatch extends BaseEntity {
+public class ScheduledMatchEntity extends BaseEntity {
 	private static final long serialVersionUID = -5368041708298545888L;
 	
 	@ManyToOne
 	@JoinColumn(name = "home_team_id")
-	private Team homeTeam;
+	private TeamEntity homeTeam;
 	
 	@ManyToOne
 	@JoinColumn(name = "away_team_id")
-	private Team awayTeam;
+	private TeamEntity awayTeam;
 	
 	@Column
 	private Integer year;
@@ -36,19 +36,19 @@ public class ScheduledMatch extends BaseEntity {
 	@Column(name = "away_team_score")
 	private Integer awayTeamScore = 0;
 	
-	public Team getHomeTeam() {
+	public TeamEntity getHomeTeam() {
 		return homeTeam;
 	}
 
-	public void setHomeTeam(Team homeTeam) {
+	public void setHomeTeam(TeamEntity homeTeam) {
 		this.homeTeam = homeTeam;
 	}
 
-	public Team getAwayTeam() {
+	public TeamEntity getAwayTeam() {
 		return awayTeam;
 	}
 
-	public void setAwayTeam(Team awayTeam) {
+	public void setAwayTeam(TeamEntity awayTeam) {
 		this.awayTeam = awayTeam;
 	}
 

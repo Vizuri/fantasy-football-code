@@ -12,18 +12,18 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "player_weekly_score", uniqueConstraints = @UniqueConstraint(columnNames = {"player_id", "rule_set_id", "year", "week"}))
-public class PlayerWeeklyScore extends BaseEntity {
+public class PlayerWeeklyScoreEntity extends BaseEntity {
 	private static final long serialVersionUID = -5371279170031101225L;
 
 	@ManyToOne
 	@JoinColumn(name = "player_id")
 	@NotNull
-	private Player player;
+	private PlayerEntity player;
 	
 	@ManyToOne
 	@JoinColumn(name = "rule_set_id")
 	@NotNull
-	private FantasyRuleSet ruleSet;
+	private FantasyRuleSetEntity ruleSet;
 	
 	@Column
 	@NotNull
@@ -36,19 +36,19 @@ public class PlayerWeeklyScore extends BaseEntity {
 	@Column
 	private BigDecimal score;
 
-	public Player getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEntity player) {
 		this.player = player;
 	}
 
-	public FantasyRuleSet getRuleSet() {
+	public FantasyRuleSetEntity getRuleSet() {
 		return ruleSet;
 	}
 
-	public void setRuleSet(FantasyRuleSet ruleSet) {
+	public void setRuleSet(FantasyRuleSetEntity ruleSet) {
 		this.ruleSet = ruleSet;
 	}
 

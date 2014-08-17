@@ -9,19 +9,19 @@ import java.io.Serializable;
  * @author amirge
  *
  */
-public class TeamRosterDto implements Serializable {
+public class TeamRoster implements Serializable {
 
 	private static final long serialVersionUID = -792587462066702777L;
 	private Long teamId;
 	private Integer slotNumber;
-	private PlayerDto player;
+	private Player player;
 	private Integer week;
 	private Long leagueId;
 	
-	public TeamRosterDto() {
+	public TeamRoster() {
 	}
 	
-	public TeamRosterDto(Long teamId){
+	public TeamRoster(Long teamId){
 		this.teamId = teamId;
 	}
 	
@@ -49,10 +49,10 @@ public class TeamRosterDto implements Serializable {
 	public void setLeagueId(Long leagueId) {
 		this.leagueId = leagueId;
 	}
-	public PlayerDto getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
-	public void setPlayer(PlayerDto player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 	@Override
@@ -82,7 +82,7 @@ public class TeamRosterDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TeamRosterDto other = (TeamRosterDto) obj;
+		TeamRoster other = (TeamRoster) obj;
 		if (leagueId == null) {
 			if (other.leagueId != null)
 				return false;

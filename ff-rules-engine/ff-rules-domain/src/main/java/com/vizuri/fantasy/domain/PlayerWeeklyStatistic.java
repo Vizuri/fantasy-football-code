@@ -1,19 +1,25 @@
+/**
+ * 
+ */
 package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-import com.vizuri.fantasy.types.PlayerStatusType;
-
-public class PlayerStatusDto implements Serializable {
-	private static final long serialVersionUID = -8438121962385316960L;
+/**
+ * @author amirge
+ *
+ */
+public class PlayerWeeklyStatistic implements Serializable {
+	private static final long serialVersionUID = -397954409696315901L;
 	
 	private Long playerId;
 	private Integer year;
 	private Integer week;
-	private PlayerStatusType statusType;
-	private String description;
+	private String statisticType; 
+	private BigDecimal statisticValue;
 	
-	public PlayerStatusDto() {
+	public PlayerWeeklyStatistic() {
 	}
 
 	public Long getPlayerId() {
@@ -40,27 +46,27 @@ public class PlayerStatusDto implements Serializable {
 		this.week = week;
 	}
 
-	public PlayerStatusType getStatusType() {
-		return statusType;
+	public String getStatisticType() {
+		return statisticType;
 	}
 
-	public void setStatusType(PlayerStatusType statusType) {
-		this.statusType = statusType;
+	public void setStatisticType(String statisticType) {
+		this.statisticType = statisticType;
 	}
 
-	public String getDescription() {
-		return description;
+	public BigDecimal getStatisticValue() {
+		return statisticValue;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStatisticValue(BigDecimal statisticValue) {
+		this.statisticValue = statisticValue;
 	}
 
 	@Override
 	public String toString() {
-		return "PlayerStatusDTO [playerId=" + playerId + ", year=" + year
-				+ ", week=" + week + ", statusType=" + statusType
-				+ ", description=" + description + "]";
+		return "PlayerWeeklyStatistic [playerId=" + playerId + ", year="
+				+ year + ", week=" + week + ", statisticType=" + statisticType
+				+ ", statisticValue=" + statisticValue + "]";
 	}
 
 	@Override
@@ -69,6 +75,8 @@ public class PlayerStatusDto implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((playerId == null) ? 0 : playerId.hashCode());
+		result = prime * result
+				+ ((statisticType == null) ? 0 : statisticType.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
@@ -82,11 +90,16 @@ public class PlayerStatusDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlayerStatusDto other = (PlayerStatusDto) obj;
+		PlayerWeeklyStatistic other = (PlayerWeeklyStatistic) obj;
 		if (playerId == null) {
 			if (other.playerId != null)
 				return false;
 		} else if (!playerId.equals(other.playerId))
+			return false;
+		if (statisticType == null) {
+			if (other.statisticType != null)
+				return false;
+		} else if (!statisticType.equals(other.statisticType))
 			return false;
 		if (week == null) {
 			if (other.week != null)

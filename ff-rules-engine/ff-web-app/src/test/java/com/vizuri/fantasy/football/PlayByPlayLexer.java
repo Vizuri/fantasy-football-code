@@ -18,6 +18,7 @@ public class PlayByPlayLexer {
 		IGNORE("(?i)(\\W|^)touchback|pass incomplete|no play(\\W|$)"),
 		PLAYREVERSED("(?i)(\\W|^)play was REVERSED(\\W|$)"),
 		TACKLERS("\\([A-Z]\\.[A-Z][a-z]+.*?\\)"),
+		BACKWARDPASS("(?i)Backward pass to"),
 		PASSPLAY("pass.*? to"),
 		PASSINTERCEPTION("pass.*? intended for"),
 		YARDAGE("-?[0-9]+ yards"),

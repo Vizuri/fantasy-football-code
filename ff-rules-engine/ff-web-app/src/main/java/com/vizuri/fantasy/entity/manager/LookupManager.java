@@ -9,35 +9,35 @@ import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
 
-import com.vizuri.fantasy.entity.Position;
-import com.vizuri.fantasy.entity.PositionRanking;
-import com.vizuri.fantasy.entity.StatisticType;
+import com.vizuri.fantasy.entity.PositionEntity;
+import com.vizuri.fantasy.entity.PositionRankingEntity;
+import com.vizuri.fantasy.entity.StatisticTypeEntity;
 import com.vizuri.fantasy.types.FootballStatisticType;
 
 public class LookupManager {
 	private final static transient Logger log = Logger.getLogger(LookupManager.class);
 	
-	public static Position findPositionByShortName(String shortName, EntityManager em) {
-		String queryString = "select p from Position p where p.shortName = :shortName";
-		return (Position)em.createQuery(queryString).setParameter("shortName", shortName).getSingleResult();
+	public static PositionEntity findPositionByShortName(String shortName, EntityManager em) {
+		String queryString = "select p from PositionEntity p where p.shortName = :shortName";
+		return (PositionEntity)em.createQuery(queryString).setParameter("shortName", shortName).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Map<String, Position> getPositionMap(EntityManager em) {
-		Map<String,Position> positionMap = new HashMap<String,Position>();
-		List<Position> positions = em.createQuery("select pos from Position pos").getResultList();
-		for (Position position : positions) {
+	public static Map<String, PositionEntity> getPositionMap(EntityManager em) {
+		Map<String,PositionEntity> positionMap = new HashMap<String,PositionEntity>();
+		List<PositionEntity> positions = em.createQuery("select pos from PositionEntity pos").getResultList();
+		for (PositionEntity position : positions) {
 			positionMap.put(position.getShortName(), position);
 		}
 		return positionMap;
 	}
 
-	public static Map<FootballStatisticType, StatisticType> findFootballStatTypes(EntityManager em) {
-		Map<FootballStatisticType, StatisticType> map = new HashMap<FootballStatisticType, StatisticType>();
+	public static Map<FootballStatisticType, StatisticTypeEntity> findFootballStatTypes(EntityManager em) {
+		Map<FootballStatisticType, StatisticTypeEntity> map = new HashMap<FootballStatisticType, StatisticTypeEntity>();
 		
 		for (FootballStatisticType type : FootballStatisticType.values()) {
 			try {
-				StatisticType statType = (StatisticType) em.createQuery("select s from StatisticType s where s.name = :name")
+				StatisticTypeEntity statType = (StatisticTypeEntity) em.createQuery("select s from StatisticTypeEntity s where s.name = :name")
 					.setParameter("name", String.valueOf(type))
 					.getSingleResult();
 				map.put(type, statType);
@@ -49,9 +49,9 @@ public class LookupManager {
 		return map;
 	}
 
-	public static Map<String, List<PositionRanking>> getPositionRankingMap(EntityManager em) {
+	public static Map<String, List<PositionRankingEntity>> getPositionRankingMap(EntityManager em) {
 		List<String> positions = Arrays.asList("QB", "WR", "RB", "TE", "K", "DEF");
-		Map<String,List<PositionRanking>> rankings = new HashMap<String, List<PositionRanking>>();
+		Map<String,List<PositionRankingEntity>> rankings = new HashMap<String, List<PositionRankingEntity>>();
 		for (String positionShortName : positions) {
 			rankings.put(positionShortName, getRankingByPosition(positionShortName, em));
 		}
@@ -59,8 +59,8 @@ public class LookupManager {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<PositionRanking> getRankingByPosition(String positionShortName, EntityManager em) {
-		return em.createQuery("select pr from PositionRanking pr where pr.position.shortName = :shortName")
+	public static List<PositionRankingEntity> getRankingByPosition(String positionShortName, EntityManager em) {
+		return em.createQuery("select pr from PositionRankingEntity pr where pr.position.shortName = :shortName")
 				.setParameter("shortName", positionShortName)
 				.getResultList();
 	}

@@ -6,19 +6,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
 @Entity
-public class Player extends BaseEntity {
+@Table(name = "player")
+public class PlayerEntity extends BaseEntity {
 	private static final long serialVersionUID = -5278867784479515038L;
 
 	@Column
 	private String name;
 	
 	@ManyToOne
-	private Position position;
+	private PositionEntity position;
 	
 	@ManyToOne
-	private Team team;
+	private TeamEntity team;
 	
 	@Column
 	private Integer number;
@@ -26,7 +28,7 @@ public class Player extends BaseEntity {
 	@Column
 	private Boolean active;
 	
-	@Column
+	@Column(name = "is_do_not_cut")
 	private Boolean doNotCut;
 	
 	@Column(name = "years_experience")
@@ -66,19 +68,19 @@ public class Player extends BaseEntity {
 		this.name = name;
 	}
 
-	public Position getPosition() {
+	public PositionEntity getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionEntity position) {
 		this.position = position;
 	}
 
-	public Team getTeam() {
+	public TeamEntity getTeam() {
 		return team;
 	}
 
-	public void setTeam(Team team) {
+	public void setTeam(TeamEntity team) {
 		this.team = team;
 	}
 

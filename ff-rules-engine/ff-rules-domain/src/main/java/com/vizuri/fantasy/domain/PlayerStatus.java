@@ -1,25 +1,19 @@
-/**
- * 
- */
 package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
-/**
- * @author amirge
- *
- */
-public class PlayerWeeklyScoreDto implements Serializable {
-	private static final long serialVersionUID = -1576483535362052691L;
+import com.vizuri.fantasy.types.PlayerStatusType;
+
+public class PlayerStatus implements Serializable {
+	private static final long serialVersionUID = -8438121962385316960L;
 	
 	private Long playerId;
-	private Long rulesetId;
 	private Integer year;
 	private Integer week;
-	private BigDecimal cumulativeScore;
-
-	public PlayerWeeklyScoreDto() {
+	private PlayerStatusType statusType;
+	private String description;
+	
+	public PlayerStatus() {
 	}
 
 	public Long getPlayerId() {
@@ -28,14 +22,6 @@ public class PlayerWeeklyScoreDto implements Serializable {
 
 	public void setPlayerId(Long playerId) {
 		this.playerId = playerId;
-	}
-
-	public Long getRulesetId() {
-		return rulesetId;
-	}
-
-	public void setRulesetId(Long rulesetId) {
-		this.rulesetId = rulesetId;
 	}
 
 	public Integer getYear() {
@@ -54,19 +40,27 @@ public class PlayerWeeklyScoreDto implements Serializable {
 		this.week = week;
 	}
 
-	public BigDecimal getCumulativeScore() {
-		return cumulativeScore;
+	public PlayerStatusType getStatusType() {
+		return statusType;
 	}
 
-	public void setCumulativeScore(BigDecimal cumulativeScore) {
-		this.cumulativeScore = cumulativeScore;
+	public void setStatusType(PlayerStatusType statusType) {
+		this.statusType = statusType;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
 	public String toString() {
-		return "PlayerWeeklyScoreDTO [playerId=" + playerId + ", rulesetId="
-				+ rulesetId + ", year=" + year + ", week=" + week
-				+ ", cumulativeScore=" + cumulativeScore + "]";
+		return "PlayerStatus [playerId=" + playerId + ", year=" + year
+				+ ", week=" + week + ", statusType=" + statusType
+				+ ", description=" + description + "]";
 	}
 
 	@Override
@@ -75,8 +69,6 @@ public class PlayerWeeklyScoreDto implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((playerId == null) ? 0 : playerId.hashCode());
-		result = prime * result
-				+ ((rulesetId == null) ? 0 : rulesetId.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
@@ -90,16 +82,11 @@ public class PlayerWeeklyScoreDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlayerWeeklyScoreDto other = (PlayerWeeklyScoreDto) obj;
+		PlayerStatus other = (PlayerStatus) obj;
 		if (playerId == null) {
 			if (other.playerId != null)
 				return false;
 		} else if (!playerId.equals(other.playerId))
-			return false;
-		if (rulesetId == null) {
-			if (other.rulesetId != null)
-				return false;
-		} else if (!rulesetId.equals(other.rulesetId))
 			return false;
 		if (week == null) {
 			if (other.week != null)

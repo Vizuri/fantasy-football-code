@@ -10,16 +10,16 @@ import java.math.BigDecimal;
  * @author amirge
  *
  */
-public class PlayerWeeklyStatisticDto implements Serializable {
-	private static final long serialVersionUID = -397954409696315901L;
+public class PlayerWeeklyScore implements Serializable {
+	private static final long serialVersionUID = -1576483535362052691L;
 	
 	private Long playerId;
+	private Long rulesetId;
 	private Integer year;
 	private Integer week;
-	private String statisticType; 
-	private BigDecimal statisticValue;
-	
-	public PlayerWeeklyStatisticDto() {
+	private BigDecimal cumulativeScore;
+
+	public PlayerWeeklyScore() {
 	}
 
 	public Long getPlayerId() {
@@ -28,6 +28,14 @@ public class PlayerWeeklyStatisticDto implements Serializable {
 
 	public void setPlayerId(Long playerId) {
 		this.playerId = playerId;
+	}
+
+	public Long getRulesetId() {
+		return rulesetId;
+	}
+
+	public void setRulesetId(Long rulesetId) {
+		this.rulesetId = rulesetId;
 	}
 
 	public Integer getYear() {
@@ -46,27 +54,19 @@ public class PlayerWeeklyStatisticDto implements Serializable {
 		this.week = week;
 	}
 
-	public String getStatisticType() {
-		return statisticType;
+	public BigDecimal getCumulativeScore() {
+		return cumulativeScore;
 	}
 
-	public void setStatisticType(String statisticType) {
-		this.statisticType = statisticType;
-	}
-
-	public BigDecimal getStatisticValue() {
-		return statisticValue;
-	}
-
-	public void setStatisticValue(BigDecimal statisticValue) {
-		this.statisticValue = statisticValue;
+	public void setCumulativeScore(BigDecimal cumulativeScore) {
+		this.cumulativeScore = cumulativeScore;
 	}
 
 	@Override
 	public String toString() {
-		return "PlayerWeeklyStatisticDTO [playerId=" + playerId + ", year="
-				+ year + ", week=" + week + ", statisticType=" + statisticType
-				+ ", statisticValue=" + statisticValue + "]";
+		return "PlayerWeeklyScore [playerId=" + playerId + ", rulesetId="
+				+ rulesetId + ", year=" + year + ", week=" + week
+				+ ", cumulativeScore=" + cumulativeScore + "]";
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class PlayerWeeklyStatisticDto implements Serializable {
 		result = prime * result
 				+ ((playerId == null) ? 0 : playerId.hashCode());
 		result = prime * result
-				+ ((statisticType == null) ? 0 : statisticType.hashCode());
+				+ ((rulesetId == null) ? 0 : rulesetId.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
@@ -90,16 +90,16 @@ public class PlayerWeeklyStatisticDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlayerWeeklyStatisticDto other = (PlayerWeeklyStatisticDto) obj;
+		PlayerWeeklyScore other = (PlayerWeeklyScore) obj;
 		if (playerId == null) {
 			if (other.playerId != null)
 				return false;
 		} else if (!playerId.equals(other.playerId))
 			return false;
-		if (statisticType == null) {
-			if (other.statisticType != null)
+		if (rulesetId == null) {
+			if (other.rulesetId != null)
 				return false;
-		} else if (!statisticType.equals(other.statisticType))
+		} else if (!rulesetId.equals(other.rulesetId))
 			return false;
 		if (week == null) {
 			if (other.week != null)

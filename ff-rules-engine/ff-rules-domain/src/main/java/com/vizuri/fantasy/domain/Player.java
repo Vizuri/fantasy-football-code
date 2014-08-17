@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author amirge
  *
  */
-public class PlayerDto implements Serializable {
+public class Player implements Serializable {
 
 	private static final long serialVersionUID = -3605975122593164477L;
 	
@@ -18,15 +18,15 @@ public class PlayerDto implements Serializable {
 	private String team;
 	private Integer number;
     private String position;
-    private PlayerStatusDto status;
+    private PlayerStatus status;
     private Boolean doNotCut;
     private Long fantasyTeamId;
 	private String positionTypeString;
 	
-    public PlayerDto(){
+    public Player(){
     }
     
-    public PlayerDto(Long id){
+    public Player(Long id){
     	this.id = id;
     }
 
@@ -54,10 +54,10 @@ public class PlayerDto implements Serializable {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	public PlayerStatusDto getStatus() {
+	public PlayerStatus getStatus() {
 		return status;
 	}
-	public void setStatus(PlayerStatusDto status) {
+	public void setStatus(PlayerStatus status) {
 		this.status = status;
 	}
 	public Boolean getDoNotCut() {
@@ -110,7 +110,7 @@ public class PlayerDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlayerDto other = (PlayerDto) obj;
+		Player other = (Player) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

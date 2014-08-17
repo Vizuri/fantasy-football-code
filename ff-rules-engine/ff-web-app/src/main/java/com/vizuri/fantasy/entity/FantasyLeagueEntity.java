@@ -10,16 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fantasy_league")
-public class FantasyLeague extends BaseEntity {
+public class FantasyLeagueEntity extends BaseEntity {
 	private static final long serialVersionUID = -2496279081095482264L;
 
 	@ManyToOne
 	@JoinColumn(name="commisioner_id")
-	private FantasyOwner commissioner;
+	private FantasyOwnerEntity commissioner;
 	
 	@ManyToOne
 	@JoinColumn(name="rule_set_id")
-	private FantasyRuleSet ruleSet;
+	private FantasyRuleSetEntity ruleSet;
 	
 	@Column
 	private String name;
@@ -27,25 +27,25 @@ public class FantasyLeague extends BaseEntity {
 	@Column
 	private Integer year;
 	
-	@Column
+	@Column(name = "current_week")
 	private Integer currentWeek;
 	
-	@Column
+	@Column(name = "simulated_time")
 	private Date simulatedTime;
 
-	public FantasyOwner getCommissioner() {
+	public FantasyOwnerEntity getCommissioner() {
 		return commissioner;
 	}
 
-	public void setCommissioner(FantasyOwner commissioner) {
+	public void setCommissioner(FantasyOwnerEntity commissioner) {
 		this.commissioner = commissioner;
 	}
 	
-	public FantasyRuleSet getRuleSet() {
+	public FantasyRuleSetEntity getRuleSet() {
 		return ruleSet;
 	}
 
-	public void setRuleSet(FantasyRuleSet ruleSet) {
+	public void setRuleSet(FantasyRuleSetEntity ruleSet) {
 		this.ruleSet = ruleSet;
 	}
 

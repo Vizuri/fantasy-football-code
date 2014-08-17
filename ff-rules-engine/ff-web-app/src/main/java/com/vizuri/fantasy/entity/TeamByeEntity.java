@@ -8,12 +8,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "team_bye_week")
-public class TeamBye extends BaseEntity {
+public class TeamByeEntity extends BaseEntity {
 	private static final long serialVersionUID = -513051049422716224L;
 
 	@ManyToOne
 	@JoinColumn(name = "team_id")
-	private Team team;
+	private TeamEntity team;
 	
 	@Column
 	private Integer year;
@@ -21,11 +21,11 @@ public class TeamBye extends BaseEntity {
 	@Column 
 	private Integer week;
 
-	public Team getTeam() {
+	public TeamEntity getTeam() {
 		return team;
 	}
 
-	public void setTeam(Team team) {
+	public void setTeam(TeamEntity team) {
 		this.team = team;
 	}
 

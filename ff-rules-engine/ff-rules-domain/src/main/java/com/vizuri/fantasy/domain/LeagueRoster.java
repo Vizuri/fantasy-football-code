@@ -10,7 +10,7 @@ import java.util.List;
  * @author amirge
  *
  */
-public class LeagueRosterDto implements Serializable {
+public class LeagueRoster implements Serializable {
 	private static final long serialVersionUID = 6791456891370988324L;
 	
 	private Long leagueId;
@@ -18,7 +18,7 @@ public class LeagueRosterDto implements Serializable {
 	private List<String> validPositions;
 	private Boolean bench;
 	
-	public LeagueRosterDto(){
+	public LeagueRoster(){
 	}
 
 	public Long getLeagueId() {
@@ -55,7 +55,7 @@ public class LeagueRosterDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LeagueRosterDTO [leagueId=" + leagueId + ", slot=" + slot
+		return "LeagueRoster [leagueId=" + leagueId + ", slot=" + slot
 				+ ", validPositions=" + validPositions + ", bench=" + bench
 				+ "]";
 	}
@@ -78,7 +78,7 @@ public class LeagueRosterDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LeagueRosterDto other = (LeagueRosterDto) obj;
+		LeagueRoster other = (LeagueRoster) obj;
 		if (leagueId == null) {
 			if (other.leagueId != null)
 				return false;

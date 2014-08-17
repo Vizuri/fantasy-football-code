@@ -11,19 +11,19 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "fantasy_team_roster", uniqueConstraints = @UniqueConstraint(columnNames = {"team_id", "slot", "week"})) 
-public class FantasyTeamRoster extends BaseEntity {
+public class FantasyTeamRosterEntity extends BaseEntity {
 	private static final long serialVersionUID = 7559413930629273686L;
 
 	@ManyToOne
 	@JoinColumn(name = "team_id")
-	private FantasyTeam team;
+	private FantasyTeamEntity team;
 	
 	@Column
 	private Integer slot;
 	
 	@ManyToOne
 	@JoinColumn(name = "player_id")
-	private Player player;
+	private PlayerEntity player;
 	
 	@Column
 	private Integer week;
@@ -31,11 +31,11 @@ public class FantasyTeamRoster extends BaseEntity {
 	@Column (columnDefinition = "DECIMAL(6,2)")
 	private BigDecimal score;
 
-	public FantasyTeam getTeam() {
+	public FantasyTeamEntity getTeam() {
 		return team;
 	}
 
-	public void setTeam(FantasyTeam team) {
+	public void setTeam(FantasyTeamEntity team) {
 		this.team = team;
 	}
 
@@ -47,11 +47,11 @@ public class FantasyTeamRoster extends BaseEntity {
 		this.slot = slot;
 	}
 
-	public Player getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEntity player) {
 		this.player = player;
 	}
 

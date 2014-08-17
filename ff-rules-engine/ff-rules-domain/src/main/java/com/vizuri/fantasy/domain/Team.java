@@ -12,15 +12,15 @@ import java.util.List;
  * @author amirge
  *
  */
-public class TeamDto implements Serializable {
+public class Team implements Serializable {
 
 	private static final long serialVersionUID = 7702660076763078961L;
 	private Long id;
-	private OwnerDto owner;
+	private Owner owner;
 	private Long leagueId;
 	private String name;
 	private BigDecimal totalPoints;
-	private List<PlayerDto> players = new ArrayList<PlayerDto>();
+	private List<Player> players = new ArrayList<Player>();
 	private List<Violation> violationList = new ArrayList<Violation>();
 	
 	public Long getId() {
@@ -35,10 +35,10 @@ public class TeamDto implements Serializable {
 	public void setViolationList(List<Violation> violationList) {
 		this.violationList = violationList;
 	}
-	public OwnerDto getOwner() {
+	public Owner getOwner() {
 		return owner;
 	}
-	public void setOwner(OwnerDto owner) {
+	public void setOwner(Owner owner) {
 		this.owner = owner;
 	}
 	public Long getLeagueId() {
@@ -59,15 +59,15 @@ public class TeamDto implements Serializable {
 	public void setTotalPoints(BigDecimal totalPoints) {
 		this.totalPoints = totalPoints;
 	}
-	public List<PlayerDto> getPlayers() {
+	public List<Player> getPlayers() {
 		return players;
 	}
-	public void setPlayers(List<PlayerDto> players) {
+	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
 	
-	public TeamRosterDto getTeamRosterPosition(){
-		return new TeamRosterDto(id);
+	public TeamRoster getTeamRosterPosition(){
+		return new TeamRoster(id);
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public class TeamDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TeamDto other = (TeamDto) obj;
+		Team other = (Team) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

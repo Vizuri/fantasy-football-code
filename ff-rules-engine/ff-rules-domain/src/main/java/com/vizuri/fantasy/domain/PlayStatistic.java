@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @author amirge
  *
  */
-public class PlayStatisticDto implements Serializable {
+public class PlayStatistic implements Serializable {
 	private static final long serialVersionUID = -9147702184481977325L;
 	
 	private Long playerId;
@@ -17,7 +17,7 @@ public class PlayStatisticDto implements Serializable {
 	private BigDecimal statisticValue;
 	private String gameTime;
 	
-	public PlayStatisticDto() {
+	public PlayStatistic() {
 	}
 
 	public Long getPlayerId() {
@@ -70,7 +70,7 @@ public class PlayStatisticDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PlayStatisticDTO [playerId=" + playerId + ", year=" + year
+		return "PlayStatistic [playerId=" + playerId + ", year=" + year
 				+ ", week=" + week + ", statisticType=" + statisticType
 				+ ", statisticValue=" + statisticValue + ", gameTime="
 				+ gameTime + "]";
@@ -99,7 +99,7 @@ public class PlayStatisticDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlayStatisticDto other = (PlayStatisticDto) obj;
+		PlayStatistic other = (PlayStatistic) obj;
 		if (gameTime == null) {
 			if (other.gameTime != null)
 				return false;

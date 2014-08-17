@@ -16,21 +16,21 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.vizuri.fantasy.entity.FantasyLeague;
-import com.vizuri.fantasy.entity.FantasyLeagueRoster;
-import com.vizuri.fantasy.entity.FantasyOwner;
-import com.vizuri.fantasy.entity.FantasyTeam;
-import com.vizuri.fantasy.entity.FantasyTeamRoster;
-import com.vizuri.fantasy.entity.OverallRanking;
-import com.vizuri.fantasy.entity.PlayStatistic;
-import com.vizuri.fantasy.entity.Player;
-import com.vizuri.fantasy.entity.PlayerStatus;
-import com.vizuri.fantasy.entity.Position;
-import com.vizuri.fantasy.entity.PositionRanking;
-import com.vizuri.fantasy.entity.ScheduledMatch;
-import com.vizuri.fantasy.entity.StatisticType;
-import com.vizuri.fantasy.entity.Team;
-import com.vizuri.fantasy.entity.TeamBye;
+import com.vizuri.fantasy.entity.FantasyLeagueEntity;
+import com.vizuri.fantasy.entity.FantasyLeagueRosterEntity;
+import com.vizuri.fantasy.entity.FantasyOwnerEntity;
+import com.vizuri.fantasy.entity.FantasyTeamEntity;
+import com.vizuri.fantasy.entity.FantasyTeamRosterEntity;
+import com.vizuri.fantasy.entity.OverallRankingEntity;
+import com.vizuri.fantasy.entity.PlayStatisticEntity;
+import com.vizuri.fantasy.entity.PlayerEntity;
+import com.vizuri.fantasy.entity.PlayerStatusEntity;
+import com.vizuri.fantasy.entity.PositionEntity;
+import com.vizuri.fantasy.entity.PositionRankingEntity;
+import com.vizuri.fantasy.entity.ScheduledMatchEntity;
+import com.vizuri.fantasy.entity.StatisticTypeEntity;
+import com.vizuri.fantasy.entity.TeamEntity;
+import com.vizuri.fantasy.entity.TeamByeEntity;
 import com.vizuri.fantasy.football.FootballUtil;
 import com.vizuri.fantasy.football.PlayByPlayLexer;
 import com.vizuri.fantasy.football.PlayByPlayLexer.Token;
@@ -53,7 +53,7 @@ public class Dataload extends JpaBaseTestCase {
 		log.info("Loading position data...");
 		List<String[]> positionLookupData = DataUtil.createRecords(new File(DATA_DIR + "/positions.csv"));
 		for (String[] positionData : positionLookupData) {
-			Position position = new Position();
+			PositionEntity position = new PositionEntity();
 			position.setShortName(positionData[0]);
 			position.setName(positionData[1]);
 			saveEntity(position);
@@ -68,19 +68,19 @@ public class Dataload extends JpaBaseTestCase {
 		log.info("Loading team data...");
 		List<String []> teamsData = DataUtil.createRecords(new File(DATA_DIR + "/teams.csv"));
 		for (String[] teamData : teamsData) {
-			Team team = new Team();
+			TeamEntity team = new TeamEntity();
 			team.setNickname(teamData[0]);
 			team.setCity(teamData[1]);
 			team.setName(teamData[2]);
 			saveEntity(team);
 			
-			TeamBye teamBye = new TeamBye();
+			TeamByeEntity teamBye = new TeamByeEntity();
 			teamBye.setTeam(team);
 			teamBye.setWeek(Integer.parseInt(teamData[3]));
 			teamBye.setYear(2013);
 			saveEntity(teamBye);
 			
-			Player player = new Player();
+			PlayerEntity player = new PlayerEntity();
 			player.setName("Team Defense");
 			player.setPosition(LookupManager.findPositionByShortName("DEF", em));
 			player.setOfficialPosition("DEF");
@@ -98,7 +98,7 @@ public class Dataload extends JpaBaseTestCase {
 		log.info("Loading match data...");
 		List<String[]> scheduleData = DataUtil.createRecords(new File(DATA_DIR + "/schedule.csv"));
 		for (String[] matchData : scheduleData) {
-			ScheduledMatch match = new ScheduledMatch();
+			ScheduledMatchEntity match = new ScheduledMatchEntity();
 			match.setYear(Integer.parseInt(matchData[0]));
 			match.setWeek(Integer.parseInt(matchData[1]));
 			
@@ -128,7 +128,7 @@ public class Dataload extends JpaBaseTestCase {
 			
 			// ignoring unmapped positions and generic offense positions
 			if (!"UNK".equalsIgnoreCase(mappedPosition) && !"O".equalsIgnoreCase(mappedPosition)) {
-				Player player = new Player();
+				PlayerEntity player = new PlayerEntity();
 				player.setTeam(TeamManager.findTeamByNickname(playerData[0], em));
 				
 				String officialPosition = playerData[1];
@@ -160,7 +160,7 @@ public class Dataload extends JpaBaseTestCase {
 	
 	@Test
 	public void removeDuplicatePlayers() {
-		int removed = em.createQuery("delete from Player p where exists (select p2 from Player p2 where p2.name = p.name and p2.dob = p.dob and p2.id > p.id)").executeUpdate();
+		int removed = em.createQuery("delete from PlayerEntity p where exists (select p2 from PlayerEntity p2 where p2.name = p.name and p2.dob = p.dob and p2.id > p.id)").executeUpdate();
 		log.info("Removed " + removed + " duplicate players...");
 	}
 	
@@ -175,7 +175,7 @@ public class Dataload extends JpaBaseTestCase {
 			try {
 				if (!lastPlayerName.equalsIgnoreCase(playerData[2])) {
 					lastPlayerName = playerData[2];
-					PlayerStatus playerStatus = new PlayerStatus();
+					PlayerStatusEntity playerStatus = new PlayerStatusEntity();
 					
 					playerStatus.setYear(Integer.parseInt(playerData[0]));
 					playerStatus.setWeek(Integer.parseInt(playerData[1]));
@@ -199,7 +199,7 @@ public class Dataload extends JpaBaseTestCase {
 		int counter = 0;
 		log.info("Loading statistic types...");
 		for (String[] stat : statData) {
-			StatisticType type = new StatisticType();
+			StatisticTypeEntity type = new StatisticTypeEntity();
 			type.setName(stat[0]);
 			saveEntity(type);
 			counter++;
@@ -216,7 +216,7 @@ public class Dataload extends JpaBaseTestCase {
 			String playerString = data[2];
 			playerString = playerString.substring(0, playerString.lastIndexOf(" "));
 			
-			Player player = null;
+			PlayerEntity player = null;
 			String position = data[3];
 			
 			try {
@@ -229,7 +229,7 @@ public class Dataload extends JpaBaseTestCase {
 					player = PlayerManager.findPlayerByFullNamePosition(playerString, position, em);
 				}
 				
-				OverallRanking ranking = new OverallRanking();
+				OverallRankingEntity ranking = new OverallRankingEntity();
 				ranking.setRank(counter + 1);
 				ranking.setValue(new BigDecimal(data[7]));
 				ranking.setYear(Integer.parseInt(data[0]));
@@ -249,15 +249,15 @@ public class Dataload extends JpaBaseTestCase {
 	public void loadPositionRankingData() {
 		List<String[]>positionRankingData = DataUtil.createRecords(new File(DATA_DIR + "/position_rankings.csv"));
 		
-		Map<String, Position> positionMap = LookupManager.getPositionMap(em);
+		Map<String, PositionEntity> positionMap = LookupManager.getPositionMap(em);
 		
 		int loadedCount = 0, totalCount = 0;
 		int rank = 1;
-		Position position = null;
+		PositionEntity position = null;
 		log.info("Loading position rankings...");
 		for (String[] data : positionRankingData) {
 			try {
-				Player player = "Team Defense".equalsIgnoreCase(data[2]) ? 
+				PlayerEntity player = "Team Defense".equalsIgnoreCase(data[2]) ? 
 						PlayerManager.findPlayerByFullNameTeam(data[2], data[3], em) :  // Specify team
 							PlayerManager.findPlayerByFullNamePosition(data[2], data[4], em); // Specify position
 				
@@ -267,7 +267,7 @@ public class Dataload extends JpaBaseTestCase {
 					position = positionMap.get(nextPosition);
 				}
 						
-				PositionRanking ranking = new PositionRanking();
+				PositionRankingEntity ranking = new PositionRankingEntity();
 				ranking.setYear(Integer.parseInt(data[0]));
 				//ranking.setRank(Integer.parseInt(data[1]));
 				ranking.setRank(rank);
@@ -312,12 +312,12 @@ public class Dataload extends JpaBaseTestCase {
 	
 	private void processPlayByPlay(List<String[]> playData) throws Exception {
 		String lastGameString = "";
-		ScheduledMatch match = null;
-		Team offense = null, defense = null;
+		ScheduledMatchEntity match = null;
+		TeamEntity offense = null, defense = null;
 		String homeTeamNickname = "", awayTeamNickName = "";
-		Map<String, Player> matchPlayers = null;
+		Map<String, PlayerEntity> matchPlayers = null;
 		
-		Map<FootballStatisticType, StatisticType> statTypes = LookupManager.findFootballStatTypes(em);
+		Map<FootballStatisticType, StatisticTypeEntity> statTypes = LookupManager.findFootballStatTypes(em);
 		
 		for (String[] play : playData) {
 			String nextGameString = play[0];
@@ -337,11 +337,11 @@ public class Dataload extends JpaBaseTestCase {
 				if (log.isDebugEnabled()) { log.debug("Loaded match: " + match); }
 				
 				// Load players
-				matchPlayers = new HashMap<String,Player>();
-				for (Player player : PlayerManager.findActivePlayers(homeTeamNickname, em)) {
+				matchPlayers = new HashMap<String,PlayerEntity>();
+				for (PlayerEntity player : PlayerManager.findActivePlayers(homeTeamNickname, em)) {
 					matchPlayers.put(homeTeamNickname + FootballUtil.getShortName(player.getName()), player);
 				}
-				for (Player player : PlayerManager.findActivePlayers(awayTeamNickName, em)) {
+				for (PlayerEntity player : PlayerManager.findActivePlayers(awayTeamNickName, em)) {
 					matchPlayers.put(awayTeamNickName + FootballUtil.getShortName(player.getName()), player);
 				}
 				
@@ -373,6 +373,11 @@ public class Dataload extends JpaBaseTestCase {
 					Map<TokenType, List<Token>> tokenizedPlay = PlayByPlayLexer.lexit(individualPlay);
 					if (!overallPlayIgnored && (tokenizedPlay.containsKey(TokenType.PLAYER) || players.size() > 0)) {
 						Integer yardage = 0;
+						
+						if (tokenizedPlay.containsKey(TokenType.BACKWARDPASS)) {
+							// Can just ignore a fragment with this modifier, the actual play was in previous fragment
+							break;
+						}
 						
 						if (tokenizedPlay.containsKey(TokenType.PLAYER)) {
 							// reset list, otherwise will use players from last fragment
@@ -409,6 +414,7 @@ public class Dataload extends JpaBaseTestCase {
 						if (tokenizedPlay.containsKey(TokenType.SAFETY)) {
 							match.addScore(defense.getNickname(), 2);
 							addStat(matchPlayers.get(defense.getNickname()+FootballUtil.TEAM_DEFENSE_SHORTNAME), match, statTypes.get(FootballStatisticType.SAFETY), 1, gameTime);
+							addStat(matchPlayers.get(offense.getNickname()+FootballUtil.TEAM_DEFENSE_SHORTNAME), match, statTypes.get(FootballStatisticType.POINTS_ALLOWED), 2, gameTime);
 						}
 						
 						if (tokenizedPlay.containsKey(TokenType.PUNTBLOCK)) {
@@ -434,6 +440,11 @@ public class Dataload extends JpaBaseTestCase {
 							offense = swap(defense, defense = offense);
 						}
 						
+						if (tokenizedPlay.containsKey(TokenType.SACK)) {
+							addStat(matchPlayers.get(offense.getNickname()+players.get(0)), match, statTypes.get(FootballStatisticType.SACK), 1, gameTime);
+							addStat(matchPlayers.get(defense.getNickname()+FootballUtil.TEAM_DEFENSE_SHORTNAME), match, statTypes.get(FootballStatisticType.SACK_MADE), 1, gameTime);
+						}
+						
 						if (tokenizedPlay.containsKey(TokenType.FUMBLES) && tokenizedPlay.containsKey(TokenType.RECOVEREDBY)) {
 							String recoveredBy = tokenizedPlay.get(TokenType.RECOVEREDBY).get(0).data;
 							if (!recoveredBy.equals(offense.getNickname())) {
@@ -444,11 +455,6 @@ public class Dataload extends JpaBaseTestCase {
 								changePossession = true;
 								offense = swap(defense, defense = offense);
 							}
-						}
-						
-						if (tokenizedPlay.containsKey(TokenType.SACK)) {
-							addStat(matchPlayers.get(offense.getNickname()+players.get(0)), match, statTypes.get(FootballStatisticType.SACK), 1, gameTime);
-							addStat(matchPlayers.get(defense.getNickname()+FootballUtil.TEAM_DEFENSE_SHORTNAME), match, statTypes.get(FootballStatisticType.SACK_MADE), 1, gameTime);
 						}
 						
 						if (tokenizedPlay.containsKey(TokenType.PASSPLAY)) {
@@ -499,7 +505,8 @@ public class Dataload extends JpaBaseTestCase {
 	
 	//@Test
 	public void testSinglePlay() {
-		String play = "J.Flacco sacked at BAL 27 for -6 yards (S.Phillips). FUMBLES (S.Phillips) recovered by BAL-R.Wagner at BAL 27. R.Wagner to BAL 27 for no gain (D.Wolfe).";
+		//String play = "J.Flacco sacked at BAL 27 for -6 yards (S.Phillips). FUMBLES (S.Phillips) recovered by BAL-R.Wagner at BAL 27. R.Wagner to BAL 27 for no gain (D.Wolfe).";
+		String play = "(6:27) (Shotgun) M.Forte right end to CHI 28 for -5 yards (R.Kerrigan). Backward pass to 22-Forte";
 		String plays[] = play.split("\\. ", -1);
 		for (String individualPlay : plays) {
 			log.info("Play component: " + individualPlay);
@@ -510,11 +517,11 @@ public class Dataload extends JpaBaseTestCase {
 	
 	@Test
 	public void createTestLeague() {
-		List<FantasyOwner> owners = new ArrayList<FantasyOwner>();
-		List<FantasyTeam> teams = new ArrayList<FantasyTeam>();
+		List<FantasyOwnerEntity> owners = new ArrayList<FantasyOwnerEntity>();
+		List<FantasyTeamEntity> teams = new ArrayList<FantasyTeamEntity>();
 		
 		for (int i = 1; i <= 6; i++) {
-			FantasyOwner owner = new FantasyOwner();
+			FantasyOwnerEntity owner = new FantasyOwnerEntity();
 			owner.setEmail("owner" + i + "@fantasyrules.org");
 			owner.setName("F. Owner" + i);
 			owner.setPassword("password");
@@ -522,7 +529,7 @@ public class Dataload extends JpaBaseTestCase {
 			owners.add(owner);
 		}
 		
-		FantasyLeague league = new FantasyLeague();
+		FantasyLeagueEntity league = new FantasyLeagueEntity();
 		league.setCommissioner(owners.get(0));
 		league.setName("Fantasy Rules!");
 		league.setYear(2013);
@@ -530,7 +537,7 @@ public class Dataload extends JpaBaseTestCase {
 		saveEntity(league);
 		
 		for (int i = 0; i < 6; i++) {
-			FantasyTeam team = new FantasyTeam();
+			FantasyTeamEntity team = new FantasyTeamEntity();
 			team.setCurrentScore(BigDecimal.ZERO);
 			team.setLeague(league);
 			team.setName("Team " + (i + 1));
@@ -539,15 +546,15 @@ public class Dataload extends JpaBaseTestCase {
 			teams.add(team);
 		}
 		
-		Map<String,Position> positionMap = LookupManager.getPositionMap(em);
+		Map<String,PositionEntity> positionMap = LookupManager.getPositionMap(em);
 		List<String> rosterPositions = Arrays.asList("QB", "WR", "WR", "WR,RB", "RB", "RB", "TE", "K", "DEF");
 		List<String> benchPositions = Arrays.asList("QB", "WR", "RB", "TE", "K", "DEF");
 		int slot = 0;
 		
-		Map<String, List<PositionRanking>> rankingMap = LookupManager.getPositionRankingMap(em);
+		Map<String, List<PositionRankingEntity>> rankingMap = LookupManager.getPositionRankingMap(em);
 		
 		for (String positions : rosterPositions) {
-			FantasyLeagueRoster leagueRoster = new FantasyLeagueRoster();
+			FantasyLeagueRosterEntity leagueRoster = new FantasyLeagueRosterEntity();
 			leagueRoster.setLeague(league);
 			leagueRoster.setSlot(++slot);
 			log.debug("Slot: " + slot);
@@ -557,10 +564,10 @@ public class Dataload extends JpaBaseTestCase {
 			}
 			saveEntity(leagueRoster);
 			
-			for (FantasyTeam team : teams) {
+			for (FantasyTeamEntity team : teams) {
 				String firstPosition = positions.split(",",0)[0];
 				
-				FantasyTeamRoster teamRoster = new FantasyTeamRoster();
+				FantasyTeamRosterEntity teamRoster = new FantasyTeamRosterEntity();
 				teamRoster.setPlayer(rankingMap.get(firstPosition).remove(0).getPlayer()); // pop!
 				teamRoster.setScore(BigDecimal.ZERO);
 				teamRoster.setSlot(slot);
@@ -571,14 +578,14 @@ public class Dataload extends JpaBaseTestCase {
 		}
 		
 		for (String position : benchPositions) {
-			FantasyLeagueRoster roster = new FantasyLeagueRoster();
+			FantasyLeagueRosterEntity roster = new FantasyLeagueRosterEntity();
 			roster.setLeague(league);
 			roster.setSlot(++slot);
 			roster.setBenchPosition(true);
 			saveEntity(roster);
 			
-			for (FantasyTeam team : teams) {
-				FantasyTeamRoster teamRoster = new FantasyTeamRoster();
+			for (FantasyTeamEntity team : teams) {
+				FantasyTeamRosterEntity teamRoster = new FantasyTeamRosterEntity();
 				teamRoster.setPlayer(rankingMap.get(position).remove(0).getPlayer()); // pop!
 				teamRoster.setScore(BigDecimal.ZERO);
 				teamRoster.setSlot(slot);
@@ -590,8 +597,8 @@ public class Dataload extends JpaBaseTestCase {
 		
 	}
 	
-	private void addStat(Player player, ScheduledMatch match, StatisticType type, Integer quantity, String gameTime) {
-		PlayStatistic stat = new PlayStatistic();
+	private void addStat(PlayerEntity player, ScheduledMatchEntity match, StatisticTypeEntity type, Integer quantity, String gameTime) {
+		PlayStatisticEntity stat = new PlayStatisticEntity();
 		stat.setGameTime(gameTime);
 		stat.setPlayer(player);
 		stat.setScheduledMatch(match);
@@ -628,7 +635,7 @@ public class Dataload extends JpaBaseTestCase {
 			 if (lastName != null && lastName.length() > 0) {
 				 if (log.isDebugEnabled()) { log.debug("Processing Player: " + Arrays.toString(playerData)); }
 				 String[] output = new String[5];
-				 Player player = PlayerManager.findPlayerByFullName(playerData[3] + " " + lastName, em);
+				 PlayerEntity player = PlayerManager.findPlayerByFullName(playerData[3] + " " + lastName, em);
 				 if (player != null) {
 					 output[0] = "2013";
 					 output[1] = currentWeek + "";

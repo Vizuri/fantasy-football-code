@@ -11,12 +11,12 @@ import java.util.ArrayList;
  * @author amirge
  *
  */
-public class LeagueDto implements Serializable {
+public class League implements Serializable {
 	private static final long serialVersionUID = -2498514903317856131L;	
 	private Long id;	
 	private String name;
-	private OwnerDto commissioner; //League provider
-	private List<TeamDto> fantasyTeams = new ArrayList<TeamDto>();
+	private Owner commissioner; //League provider
+	private List<Team> fantasyTeams = new ArrayList<Team>();
 	private String type; 
 	private Long rulesetId;
 	private boolean isValid;
@@ -35,16 +35,16 @@ public class LeagueDto implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public OwnerDto getCommissioner() {
+	public Owner getCommissioner() {
 		return commissioner;
 	}
-	public void setCommissioner(OwnerDto commissioner) {
+	public void setCommissioner(Owner commissioner) {
 		this.commissioner = commissioner;
 	}
-	public List<TeamDto> getFantasyTeams() {
+	public List<Team> getFantasyTeams() {
 		return fantasyTeams;
 	}
-	public void setFantasyTeams(List<TeamDto> fantasyTeams) {
+	public void setFantasyTeams(List<Team> fantasyTeams) {
 		this.fantasyTeams = fantasyTeams;
 	}
 	public String getType() {
@@ -102,7 +102,7 @@ public class LeagueDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LeagueDto other = (LeagueDto) obj;
+		League other = (League) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

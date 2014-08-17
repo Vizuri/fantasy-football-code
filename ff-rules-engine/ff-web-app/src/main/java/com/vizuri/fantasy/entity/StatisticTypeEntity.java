@@ -7,7 +7,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "statistic_type", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class StatisticType extends BaseEntity {
+public class StatisticTypeEntity extends BaseEntity {
 	private static final long serialVersionUID = -84495195616384970L;
 
 	@Column

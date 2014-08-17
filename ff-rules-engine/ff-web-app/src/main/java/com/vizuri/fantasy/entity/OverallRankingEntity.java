@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "overall_ranking")
-public class OverallRanking extends BaseEntity {
+public class OverallRankingEntity extends BaseEntity {
 	private static final long serialVersionUID = -4520555286178521578L;
 
 	@ManyToOne
 	@JoinColumn(name = "player_id")
 	@NotNull
-	private Player player;
+	private PlayerEntity player;
 	
 	@Column
 	private Integer year;
@@ -28,11 +28,11 @@ public class OverallRanking extends BaseEntity {
 	@Column
 	private BigDecimal value;
 
-	public Player getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEntity player) {
 		this.player = player;
 	}
 

@@ -11,12 +11,12 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name ="fantasy_league_standings", uniqueConstraints = @UniqueConstraint(columnNames = {"team_id", "week"}))
-public class FantasyLeagueStandings extends BaseEntity {
+public class FantasyLeagueStandingsEntity extends BaseEntity {
 	private static final long serialVersionUID = 2094073688696345337L;
 
 	@ManyToOne
 	@JoinColumn(name = "team_id")
-	private FantasyTeam team;
+	private FantasyTeamEntity team;
 	
 	@Column
 	private Integer week;
@@ -27,11 +27,11 @@ public class FantasyLeagueStandings extends BaseEntity {
 	@Column
 	private Integer ranking;
 
-	public FantasyTeam getTeam() {
+	public FantasyTeamEntity getTeam() {
 		return team;
 	}
 
-	public void setTeam(FantasyTeam team) {
+	public void setTeam(FantasyTeamEntity team) {
 		this.team = team;
 	}
 

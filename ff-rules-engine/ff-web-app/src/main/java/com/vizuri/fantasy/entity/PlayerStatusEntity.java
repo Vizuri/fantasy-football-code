@@ -13,12 +13,12 @@ import com.vizuri.fantasy.types.PlayerStatusType;
 
 @Entity
 @Table(name = "player_status", uniqueConstraints = @UniqueConstraint(columnNames = {"player_id", "year", "week"}))
-public class PlayerStatus extends BaseEntity {
+public class PlayerStatusEntity extends BaseEntity {
 	private static final long serialVersionUID = -7330820238518285829L;
 
 	@ManyToOne
 	@JoinColumn(name = "player_id")
-	private Player player;
+	private PlayerEntity player;
 	
 	@Column(name = "status_type")
 	@Enumerated(EnumType.STRING)
@@ -33,11 +33,11 @@ public class PlayerStatus extends BaseEntity {
 	@Column
 	private Integer week;
 
-	public Player getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEntity player) {
 		this.player = player;
 	}
 

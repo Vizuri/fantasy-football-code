@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fantasy_owner")
-public class FantasyOwner extends BaseEntity {
+public class FantasyOwnerEntity extends BaseEntity {
 	private static final long serialVersionUID = 2197454372137140807L;
 
 	@Column

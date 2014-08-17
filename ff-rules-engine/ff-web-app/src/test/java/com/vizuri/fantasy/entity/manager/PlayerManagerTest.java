@@ -3,7 +3,7 @@ package com.vizuri.fantasy.entity.manager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.vizuri.fantasy.entity.Player;
+import com.vizuri.fantasy.entity.PlayerEntity;
 
 
 public class PlayerManagerTest extends JpaRolledBackTestCase {
@@ -11,13 +11,13 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 	
 	@Test
 	public void testGetPlayerCount() {
-		int playerCount = ((Long)em.createQuery("select count(p) from Player p").getSingleResult()).intValue();
+		int playerCount = ((Long)em.createQuery("select count(p) from PlayerEntity p").getSingleResult()).intValue();
 		log.info("Found: " + playerCount + " players...");
 	}
 	
 	@Test
 	public void testFindPlayer() {
-		Player player = PlayerManager.findPlayerByFullName("David Akers", em);
+		PlayerEntity player = PlayerManager.findPlayerByFullName("David Akers", em);
 		log.info("Found: " + player);
 	}
 }

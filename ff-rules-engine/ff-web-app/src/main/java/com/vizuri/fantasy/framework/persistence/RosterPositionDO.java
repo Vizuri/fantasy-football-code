@@ -6,8 +6,8 @@ package com.vizuri.fantasy.framework.persistence;
 import java.io.Serializable;
 import java.util.List;
 
-import com.vizuri.fantasy.domain.LeagueRosterDto;
-import com.vizuri.fantasy.domain.TeamRosterDto;
+import com.vizuri.fantasy.domain.LeagueRoster;
+import com.vizuri.fantasy.domain.TeamRoster;
 import com.vizuri.fantasy.domain.Violation;
 
 /**
@@ -18,28 +18,28 @@ public class RosterPositionDO implements Serializable{
 
 	private static final long serialVersionUID = 2168139049971937608L;
 	
-	private List<TeamRosterDto> teamRosterPositions;
-	private List<LeagueRosterDto> leagueRosterPositions;
+	private List<TeamRoster> teamRosterPositions;
+	private List<LeagueRoster> leagueRosterPositions;
 	private Long leagueId;
 	private List<Violation> violations;
 
 	public RosterPositionDO() {
 	}
 
-	public List<TeamRosterDto> getTeamRosterPositions() {
+	public List<TeamRoster> getTeamRosterPositions() {
 		return teamRosterPositions;
 	}
 
-	public void setTeamRosterPositions(List<TeamRosterDto> teamRosterPositions) {
+	public void setTeamRosterPositions(List<TeamRoster> teamRosterPositions) {
 		this.teamRosterPositions = teamRosterPositions;
 	}
 
-	public List<LeagueRosterDto> getLeagueRosterPositions() {
+	public List<LeagueRoster> getLeagueRosterPositions() {
 		return leagueRosterPositions;
 	}
 
 	public void setLeagueRosterPositions(
-			List<LeagueRosterDto> leagueRosterPositions) {
+			List<LeagueRoster> leagueRosterPositions) {
 		this.leagueRosterPositions = leagueRosterPositions;
 	}
 

@@ -14,12 +14,12 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "fantasy_league_roster", uniqueConstraints = @UniqueConstraint(columnNames = {"league_id", "slot"}))
-public class FantasyLeagueRoster extends BaseEntity {
+public class FantasyLeagueRosterEntity extends BaseEntity {
 	private static final long serialVersionUID = 2477796467644820197L;
 
 	@ManyToOne
 	@JoinColumn(name="league_id")
-	private FantasyLeague league;
+	private FantasyLeagueEntity league;
 	
 	@Column
 	private Integer slot;
@@ -30,16 +30,16 @@ public class FantasyLeagueRoster extends BaseEntity {
 			joinColumns = {@JoinColumn(name = "roster_id", referencedColumnName="id"), @JoinColumn(name="slot", referencedColumnName="slot")},
 			inverseJoinColumns = @JoinColumn(name = "position_id", referencedColumnName = "id", unique = false)
 	)
-	private Set<Position> positions;
+	private Set<PositionEntity> positions;
 	
-	@Column
+	@Column(name = "is_bench_position")
 	private Boolean benchPosition = false;
 
-	public FantasyLeague getLeague() {
+	public FantasyLeagueEntity getLeague() {
 		return league;
 	}
 
-	public void setLeague(FantasyLeague league) {
+	public void setLeague(FantasyLeagueEntity league) {
 		this.league = league;
 	}
 
@@ -51,11 +51,11 @@ public class FantasyLeagueRoster extends BaseEntity {
 		this.slot = slot;
 	}
 
-	public Set<Position> getPositions() {
+	public Set<PositionEntity> getPositions() {
 		return positions;
 	}
 
-	public void setPositions(Set<Position> positions) {
+	public void setPositions(Set<PositionEntity> positions) {
 		this.positions = positions;
 	}
 
@@ -74,9 +74,9 @@ public class FantasyLeagueRoster extends BaseEntity {
 				+ benchPosition + ", getId()=" + getId() + "]";
 	}
 
-	public void addPosition(Position position) {
+	public void addPosition(PositionEntity position) {
 		if (positions == null) {
-			positions = new HashSet<Position>();
+			positions = new HashSet<PositionEntity>();
 		}
 		positions.add(position);
 	}

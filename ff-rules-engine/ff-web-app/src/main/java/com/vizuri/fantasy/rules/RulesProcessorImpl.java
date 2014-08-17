@@ -14,11 +14,11 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.AgendaFilter;
 import org.kie.api.runtime.rule.Match;
 
-import com.vizuri.fantasy.domain.LeagueDto;
-import com.vizuri.fantasy.domain.TeamDto;
-import com.vizuri.fantasy.domain.LeagueRosterDto;
-import com.vizuri.fantasy.domain.PlayerDto;
-import com.vizuri.fantasy.domain.TeamRosterDto;
+import com.vizuri.fantasy.domain.League;
+import com.vizuri.fantasy.domain.Team;
+import com.vizuri.fantasy.domain.LeagueRoster;
+import com.vizuri.fantasy.domain.Player;
+import com.vizuri.fantasy.domain.TeamRoster;
 import com.vizuri.fantasy.domain.Violation;
 import com.vizuri.fantasy.framework.persistence.RosterPositionDO;
 import com.vizuri.fantasy.services.client.listeners.AgendaListener;
@@ -38,7 +38,7 @@ public class RulesProcessorImpl implements RulesProcessor {
 	RuleListener ruleListener = new RuleListener();
 	
 
-	public Map<String, List<Violation>> fireViolationRules(LeagueDto league) {
+	public Map<String, List<Violation>> fireViolationRules(League league) {
 		log.info("Entered fireViolationRules...using FantasyLeague as an argument");
 		KieSession kieSession = null;
 		try {
@@ -53,13 +53,13 @@ public class RulesProcessorImpl implements RulesProcessor {
 				log.info("Adding Fantasy League: "+league.getName());				
 				kieSession.insert(league);
 				
-				List<TeamDto> teams = league.getFantasyTeams();
+				List<Team> teams = league.getFantasyTeams();
 				if(teams != null) {					
-					for(TeamDto team : teams){
+					for(Team team : teams){
 						log.info("Adding Fantasy Team: "+team.getName());
 						kieSession.insert(team);
-						List<PlayerDto> players = team.getPlayers();
-						for (PlayerDto player : players) {
+						List<Player> players = team.getPlayers();
+						for (Player player : players) {
 							kieSession.insert(player);
 						}						
 					}
@@ -84,11 +84,11 @@ public class RulesProcessorImpl implements RulesProcessor {
 		
 		Map<String, List<Violation>> violationMap = new HashMap<String, List<Violation>>();
 		
-		if(object instanceof LeagueDto){
-			LeagueDto league = (LeagueDto) object;
+		if(object instanceof League){
+			League league = (League) object;
 			
 			violationMap.put(league.getName(), league.getViolationList());
-			for(TeamDto fantasyTeam : league.getFantasyTeams()) {
+			for(Team fantasyTeam : league.getFantasyTeams()) {
 				violationMap.put(fantasyTeam.getName(), fantasyTeam.getViolationList());
 			}
 		}
@@ -109,8 +109,8 @@ public class RulesProcessorImpl implements RulesProcessor {
 			if (object!= null && object instanceof RosterPositionDO){
 				RosterPositionDO rosterPositionDO = (RosterPositionDO) object;
 				log.info("Adding Roster Position with League Id: "+rosterPositionDO.getLeagueId());		
-				List<LeagueRosterDto> leagueRosterPositions = rosterPositionDO.getLeagueRosterPositions();
-				List<TeamRosterDto> teamRosterPositions = rosterPositionDO.getTeamRosterPositions();
+				List<LeagueRoster> leagueRosterPositions = rosterPositionDO.getLeagueRosterPositions();
+				List<TeamRoster> teamRosterPositions = rosterPositionDO.getTeamRosterPositions();
 				
 				
 				if(leagueRosterPositions != null && leagueRosterPositions.size() > 0){

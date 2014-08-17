@@ -2,9 +2,11 @@ package com.vizuri.fantasy.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-public class Position extends BaseEntity {
+@Table(name = "position")
+public class PositionEntity extends BaseEntity {
 	private static final long serialVersionUID = 1296912062775541818L;
 
 	@Column(name = "short_name")
