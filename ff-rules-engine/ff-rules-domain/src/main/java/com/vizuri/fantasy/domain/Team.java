@@ -22,6 +22,7 @@ public class Team implements Serializable {
 	private BigDecimal totalPoints;
 	private List<Player> players = new ArrayList<Player>();
 	private List<Violation> violationList = new ArrayList<Violation>();
+	private Boolean paidDues = false;
 	
 	public Long getId() {
 		return id;
@@ -69,15 +70,20 @@ public class Team implements Serializable {
 	public TeamRoster getTeamRosterPosition(){
 		return new TeamRoster(id);
 	}
+	public Boolean getPaidDues() {
+		return paidDues;
+	}
+	public void setPaidDues(Boolean paidDues) {
+		this.paidDues = paidDues;
+	}
 	
 	@Override
 	public String toString() {
-		return "FantasyTeam [id=" + id + ", owner=" + owner + ", leagueId="
-				+ leagueId + ", name=" + name + ", totalPoints=" + totalPoints
+		return "Team [id=" + id + ", owner=" + owner + ", leagueId=" + leagueId
+				+ ", name=" + name + ", totalPoints=" + totalPoints
 				+ ", players=" + players + ", violationList=" + violationList
-				+ "]";
+				+ ", paidDues=" + paidDues + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -14,9 +14,10 @@ public class Violation implements Serializable {
 	private String details;
 	
 	
-	private Integer leagueId;
-	private Integer teamId;
+	private Long leagueId;
+	private Long teamId;
 	private Integer slotNumber;
+	private Integer week;
 	
 	public Severity getSeverity() {
 		return severity;
@@ -43,16 +44,16 @@ public class Violation implements Serializable {
 		this.details = details;
 	}
 	
-	public Integer getLeagueId() {
+	public Long getLeagueId() {
 		return leagueId;
 	}
-	public void setLeagueId(Integer leagueId) {
+	public void setLeagueId(Long leagueId) {
 		this.leagueId = leagueId;
 	}
-	public Integer getTeamId() {
+	public Long getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(Integer teamId) {
+	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
 	}
 	public Integer getSlotNumber() {
@@ -60,6 +61,12 @@ public class Violation implements Serializable {
 	}
 	public void setSlotNumber(Integer slotNumber) {
 		this.slotNumber = slotNumber;
+	}
+	public Integer getWeek() {
+		return week;
+	}
+	public void setWeek(Integer week) {
+		this.week = week;
 	}
 	//convenience methods
 	public String getSeverityString() {
@@ -75,7 +82,7 @@ public class Violation implements Serializable {
 		return "Violation [severity=" + severity + ", title=" + title
 				+ ", description=" + description + ", details=" + details
 				+ ", leagueId=" + leagueId + ", teamId=" + teamId
-				+ ", slotNumber=" + slotNumber + "]";
+				+ ", slotNumber=" + slotNumber + ", week=" + week + "]";
 	}
 	
 	@Override

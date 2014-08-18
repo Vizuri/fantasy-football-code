@@ -15,6 +15,7 @@ public class TeamRoster implements Serializable {
 	private Long teamId;
 	private Integer slotNumber;
 	private Player player;
+	private Long playerId;
 	private Integer week;
 	private Long leagueId;
 	
@@ -55,12 +56,20 @@ public class TeamRoster implements Serializable {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	public Long getPlayerId() {
+		return playerId;
+	}
+	public void setPlayerId(Long playerId) {
+		this.playerId = playerId;
+	}
+
 	@Override
 	public String toString() {
-		return "TeamRosterPosition [teamId=" + teamId + ", slotNumber="
-				+ slotNumber + ", player=" + player + ", week=" + week
-				+ ", leagueId=" + leagueId + "]";
+		return "TeamRoster [teamId=" + teamId + ", slotNumber=" + slotNumber
+				+ ", player=" + player + ", playerId=" + playerId + ", week="
+				+ week + ", leagueId=" + leagueId + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

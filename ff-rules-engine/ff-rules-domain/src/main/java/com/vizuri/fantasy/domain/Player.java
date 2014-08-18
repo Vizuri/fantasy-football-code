@@ -4,6 +4,7 @@
 package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @author amirge
@@ -15,13 +16,19 @@ public class Player implements Serializable {
 	
 	private Long id;
 	private String name;
-	private String team;
+	private String proTeamNickname;
 	private Integer number;
     private String position;
     private PlayerStatus status;
     private Boolean doNotCut;
-    private Long fantasyTeamId;
-	private String positionTypeString;
+    
+    private Integer positionRankingOrder = 2000;
+    private BigDecimal positionRankingWeight = BigDecimal.ZERO;
+    
+    private Integer overallRankingOrder = 2000;
+    private BigDecimal overallRankingWeight = BigDecimal.ZERO;
+    
+    private Boolean active = true;
 	
     public Player(){
     }
@@ -42,11 +49,11 @@ public class Player implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getTeam() {
-		return team;
+	public String getProTeamNickname() {
+		return this.proTeamNickname;
 	}
-	public void setTeam(String Team) {
-		this.team = Team;
+	public void setProTeamNickname(String proTeamNickname) {
+		this.proTeamNickname = proTeamNickname;
 	}
 	public Integer getNumber() {
 		return number;
@@ -66,32 +73,52 @@ public class Player implements Serializable {
 	public void setDoNotCut(Boolean doNotCut) {
 		this.doNotCut = doNotCut;
 	}
-	public Long getFantasyTeamId() {
-		return fantasyTeamId;
-	}
-	public void setFantasyTeamId(Long fantasyTeamId) {
-		this.fantasyTeamId = fantasyTeamId;
-	}
 	public String getPosition() {
 		return position;
 	}
 	public void setPosition(String position) {
 		this.position = position;
 	}	
-	public String getPositionTypeString() {
-		return positionTypeString;
+	public Integer getPositionRankingOrder() {
+		return positionRankingOrder;
 	}
-	public void setPositionTypeString(String positionTypeString) {
-		this.positionTypeString = positionTypeString;	
+	public void setPositionRankingOrder(Integer positionRankingOrder) {
+		this.positionRankingOrder = positionRankingOrder;
+	}
+	public BigDecimal getPositionRankingWeight() {
+		return positionRankingWeight;
+	}
+	public void setPositionRankingWeight(BigDecimal positionRankingWeight) {
+		this.positionRankingWeight = positionRankingWeight;
+	}
+	public Integer getOverallRankingOrder() {
+		return overallRankingOrder;
+	}
+	public void setOverallRankingOrder(Integer overallRankingOrder) {
+		this.overallRankingOrder = overallRankingOrder;
+	}
+	public BigDecimal getOverallRankingWeight() {
+		return overallRankingWeight;
+	}
+	public void setOverallRankingWeight(BigDecimal overallRankingWeight) {
+		this.overallRankingWeight = overallRankingWeight;
+	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", name=" + name + ", Team=" + team
+		return "Player [id=" + id + ", name=" + name + ", proTeamNickname=" + proTeamNickname
 				+ ", number=" + number + ", position=" + position + ", status="
-				+ status + ", doNotCut=" + doNotCut + ", fantasyTeamId="
-				+ fantasyTeamId + ", positionTypeString=" + positionTypeString
-				+ "]";
+				+ status + ", doNotCut=" + doNotCut + ", positionRankingOrder="
+				+ positionRankingOrder + ", positionRankingWeight="
+				+ positionRankingWeight + ", overallRankingOrder="
+				+ overallRankingOrder + ", overallRankingWeight="
+				+ overallRankingWeight + ", active=" + active + "]";
 	}
 
 	@Override

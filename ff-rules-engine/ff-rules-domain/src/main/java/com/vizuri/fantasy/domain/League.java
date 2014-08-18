@@ -4,6 +4,7 @@
 package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,6 +16,9 @@ public class League implements Serializable {
 	private static final long serialVersionUID = -2498514903317856131L;	
 	private Long id;	
 	private String name;
+	private Integer year;
+	private Integer currentWeek;
+	private Date simulatedTime;
 	private Owner commissioner; //League provider
 	private List<Team> fantasyTeams = new ArrayList<Team>();
 	private String type; 
@@ -34,6 +38,24 @@ public class League implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+	public Integer getCurrentWeek() {
+		return currentWeek;
+	}
+	public void setCurrentWeek(Integer currentWeek) {
+		this.currentWeek = currentWeek;
+	}
+	public Date getSimulatedTime() {
+		return simulatedTime;
+	}
+	public void setSimulatedTime(Date simulatedTime) {
+		this.simulatedTime = simulatedTime;
 	}
 	public Owner getCommissioner() {
 		return commissioner;
@@ -78,11 +100,14 @@ public class League implements Serializable {
 		this.violationList = violationList;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "FantasyLeague [id=" + id + ", name=" + name + ", commissioner="
-				+ commissioner + ", fantasyTeams=" + fantasyTeams + ", type="
-				+ type + ", rulesetId=" + rulesetId + ", isValid=" + isValid
+		return "League [id=" + id + ", name=" + name + ", year=" + year
+				+ ", currentWeek=" + currentWeek + ", simulatedTime="
+				+ simulatedTime + ", commissioner=" + commissioner
+				+ ", fantasyTeams=" + fantasyTeams + ", type=" + type
+				+ ", rulesetId=" + rulesetId + ", isValid=" + isValid
 				+ ", comment=" + comment + ", violationList=" + violationList
 				+ "]";
 	}

@@ -55,6 +55,15 @@ public class PlayerStatus implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	// Convenience method to work with Enums in BRMS test scenarios
+	public String getStatusTypeString() {
+		return String.valueOf(statusType);
+	}
+	
+	public void setStatusTypeString(String statusTypeString) {
+		this.statusType = PlayerStatusType.getStatus(statusTypeString);
+	}
 
 	@Override
 	public String toString() {

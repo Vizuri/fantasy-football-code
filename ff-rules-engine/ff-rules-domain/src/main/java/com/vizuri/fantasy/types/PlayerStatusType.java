@@ -28,12 +28,23 @@ public enum PlayerStatusType {
 	}
 	
 	public static PlayerStatusType getStatus(String description) {
-		if (description.equalsIgnoreCase("Probable")) return PROBABLE;
-		if (description.equalsIgnoreCase("Questionable") || description.toUpperCase().startsWith("DAY")) return QUESTIONABLE;
-		if (description.equalsIgnoreCase("Doubtful")) return DOUBTFUL;
-		if (description.equals("Out")) return OUT;
-		if (description.startsWith("Injured")) return INJURED_RESERVE;
-			
+		if (description != null && description.length() > 0) {
+			char firstChar = description.toUpperCase().charAt(0);
+			switch (firstChar) {
+				case 'P': 
+					return PROBABLE;
+				case 'Q':
+					return QUESTIONABLE;
+				case 'D':
+					return DOUBTFUL;
+				case 'O':
+					return OUT;
+				case 'I':
+					return INJURED_RESERVE;
+				default:
+					break;
+			}
+		}
 		return null;
 	}
 	

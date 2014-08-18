@@ -44,7 +44,7 @@ public class LeagueRoster implements Serializable {
 	public void setValidPositions(List<String> validPositions) {
 		this.validPositions = validPositions;
 	}
-
+	
 	public Boolean getBench() {
 		return bench;
 	}
