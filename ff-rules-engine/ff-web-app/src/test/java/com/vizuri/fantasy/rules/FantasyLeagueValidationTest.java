@@ -9,14 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.junit.Test;
 
 import com.vizuri.fantasy.domain.League;
-import com.vizuri.fantasy.domain.Team;
 import com.vizuri.fantasy.domain.Player;
+import com.vizuri.fantasy.domain.Team;
 import com.vizuri.fantasy.domain.Violation;
-import com.vizuri.fantasy.rules.RulesProcessor;
-import com.vizuri.fantasy.rules.RulesProcessorImpl;
 
 public class FantasyLeagueValidationTest {
 
@@ -88,7 +85,6 @@ public class FantasyLeagueValidationTest {
 		for(long i=1; i<=rosterSize; i++){
 			Player player = new Player();
 			player.setId(i);
-			player.setFantasyTeamId(team.getId());
 			players.add(player);
 		}
 			

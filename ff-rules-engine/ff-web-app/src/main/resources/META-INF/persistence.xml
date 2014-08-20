@@ -2,8 +2,7 @@
 <persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<persistence-unit name="fantasy-football-unit">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<persistence-unit name="fantasy-football-unit" transaction-type="JTA">
 		<class>com.vizuri.fantasy.entity.BaseEntity</class>
 		<class>com.vizuri.fantasy.entity.FantasyLeagueEntity</class>
 		<class>com.vizuri.fantasy.entity.FantasyLeagueRosterEntity</class>
@@ -29,10 +28,10 @@
 			<property name="hibernate.connection.driver_class" value="org.h2.Driver" />
 			<property name="hibernate.connection.username" value="sa" />
 			<property name="hibernate.connection.password" value="" />
-			<property name="hibernate.connection.url" value="jdbc:h2:~/tmp/fantasy-football;AUTO_SERVER=TRUE" />
-			<property name="jboss.as.jpa.managed" value="false" />
+			<property name="hibernate.connection.url" value="jdbc:h2:~/tmp/fantasy-football" /> <!-- ;AUTO_SERVER=TRUE" /> -->
+			<!-- <property name="jboss.as.jpa.managed" value="false" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="none" /> -->
 		</properties>
 	</persistence-unit>
 </persistence>

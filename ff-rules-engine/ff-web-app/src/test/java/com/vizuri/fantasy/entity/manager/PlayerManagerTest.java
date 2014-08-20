@@ -1,8 +1,13 @@
 package com.vizuri.fantasy.entity.manager;
 
+import java.util.List;
+
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.vizuri.fantasy.domain.Owner;
+import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 import com.vizuri.fantasy.entity.PlayerEntity;
 
 
@@ -19,5 +24,15 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 	public void testFindPlayer() {
 		PlayerEntity player = PlayerManager.findPlayerByFullName("David Akers", em);
 		log.info("Found: " + player);
+	}
+	
+	@Test
+	public void testCopyProperties() throws Exception {
+		List<FantasyOwnerEntity> ownerEntities = em.createQuery("select o from FantasyOwnerEntity o order by o").getResultList();
+		for (FantasyOwnerEntity ownerEntity : ownerEntities) {
+			Owner owner = new Owner();
+			PropertyUtils.copyProperties(owner, ownerEntity);
+			log.info("Owner: " + String.valueOf(owner));
+		}
 	}
 }
