@@ -1,0 +1,32 @@
+<div>
+	 <!-- DATATABLE -->
+	<div class="datatable" id="datatable">
+		<h2>League Management Page</h2>
+		<table class="table table-striped table-bordered table-condensed table-hover">
+			<thead>
+				<tr>
+					<th>
+						League Name
+					</th>
+					<th>
+						Current Week
+					</th>
+					<th>Year</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="league in leagues | orderBy:leagueOrder" data-ng-class-odd="'trOdd'"
+					data-ng-class-even="'trEven'">
+					<td>{{league.name}}</td>
+					<td>{{league.currentWeek}}</td>
+					<td>{{league.year}}</td>
+					<td><button class="btn btn-primary btn-lg" data-ng-click="editLeague(league)">Join</button></td>
+				</tr>
+			</tbody>
+			<tfoot>
+
+			</tfoot>
+		</table>
+	</div>
+</div>
