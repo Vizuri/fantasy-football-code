@@ -7,7 +7,9 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.vizuri.fantasy.domain.Owner;
+import com.vizuri.fantasy.entity.FantasyLeagueEntity;
 import com.vizuri.fantasy.entity.FantasyOwnerEntity;
+import com.vizuri.fantasy.entity.FantasyTeamEntity;
 import com.vizuri.fantasy.entity.PlayerEntity;
 
 
@@ -33,6 +35,30 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 			Owner owner = new Owner();
 			PropertyUtils.copyProperties(owner, ownerEntity);
 			log.info("Owner: " + String.valueOf(owner));
+		}
+	}
+	
+	@Test
+	public void getLeaguesForOwner() {
+		List<FantasyOwnerEntity> owners = em.createQuery("select o from FantasyOwnerEntity o").getResultList();
+		for (FantasyOwnerEntity owner : owners) {
+			log.info("Owner: " + owner);
+			List<FantasyLeagueEntity> results = OwnerManager.getLeaguesForOwner(owner.getId(), em);
+			for (FantasyLeagueEntity league : results) {
+				log.info(">>>> Found League: " + league);
+			}
+		}
+	}
+	
+	@Test
+	public void getTeamsForOwner() {
+		List<FantasyOwnerEntity> owners = em.createQuery("select o from FantasyOwnerEntity o").getResultList();
+		for (FantasyOwnerEntity owner : owners) {
+			log.info("Owner: " + owner);
+			List<FantasyTeamEntity> results = OwnerManager.getTeamsForOwner(owner.getId(), em);
+			for (FantasyTeamEntity team : results) {
+				log.info(">>>> Found Team: " + team);
+			}
 		}
 	}
 }

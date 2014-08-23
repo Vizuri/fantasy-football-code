@@ -25,7 +25,7 @@
 
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.source>1.7</maven.compiler.source>		
 	</properties>
 	<build>
 		<finalName>vizuri-fantasy-football</finalName>
@@ -43,6 +43,11 @@
 		            </archive>
 				</configuration>
 			</plugin>
+			 <plugin>
+               <groupId>org.jboss.as.plugins</groupId>
+               <artifactId>jboss-as-maven-plugin</artifactId>
+               <version>${version.org.jboss.as.plugins.maven.plugin}</version>
+           </plugin>
 		</plugins>
 	</build>
 	

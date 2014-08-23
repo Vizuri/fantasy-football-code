@@ -66,7 +66,6 @@ public class Team implements Serializable {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	
 	public TeamRoster getTeamRosterPosition(){
 		return new TeamRoster(id);
 	}
@@ -76,7 +75,7 @@ public class Team implements Serializable {
 	public void setPaidDues(Boolean paidDues) {
 		this.paidDues = paidDues;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Team [id=" + id + ", owner=" + owner + ", leagueId=" + leagueId
