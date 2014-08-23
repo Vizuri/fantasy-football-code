@@ -17,7 +17,7 @@ public class PlayerWeeklyStatistic implements Serializable {
 	private Integer year;
 	private Integer week;
 	private String statisticType; 
-	private BigDecimal statisticValue;
+	private BigDecimal statisticValue = BigDecimal.ZERO;
 	
 	public PlayerWeeklyStatistic() {
 	}
@@ -56,6 +56,14 @@ public class PlayerWeeklyStatistic implements Serializable {
 
 	public BigDecimal getStatisticValue() {
 		return statisticValue;
+	}
+	
+	public void setAddStatisticValue(BigDecimal additionalValue) {
+		this.statisticValue = this.statisticValue.add(additionalValue);
+	}
+	
+	public String getStatisticValueString() {
+		return String.valueOf(statisticValue);
 	}
 
 	public void setStatisticValue(BigDecimal statisticValue) {

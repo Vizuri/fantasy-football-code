@@ -7,6 +7,7 @@ public class LookupHelper {
 	private static List<String> severityValues = new ArrayList<String>();
 	private static List<String> statusTypeValues = new ArrayList<String>();
 	private static List<String> violationTitleValues = new ArrayList<String>();
+	private static List<String> statisticTypeValues = new ArrayList<String>();
 	
 	public static List<String> getSeverityValues() {
 		if (severityValues.isEmpty()) {
@@ -33,5 +34,14 @@ public class LookupHelper {
 			}
 		}
 		return violationTitleValues;
+	}
+	
+	public static List<String> getFootballStatisticTypes() {
+		if (statisticTypeValues.isEmpty()) {
+			for (FootballStatisticType statType : FootballStatisticType.values()) {
+				statisticTypeValues.add(statType.getTitle());
+			}
+		}
+		return statisticTypeValues;
 	}
 }
