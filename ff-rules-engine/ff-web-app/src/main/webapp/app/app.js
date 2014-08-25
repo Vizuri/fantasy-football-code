@@ -18,6 +18,10 @@ ffApp.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'app/partials/join_league.html',
 		controller: 'JoinLeagueController'
 	}).
+	when('/create_league', {
+		templateUrl: 'app/partials/create_league.html',
+		controller: 'CreateLeagueController'
+	}).
 	otherwise({
 		redirectTo: '/owners'
 	});

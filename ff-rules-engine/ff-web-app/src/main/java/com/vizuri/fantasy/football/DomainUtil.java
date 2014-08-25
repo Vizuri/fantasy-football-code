@@ -13,6 +13,7 @@ import com.vizuri.fantasy.domain.Owner;
 import com.vizuri.fantasy.domain.RuleSet;
 import com.vizuri.fantasy.domain.Team;
 import com.vizuri.fantasy.entity.FantasyLeagueEntity;
+import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 import com.vizuri.fantasy.entity.FantasyTeamEntity;
 //import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 
@@ -54,7 +55,6 @@ public class DomainUtil {
 	}
 	
 	public static Team convertTeamEntityToBean(FantasyTeamEntity entity) {
-		log.info("Converting the fantasy team entity into a team dto");
 		Team team = new Team();
 		League league = new League();
 		if(null != entity){			
@@ -82,14 +82,12 @@ public class DomainUtil {
 		return team;
 	}
 	
-//	public static Owner convertOwnerEntityToBean(FantasyOwnerEntity entity){
-//		Owner owner = new Owner();
-//		if(null != entity){
-//			owner.setId(entity.getId());
-//			owner.setName(entity.getName());
-//			owner.setEmail(entity.getEmail());
-//			owner.setPassword(entity.getPassword());
-//		}
-//		return owner;
-//	}
+	public static FantasyOwnerEntity convertOwnerBeanToEntity(Owner owner){
+		FantasyOwnerEntity entity = new FantasyOwnerEntity();
+		if(null != owner){			
+			entity.setName(owner.getName());
+			entity.setEmail(owner.getEmail());
+		}
+		return entity;
+	}
 }
