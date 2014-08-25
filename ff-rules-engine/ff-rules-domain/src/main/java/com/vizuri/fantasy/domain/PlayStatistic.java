@@ -16,6 +16,7 @@ public class PlayStatistic implements Serializable {
 	private String statisticType;
 	private BigDecimal statisticValue;
 	private String gameTime;
+	private Boolean isNew = true;
 	
 	public PlayStatistic() {
 	}
@@ -68,12 +69,20 @@ public class PlayStatistic implements Serializable {
 		this.gameTime = gameTime;
 	}
 
+	public Boolean getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Boolean isNew) {
+		this.isNew = isNew;
+	}
+
 	@Override
 	public String toString() {
 		return "PlayStatistic [playerId=" + playerId + ", year=" + year
 				+ ", week=" + week + ", statisticType=" + statisticType
 				+ ", statisticValue=" + statisticValue + ", gameTime="
-				+ gameTime + "]";
+				+ gameTime + ", isNew=" + isNew + "]";
 	}
 
 	@Override
@@ -82,10 +91,13 @@ public class PlayStatistic implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((gameTime == null) ? 0 : gameTime.hashCode());
+		result = prime * result + ((isNew == null) ? 0 : isNew.hashCode());
 		result = prime * result
 				+ ((playerId == null) ? 0 : playerId.hashCode());
 		result = prime * result
 				+ ((statisticType == null) ? 0 : statisticType.hashCode());
+		result = prime * result
+				+ ((statisticValue == null) ? 0 : statisticValue.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
@@ -105,6 +117,11 @@ public class PlayStatistic implements Serializable {
 				return false;
 		} else if (!gameTime.equals(other.gameTime))
 			return false;
+		if (isNew == null) {
+			if (other.isNew != null)
+				return false;
+		} else if (!isNew.equals(other.isNew))
+			return false;
 		if (playerId == null) {
 			if (other.playerId != null)
 				return false;
@@ -114,6 +131,11 @@ public class PlayStatistic implements Serializable {
 			if (other.statisticType != null)
 				return false;
 		} else if (!statisticType.equals(other.statisticType))
+			return false;
+		if (statisticValue == null) {
+			if (other.statisticValue != null)
+				return false;
+		} else if (!statisticValue.equals(other.statisticValue))
 			return false;
 		if (week == null) {
 			if (other.week != null)
@@ -127,5 +149,5 @@ public class PlayStatistic implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

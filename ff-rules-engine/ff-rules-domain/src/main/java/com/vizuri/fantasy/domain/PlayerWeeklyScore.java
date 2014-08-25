@@ -17,7 +17,7 @@ public class PlayerWeeklyScore implements Serializable {
 	private Long rulesetId;
 	private Integer year;
 	private Integer week;
-	private BigDecimal cumulativeScore;
+	private BigDecimal cumulativeScore = BigDecimal.ZERO;
 
 	public PlayerWeeklyScore() {
 	}
@@ -56,6 +56,10 @@ public class PlayerWeeklyScore implements Serializable {
 
 	public BigDecimal getCumulativeScore() {
 		return cumulativeScore;
+	}
+	
+	public void addScore(BigDecimal score) {
+		this.cumulativeScore = this.cumulativeScore.add(score);
 	}
 
 	public void setCumulativeScore(BigDecimal cumulativeScore) {
