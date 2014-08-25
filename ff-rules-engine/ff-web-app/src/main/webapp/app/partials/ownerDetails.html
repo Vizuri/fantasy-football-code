@@ -2,11 +2,10 @@
 	<div class="box" id="box">
 		<p class="lead"><strong>Owner Name: </strong>{{ownerDetails.owner.name}}</p>
 		<p class="lead"><strong>Email: </strong>{{ownerDetails.owner.email}}</p>
-		<p class="lead"><strong>Password: </strong>{{ownerDetails.owner.password}}</p>
 	</div>
 	<div class="box" id="box">
-		<button class="btn btn-primary btn-lg" style="margin-right: 10px;" data-ng-click="joinLeague()">Join League</button>
-		<button class="btn btn-primary btn-lg" style="margin-left: 10px;" data-ng-click="createLeague()">Create League</button>
+		<button class="btn btn-primary btn-lg" style="margin-right: 10px;" data-ng-click="joinLeague(ownerDetails.owner)">Join League</button>
+		<button class="btn btn-primary btn-lg" style="margin-left: 10px;" data-ng-click="createNewLeague(ownerDetails.owner)">Create League</button>
 	</div>
 	 <!-- DATATABLE -->
 	<div class="datatable" id="datatable">

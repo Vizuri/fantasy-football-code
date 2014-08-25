@@ -45,7 +45,7 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 			log.info("Owner: " + owner);
 			List<FantasyLeagueEntity> results = OwnerManager.getLeaguesForOwner(owner.getId(), em);
 			for (FantasyLeagueEntity league : results) {
-				log.info(">>>> Found League: " + league);
+				log.info(">>>> Found League: " + league.getName());
 			}
 		}
 	}

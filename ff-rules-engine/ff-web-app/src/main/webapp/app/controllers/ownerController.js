@@ -51,7 +51,8 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 		}
 	}
 	
-	$scope.joinLeague = function(){
+	$scope.joinLeague = function(owner){
+		Owner.setOwner(owner);
 		$http.get('rest/leagues').success(function(data, status) {
 			$scope.leagues = data;
 			$scope.status = status;
@@ -65,8 +66,9 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 		$location.path("/join_league");
 	};
 	
-	$scope.createLeague = function(){
-		
+	$scope.createNewLeague = function(owner){
+		Owner.setOwner(owner);
+		$location.path("/create_league");
 	};
 	
 	$scope.editLeague = function(league){

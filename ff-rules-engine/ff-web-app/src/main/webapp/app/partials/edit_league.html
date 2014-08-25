@@ -1,6 +1,6 @@
 <div class="box" id="box">
 	<h2 id="forms-horizontal">League Management Page</h2>
-	<form>
+	<form class="alert alert-info">
 			<div class="form-group">
 		    	<label for="leagueName" class="col-sm-2 control-label"><strong>League Name</strong></label>
 		    	<div class="col-sm-10">
@@ -11,6 +11,12 @@
 				<label for="currentWeek" class="col-sm-2 control-label"><strong>Current Week</strong></label>
 		    	<div class="col-sm-10">
 					<input type="text" id="currentWeek" data-ng-model="newLeague.currentWeek">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="year" class="col-sm-2 control-label"><strong>Year</strong></label>
+		    	<div class="col-sm-10">
+					<input type="text" id="year" data-ng-model="newLeague.year">
 				</div>
 			</div>
 			<div>
