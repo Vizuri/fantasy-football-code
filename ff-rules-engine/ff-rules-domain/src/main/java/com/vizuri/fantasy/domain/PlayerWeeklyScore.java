@@ -5,6 +5,7 @@ package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author amirge
@@ -18,6 +19,7 @@ public class PlayerWeeklyScore implements Serializable {
 	private Integer year;
 	private Integer week;
 	private BigDecimal cumulativeScore = BigDecimal.ZERO;
+	private Date timeStamp = new Date();
 
 	public PlayerWeeklyScore() {
 	}
@@ -66,11 +68,20 @@ public class PlayerWeeklyScore implements Serializable {
 		this.cumulativeScore = cumulativeScore;
 	}
 
+	public Date getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
 	@Override
 	public String toString() {
 		return "PlayerWeeklyScore [playerId=" + playerId + ", rulesetId="
 				+ rulesetId + ", year=" + year + ", week=" + week
-				+ ", cumulativeScore=" + cumulativeScore + "]";
+				+ ", cumulativeScore=" + cumulativeScore + ", timeStamp="
+				+ timeStamp + "]";
 	}
 
 	@Override
@@ -81,6 +92,8 @@ public class PlayerWeeklyScore implements Serializable {
 				+ ((playerId == null) ? 0 : playerId.hashCode());
 		result = prime * result
 				+ ((rulesetId == null) ? 0 : rulesetId.hashCode());
+		result = prime * result
+				+ ((timeStamp == null) ? 0 : timeStamp.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
@@ -104,6 +117,11 @@ public class PlayerWeeklyScore implements Serializable {
 			if (other.rulesetId != null)
 				return false;
 		} else if (!rulesetId.equals(other.rulesetId))
+			return false;
+		if (timeStamp == null) {
+			if (other.timeStamp != null)
+				return false;
+		} else if (!timeStamp.equals(other.timeStamp))
 			return false;
 		if (week == null) {
 			if (other.week != null)
