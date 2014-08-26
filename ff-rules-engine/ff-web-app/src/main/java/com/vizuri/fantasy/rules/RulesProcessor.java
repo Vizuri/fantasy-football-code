@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.vizuri.fantasy.domain.Violation;
 import com.vizuri.fantasy.dtos.LeagueValidationSummary;
+import com.vizuri.fantasy.dtos.ScoringSummary;
 
 /**
  * @author amirge
  *
  */
 public interface RulesProcessor {
-	public void fireViolationRules(LeagueValidationSummary leagueValidationSummary);
-	public void fireSpecificRule(Object object, String ruleName);
-	public List<Violation> getViolations();
-	public void clear();
+	void fireViolationRules(LeagueValidationSummary leagueValidationSummary);
+	void fireSpecificRule(Object object, String ruleName);
+	List<Violation> getViolations();
+	void clear();
+	void fireScoringRules(ScoringSummary scoreSummary);
 }

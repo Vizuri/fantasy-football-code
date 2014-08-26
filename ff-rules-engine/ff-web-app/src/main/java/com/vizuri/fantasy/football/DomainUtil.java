@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.vizuri.fantasy.domain.League;
 import com.vizuri.fantasy.domain.LeagueRoster;
 import com.vizuri.fantasy.domain.Owner;
+import com.vizuri.fantasy.domain.PlayStatistic;
 import com.vizuri.fantasy.domain.Player;
 import com.vizuri.fantasy.domain.PlayerStatus;
 import com.vizuri.fantasy.domain.RuleSet;
@@ -22,6 +23,7 @@ import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 import com.vizuri.fantasy.entity.FantasyTeamEntity;
 //import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 import com.vizuri.fantasy.entity.FantasyTeamRosterEntity;
+import com.vizuri.fantasy.entity.PlayStatisticEntity;
 import com.vizuri.fantasy.entity.PlayerEntity;
 import com.vizuri.fantasy.entity.PlayerStatusEntity;
 import com.vizuri.fantasy.entity.PositionEntity;
@@ -141,5 +143,17 @@ public class DomainUtil {
 		dest.setStatusType(src.getStatusType());
 		dest.setWeek(src.getWeek());
 		dest.setYear(src.getYear());
+	}
+
+	public static PlayStatistic convertPlayStatisticEntityToBean( PlayStatisticEntity playStatisticEntity) {
+		PlayStatistic playStatistic = new PlayStatistic();
+		
+		playStatistic.setGameTime(playStatisticEntity.getGameTime());
+		playStatistic.setPlayerId(playStatisticEntity.getPlayer().getId());
+		playStatistic.setStatisticType(playStatisticEntity.getType().getName());
+		playStatistic.setStatisticValue(playStatisticEntity.getQuantity());
+		playStatistic.setWeek(playStatisticEntity.getScheduledMatch().getWeek());
+		playStatistic.setYear(playStatisticEntity.getScheduledMatch().getYear());
+		return playStatistic;
 	}
 }
