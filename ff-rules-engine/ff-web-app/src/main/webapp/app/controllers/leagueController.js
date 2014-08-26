@@ -1,14 +1,12 @@
 var leagueModule = angular.module('leagueController', ['leagueService', 'ownerService']);
 
-leagueModule.controller('EditLeagueController', ['$scope', '$http', 'League', function($scope, $http, League){
+leagueModule.controller('EditLeagueController', ['$scope', '$http', 'League', 'Owner', function($scope, $http, League, Owner){
 	$scope.newLeague = League.getLeague();
-	console.log("Before update league is "+$scope.newLeague.name+", "+$scope.newLeague.currentWeek);
+	console.log("Before change, the league was "+angular.toJson($scope.newLeague));
 	$scope.updateLeague = function(league) {
 		$scope.newLeague = angular.copy(league);
-		console.log("After update league is " + $scope.newLeague.name
-				+ ", " + $scope.newLeague.currentWeek);
+		console.log("The league is now changed to " + angular.toJson($scope.newLeague));
 		// Call the update operation..
-
 		$http({
 			method: 'PUT',
 			url: 'rest/leagues',
@@ -20,8 +18,19 @@ leagueModule.controller('EditLeagueController', ['$scope', '$http', 'League', fu
 						+ data.name);
 				console.log("Status: " + status);
 				$scope.status = status;
-				$scope.league = data;
-				alert(data);
+				var league = data;
+				console.log("Updated league is "+angular.toJson(league));
+				//Updating the league inside ownerDetails using Owner Service
+				var ownerDetails = Owner.getDetails();
+				for(var count = 0; count < ownerDetails.leagues.length; count++){
+					if(league.id === ownerDetails.leagues[count].id){
+						ownerDetails.leagues[count] = league;
+						break;
+					}
+				}
+				
+				Owner.setDetails(ownerDetails);
+				alert("League Updated Successfully...");
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);

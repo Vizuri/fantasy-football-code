@@ -25,7 +25,7 @@ margin: 0px auto -1px auto;
 } 
 
 .animate-enter, .animate-leave {
-transition: 500ms ease-in all;
+transition: 1000ms ease-in all;
 position: relative;
 display: block;
 } 
