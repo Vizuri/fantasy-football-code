@@ -7,16 +7,21 @@
 				<tr>
 					<th>
 						League Name
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('name')"><span class="glyphicon glyphicon-sort"></span></button>
 					</th>
 					<th>
 						Current Week
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('currentWeek')"><span class="glyphicon glyphicon-sort"></span></button>
 					</th>
-					<th>Year</th>
+					<th>
+						Year
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('year')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-ng-repeat="league in leagues | orderBy:leagueOrder" data-ng-class-odd="'trOdd'"
+				<tr data-ng-repeat="league in leagues | orderBy:orderby:reverse" data-ng-class-odd="'trOdd'"
 					data-ng-class-even="'trEven'">
 					<td>{{league.name}}</td>
 					<td>{{league.currentWeek}}</td>

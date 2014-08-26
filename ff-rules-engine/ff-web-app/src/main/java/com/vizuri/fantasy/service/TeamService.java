@@ -60,11 +60,11 @@ public class TeamService {
 				FantasyLeagueEntity leagueEntity = em.find(FantasyLeagueEntity.class, Long.valueOf(roster.getLeagueId()));
 				//Get the ranking by position first..
 				PositionRankingEntity positionRankingEntity = LookupManager.getPositionRankingByPlayerAndYear(roster.getPlayer().getId(), leagueEntity.getYear(), em);
-				summaryDTO.setPositionRankingEntity(positionRankingEntity);
+				summaryDTO.setPositionRank(positionRankingEntity.getRank());
 				
 				//TODO:::Get the overall ranking next..might need some conversion between entity and pojo.
 				OverallRankingEntity overallRankingEntity = LookupManager.getOverallRankingByPlayerAndYear(roster.getPlayer().getId(), leagueEntity.getYear(), em);
-				summaryDTO.setOverallRankingEntity(overallRankingEntity);
+				summaryDTO.setOverallRank(overallRankingEntity.getRank());
 				
 				//TODO:::Get the players weekly score...might need some conversion between entity and pojo.
 				PlayerWeeklyScoreEntity weeklyScoreEntity = PlayerManager.getWeeklyScore(roster.getPlayer().getId(), leagueEntity.getYear(), roster.getWeek(), em);

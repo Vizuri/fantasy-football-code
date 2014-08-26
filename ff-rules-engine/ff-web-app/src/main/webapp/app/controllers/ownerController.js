@@ -35,14 +35,15 @@ ownerModule.controller('ListController', ['$scope', '$http', '$location', 'Owner
 
 ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Owner', 'League', 'Team', function($scope, $http, $location, Owner, League, Team) {
 	console.log("Got in the details..");
+	$scope.orderby = 'name';
+	$scope.reverse = false;
 	$scope.ownerDetails = Owner.getDetails();
 	//Get the leagues
 	$scope.leagues = $scope.ownerDetails.leagues;
-	$scope.leagueOrder = "name";
+	console.log("The leagues size from Owner Service is: "+$scope.leagues.length);
 	//Get the teams
 	$scope.teams = $scope.ownerDetails.teams;
-	$scope.teamOrder = "name";
-	
+	console.log("BEFORE:::::The teams size on load is: "+$scope.teams.length);
 	for(var i=0; i < $scope.teams.length; i++){
 		for(var j=0; j < $scope.leagues.length; j++){
 			if($scope.teams[i].leagueId === $scope.leagues[j].id){
@@ -50,7 +51,7 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 			}
 		}
 	}
-	
+	console.log("AFTER:::::The teams size on load is: "+$scope.teams.length);
 	$scope.joinLeague = function(owner){
 		Owner.setOwner(owner);
 		$http.get('rest/leagues').success(function(data, status) {
@@ -85,4 +86,11 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 		Team.setTeam($scope.newTeam);
 		$location.path("/edit_team_details");
 	};
+	$scope.setOrder = function (orderby) {
+        if (orderby === $scope.orderby)
+        {
+            $scope.reverse = !$scope.reverse;
+        }
+        $scope.orderby = orderby;
+	 };
 }]);

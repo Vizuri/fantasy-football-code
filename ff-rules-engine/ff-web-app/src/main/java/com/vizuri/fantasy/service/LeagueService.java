@@ -104,7 +104,7 @@ public class LeagueService {
 			teamEntity.setCurrentScore(BigDecimal.ZERO);
 			em.persist(teamEntity);
 			em.flush();log.info("League Joined Successfully with a new Team Id: "+ teamEntity.getId());
-			return Response.ok("League Joined Successfully..").build();
+			return Response.ok(teamEntity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -130,7 +130,7 @@ public class LeagueService {
 			em.persist(entity);
 		    em.flush();
 			log.info("League Created Successfully "+ entity.getName());
-			return Response.ok("League Created Successfully..").build();
+			return Response.ok(entity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
