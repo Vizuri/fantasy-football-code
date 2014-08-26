@@ -1,0 +1,182 @@
+@charset "UTF-8";
+/* CSS Document */
+
+html, body
+{
+    height: 100%;
+}
+
+
+body{
+	margin:0;
+	background:#1a1a1a!important;
+	font-size:16px;
+	color:white;
+}
+
+#content{
+	margin:auto;
+	width:80%;
+	background:black;
+	height:100%;
+}
+
+#header{
+	background:url(../img/header.jpg);
+	background-repeat:no-repeat;
+	background-size:100%;
+}
+
+.col-xs-12{
+padding-left:0!important;
+padding-right:0!important;
+}
+.row{
+		margin-left:0!important;
+	margin-right:0!important;
+}
+
+#navbar{
+	background:url(../img/navbar.png);
+	height:45px;
+	width:100%;
+	margin-bottom: 30px;
+}
+
+#footer{
+	background:black;
+	position:fixed;
+   bottom:15px;
+   width:80%;
+}
+
+.footercontent{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	padding-right:4%;
+	padding-bootom:20px;	
+}
+
+.bold_text{
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	color:#FFFFFF;
+	text-transform: uppercase;
+
+}
+
+.title{
+text-align:center;
+font-size:3em;
+font-family: 'Oswald', sans-serif;
+	font-weight: 400;
+	letter-spacing: 2px;
+	color:#FFFFFF;
+	text-transform: uppercase;
+padding-right:4%;
+padding-top:1.3em;
+}
+
+td{
+	font-family: 'Oswald', sans-serif;
+	font-weight: 300;
+	font-size:0.85em;
+	color:#333;
+	text-transform: uppercase;
+
+}
+
+tr:nth-child(even) {
+  background-color: #191919;
+
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+border-top:none!important;
+text-align:center;
+}
+.table > thead > tr > th:first-child, .table > tbody > tr > th:first-child, .table > tfoot > tr > th:first-child, .table > thead > tr > td:first-child, .table > tbody > tr > td:first-child, .table > tfoot > tr > td:first-child {
+text-align:left;
+}
+
+img{
+padding:5px;
+display:inline!important;
+}
+.table > thead > tr > th{
+border-bottom:none!important;
+text-align:center;
+padding:13px!important;
+}
+
+.table > thead > tr > th:first-child{
+text-align:left;
+}
+
+tr:nth-child(odd) {
+  background-color: #262626;
+}
+
+th{
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
+	font-size:1em;
+	color:#FFFFFF;
+	text-transform: uppercase;
+}
+
+
+.regular_text{
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
+	color:#FFFFFF;
+	text-transform: uppercase;
+}
+
+
+.light_text{
+	font-family: 'Oswald', sans-serif;
+	font-weight: 300;	
+	color:#FFFFFF;
+	text-transform: uppercase;
+}
+
+
+#menu_icon{
+	float:left;
+	padding-top:5px;
+}
+
+#menu_logo{
+	float:left;
+	text-align:center;
+
+}
+
+#social_icons{
+	float:right;
+	text-align:right;
+
+}
+
+.icon_contain{
+	float:left;
+	padding-left:5px;
+	padding-top:2px;
+}
+
+h2, .h2 {
+	text-align: center;
+}
+
+.form-group {
+	min-height: 25px;
+	margin-bottom: 22px;
+	margin: 0 auto 22px auto
+}
+
+#leagueForm {
+	width: 75%;
+	margin: 0 auto;
+}
