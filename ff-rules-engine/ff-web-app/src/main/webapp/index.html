@@ -1,32 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Fantasy Football Demo...</title>
-    <link href="content/bootstrap.min.css" rel="stylesheet" />
-    <link href="content/bootstrap-responsive.min.css" rel="stylesheet" />
-    <link href="content/bootstrap-combined.min.css" rel="stylesheet" />
-    <link href="content/dropdowns.css" rel="stylesheet" />
-    <link href="content/normalize.css" rel="stylesheet" />
-    <link href="content/page.css" rel="stylesheet" />
-</head>
-<body data-ng-app="ffApp">
-	<div data-ng-view></div>
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700'
+	rel='stylesheet' type='text/css'>
 
-	<script src="js/angular.js"></script>
-    <script src="js/angular-route.js"></script>
-    <script src="js/angular-animate.js"></script>
-    <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
-     <script src="js/angular-dropdowns.js"></script>
-    
-        <!-- App libs -->
-    <script src="app/app.js"></script>
-    <script src="app/controllers/ownerController.js"></script>
-    <script src="app/controllers/leagueController.js"></script>
-    <script src="app/services/ownerService.js"></script>
-    <script src="app/services/leagueService.js"></script>
+<link href="content/dropdowns.css" rel="stylesheet" />
+<link href="content/normalize.css" rel="stylesheet" />
+<link href="css/page.css" rel="stylesheet" />
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/custom_style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vizuri : Fantasy Football... Rules!</title>
+</head>
+
+<!----------end head---------->
+
+<body data-ng-app="ffApp">
+	<div id="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="header">
+					<div class="row">
+						<div class="col-xs-12">
+							<div id="navbar">
+								<div class="col-xs-1">
+									<div id="menu_icon">
+										<a href="#"><img src="img/menuicon.png"
+											class="img-responsive"></a>
+									</div>
+									<!--end img container div-->
+								</div>
+								<!--end col span div-->
+								<div class="col-xs-2 col-xs-offset-4">
+									<div id="menu_logo">
+										<img src="img/headerlogo.png" class="img-responsive">
+									</div>
+									<!--end img container div-->
+								</div>
+								<!--end col span div-->
+								<div class="col-xs-4 col-xs-offset-1">
+									<div id="social_icons">
+										<div class="icon_contain">
+											<img src="img/googleplus.png" class="img-responsive">
+										</div>
+										<div class="icon_contain">
+											<img src="img/facebook.png" class="img-responsive">
+										</div>
+										<div class="icon_contain">
+											<img src="img/twitter.png" class="img-responsive">
+										</div>
+									</div>
+									<!--end col span div-->
+								</div>
+								<!--end nav col row div-->
+							</div>
+							<!--end nav col span div-->
+							<!--end title col span div-->
+							<!--Start Table-->
+							<div class="row">
+								<div class="col-xs-10 col-xs-offset-1" data-ng-view>
+								</div>
+								<!--end header-->
+							</div>
+							<!--end header row div-->
+						</div>
+						<!--end header col span div-->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div id="footer">
+
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="footercontent">
+												<img src="img/footerlogo.jpg" class="img-responsive">
+												<div class="light_text">this is a demonstration of</div>
+												<div class="regular_text">the Red Hat BRMS & BPM Suite
+													products</div>
+											</div>
+											<!--end footer content-->
+										</div>
+										<!--end footer content row div-->
+									</div>
+									<!--end footer content span div-->
+
+								</div>
+								<!--end footer-->
+							</div>
+							<!--end footer col row div-->
+						</div>
+						<!--end footer col span div-->
+
+					</div>
+					<!--end content-->
+
+					<!--JavaScript-->
+					<script src="js/angular.js"></script>
+					<script src="js/angular-route.js"></script>
+					<script src="js/angular-animate.js"></script>
+					<script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
+					<script src="js/angular-dropdowns.js"></script>
+
+					<!-- App libs -->
+					<script src="app/app.js"></script>
+					<script src="app/controllers/ownerController.js"></script>
+					<script src="app/controllers/leagueController.js"></script>
+					<script src="app/services/ownerService.js"></script>
+					<script src="app/services/leagueService.js"></script>
 </body>
 </html>
-
-

@@ -5,6 +5,7 @@ package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author amirge
@@ -18,6 +19,7 @@ public class PlayerWeeklyStatistic implements Serializable {
 	private Integer week;
 	private String statisticType; 
 	private BigDecimal statisticValue = BigDecimal.ZERO;
+	private Date timeStamp = new Date();
 	
 	public PlayerWeeklyStatistic() {
 	}
@@ -69,12 +71,21 @@ public class PlayerWeeklyStatistic implements Serializable {
 	public void setStatisticValue(BigDecimal statisticValue) {
 		this.statisticValue = statisticValue;
 	}
+	
+	public Date getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
+	}
 
 	@Override
 	public String toString() {
-		return "PlayerWeeklyStatistic [playerId=" + playerId + ", year="
-				+ year + ", week=" + week + ", statisticType=" + statisticType
-				+ ", statisticValue=" + statisticValue + "]";
+		return "PlayerWeeklyStatistic [playerId=" + playerId + ", year=" + year
+				+ ", week=" + week + ", statisticType=" + statisticType
+				+ ", statisticValue=" + statisticValue + ", timeStamp="
+				+ timeStamp + "]";
 	}
 
 	@Override
@@ -85,6 +96,8 @@ public class PlayerWeeklyStatistic implements Serializable {
 				+ ((playerId == null) ? 0 : playerId.hashCode());
 		result = prime * result
 				+ ((statisticType == null) ? 0 : statisticType.hashCode());
+		result = prime * result
+				+ ((timeStamp == null) ? 0 : timeStamp.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
@@ -109,6 +122,11 @@ public class PlayerWeeklyStatistic implements Serializable {
 				return false;
 		} else if (!statisticType.equals(other.statisticType))
 			return false;
+		if (timeStamp == null) {
+			if (other.timeStamp != null)
+				return false;
+		} else if (!timeStamp.equals(other.timeStamp))
+			return false;
 		if (week == null) {
 			if (other.week != null)
 				return false;
@@ -121,5 +139,5 @@ public class PlayerWeeklyStatistic implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
