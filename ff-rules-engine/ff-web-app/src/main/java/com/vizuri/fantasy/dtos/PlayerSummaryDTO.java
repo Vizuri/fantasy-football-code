@@ -3,8 +3,7 @@
  */
 package com.vizuri.fantasy.dtos;
 import com.vizuri.fantasy.domain.Player;
-import com.vizuri.fantasy.entity.OverallRankingEntity;
-import com.vizuri.fantasy.entity.PositionRankingEntity;
+import com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity;
 
 /**
  * @author amirge
@@ -14,8 +13,9 @@ public class PlayerSummaryDTO {
 
 	private Integer slotNumber; 
 	private Player player;
-	private OverallRankingEntity overallRankingEntity;
-	private PositionRankingEntity positionRankingEntity;
+	private Integer overallRank;
+	private Integer positionRank;
+	private PlayerWeeklyScoreEntity weeklyScoreEntity;
 	
 	public Integer getSlotNumber() {
 		return slotNumber;
@@ -29,16 +29,22 @@ public class PlayerSummaryDTO {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	public OverallRankingEntity getOverallRankingEntity() {
-		return overallRankingEntity;
+	public Integer getOverallRank() {
+		return overallRank;
 	}
-	public void setOverallRankingEntity(OverallRankingEntity overallRankingEntity) {
-		this.overallRankingEntity = overallRankingEntity;
+	public void setOverallRank(Integer overallRank) {
+		this.overallRank = overallRank;
 	}
-	public PositionRankingEntity getPositionRankingEntity() {
-		return positionRankingEntity;
+	public Integer getPositionRank() {
+		return positionRank;
 	}
-	public void setPositionRankingEntity(PositionRankingEntity positionRankingEntity) {
-		this.positionRankingEntity = positionRankingEntity;
+	public void setPositionRank(Integer positionRank) {
+		this.positionRank = positionRank;
+	}
+	public PlayerWeeklyScoreEntity getWeeklyScoreEntity() {
+		return weeklyScoreEntity;
+	}
+	public void setWeeklyScoreEntity(PlayerWeeklyScoreEntity weeklyScoreEntity) {
+		this.weeklyScoreEntity = weeklyScoreEntity;
 	}
 }

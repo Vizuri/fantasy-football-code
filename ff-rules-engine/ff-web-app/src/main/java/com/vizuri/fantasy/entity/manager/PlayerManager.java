@@ -20,6 +20,7 @@ import com.vizuri.fantasy.entity.PlayerEntity;
 import com.vizuri.fantasy.entity.PlayerStatusEntity;
 import com.vizuri.fantasy.entity.PositionRankingEntity;
 import com.vizuri.fantasy.football.DomainUtil;
+import com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity;
 
 public class PlayerManager {
 	private final static transient Logger log = Logger.getLogger(PlayerManager.class);
@@ -102,5 +103,14 @@ public class PlayerManager {
 			statusBeans.add(statusBean);
 		}
 		return statusBeans;
+	}
+
+	public static PlayerWeeklyScoreEntity getWeeklyScore(Long playerId, Integer year, Integer week, EntityManager em) {
+		if (log.isDebugEnabled()) { log.debug("Looking for Weekly score using playerId: " + playerId + ", year: " + year + " and week: " + week); }
+		return (PlayerWeeklyScoreEntity)em.createQuery("select pws from PlayerWeeklyScoreEntity pws where pws.player.id = :playerId and pws.year = :year and pws.week = :week")
+				.setParameter("playerId", playerId)
+				.setParameter("year", year)
+				.setParameter("week", week)
+				.getSingleResult();
 	}
 }

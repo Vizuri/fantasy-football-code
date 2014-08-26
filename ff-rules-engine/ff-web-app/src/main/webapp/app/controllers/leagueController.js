@@ -21,6 +21,7 @@ leagueModule.controller('EditLeagueController', ['$scope', '$http', 'League', fu
 				console.log("Status: " + status);
 				$scope.status = status;
 				$scope.league = data;
+				alert(data);
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);
@@ -32,11 +33,13 @@ leagueModule.controller('EditLeagueController', ['$scope', '$http', 'League', fu
 
 leagueModule.controller('JoinLeagueController', ['$scope', '$http', 'Owner', 'League', function($scope, $http, Owner, League){
 	$scope.leagues = League.getAllLeagues();
-	$scope.leagueOrder = "name";
+	$scope.orderby = 'name';
+	$scope.reverse = false;
 	
 	$scope.join = function(league){
 		console.log("The passed league is: "+league);
-		//toJson() to remove the '$$hashKey' key from league object that angular adds with ng-repeat directive
+		//The toJson() to remove the '$$hashKey' key from league object that angular adds with ng-repeat directive
+		//Source: https://docs.angularjs.org/api/ng/function/angular.toJson
 		$scope.league = angular.toJson(league);
 		$scope.league.commissioner = Owner.getOwner();
 		
@@ -56,8 +59,17 @@ leagueModule.controller('JoinLeagueController', ['$scope', '$http', 'Owner', 'Le
 						+ data.name);
 				console.log("Status: " + status);
 				$scope.status = status;
-				$scope.league = data;
-				alert(data);
+				$scope.team = data;
+				var ownerDetails = Owner.getDetails();
+				//Check the current team size from the owner service before adding one.
+				console.log("BEFORE::teams length is "+ownerDetails.teams.length);
+				//Push the new team that just got created into the original list
+				ownerDetails.teams.push($scope.team);
+				//Update the service with the latest leagues
+				Owner.setDetails(ownerDetails);
+				//Check the current team size from the service after adding one.
+				console.log("AFTER::teams length is "+ownerDetails.teams.length);
+				alert("League Joined Successfully..");
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);
@@ -65,6 +77,13 @@ leagueModule.controller('JoinLeagueController', ['$scope', '$http', 'Owner', 'Le
 			$scope.status = status;
 		});
 	};
+	$scope.setOrder = function (orderby) {
+        if (orderby === $scope.orderby)
+        {
+            $scope.reverse = !$scope.reverse;
+        }
+        $scope.orderby = orderby;
+	 };
 }]);
 
 leagueModule.controller('CreateLeagueController', ['$scope', '$http', 'Owner', function($scope, $http, Owner){
@@ -83,6 +102,16 @@ leagueModule.controller('CreateLeagueController', ['$scope', '$http', 'Owner', f
 				console.log("Status: " + status);
 				$scope.status = status;
 				$scope.league = data;
+				var ownerDetails = Owner.getDetails();
+				//Check the current league size from the owner service before adding one.
+				console.log("BEFORE::leagues length is "+ownerDetails.leagues.length); 
+				//Push the new league that just got created into the original list
+				ownerDetails.leagues.push($scope.league);
+				//Update the service with the latest leagues
+				Owner.setDetails(ownerDetails);
+				//Check the current league size from the service after adding one.
+				console.log("AFTER::leagues length is "+ownerDetails.leagues.length); 
+				alert("League Created Successfully..");
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);

@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
 
+import com.vizuri.fantasy.entity.OverallRankingEntity;
 import com.vizuri.fantasy.entity.PositionEntity;
 import com.vizuri.fantasy.entity.PositionRankingEntity;
 import com.vizuri.fantasy.entity.StatisticTypeEntity;
@@ -63,6 +64,22 @@ public class LookupManager {
 		return em.createQuery("select pr from PositionRankingEntity pr where pr.position.shortName = :shortName")
 				.setParameter("shortName", positionShortName)
 				.getResultList();
+	}
+	
+	public static PositionRankingEntity getPositionRankingByPlayerAndYear(Long playerId, Integer year, EntityManager em) {
+		if (log.isDebugEnabled()) { log.debug("Looking for ranking position using playerId: " + playerId + " and year: " + year); }
+		return (PositionRankingEntity)em.createQuery("select pr from PositionRankingEntity pr where pr.player.id = :playerId and pr.year = :year")
+				.setParameter("playerId", playerId)
+				.setParameter("year", year)
+				.getSingleResult();
+	}
+	
+	public static OverallRankingEntity getOverallRankingByPlayerAndYear(Long playerId, Integer year, EntityManager em) {
+		if (log.isDebugEnabled()) { log.debug("Looking for overall ranking using playerId: " + playerId + " and year: " + year); }
+		return (OverallRankingEntity)em.createQuery("select or from OverallRankingEntity or where or.player.id = :playerId and or.year = :year")
+				.setParameter("playerId", playerId)
+				.setParameter("year", year)
+				.getSingleResult();
 	}
 
 }

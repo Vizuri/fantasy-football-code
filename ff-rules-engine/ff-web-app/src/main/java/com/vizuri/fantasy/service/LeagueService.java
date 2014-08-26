@@ -77,7 +77,7 @@ public class LeagueService {
 			entity.setYear(league.getYear());
 			em.persist(entity);
 			em.flush();
-			return Response.ok("League Updated Successfully "+ entity.getName()).build();
+			return Response.ok("League Updated Successfully..").build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -101,10 +101,10 @@ public class LeagueService {
 			//Get the league info..
 			FantasyLeagueEntity fantasyLeagueEntity = em.find(FantasyLeagueEntity.class, Long.valueOf(team.getLeagueId()));	
 			teamEntity.setLeague(fantasyLeagueEntity);
-			teamEntity.setCurrentScore(new BigDecimal(0));
+			teamEntity.setCurrentScore(BigDecimal.ZERO);
 			em.persist(teamEntity);
 			em.flush();log.info("League Joined Successfully with a new Team Id: "+ teamEntity.getId());
-			return Response.ok("League Joined Successfully").build();
+			return Response.ok(teamEntity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -130,7 +130,7 @@ public class LeagueService {
 			em.persist(entity);
 		    em.flush();
 			log.info("League Created Successfully "+ entity.getName());
-			return Response.ok(entity.getName()).build();
+			return Response.ok(entity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
