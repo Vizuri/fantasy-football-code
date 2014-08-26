@@ -180,3 +180,7 @@ h2, .h2 {
 	width: 75%;
 	margin: 0 auto;
 }
+
+input, optgroup, select, textarea {
+	color: #333;	
+}
