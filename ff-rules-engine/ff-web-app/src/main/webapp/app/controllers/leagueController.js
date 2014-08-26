@@ -57,6 +57,7 @@ leagueModule.controller('JoinLeagueController', ['$scope', '$http', 'Owner', 'Le
 				console.log("Status: " + status);
 				$scope.status = status;
 				$scope.league = data;
+				alert(data);
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);

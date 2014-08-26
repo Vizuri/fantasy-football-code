@@ -1,4 +1,4 @@
-var ownerModule = angular.module('ownerController', ['ngAnimate', 'ngDropdowns', 'ownerService', 'leagueService']);
+var ownerModule = angular.module('ownerController', ['ngAnimate', 'ngDropdowns', 'ownerService', 'leagueService', 'teamService']);
 
 ownerModule.controller('ListController', ['$scope', '$http', '$location', 'Owner', function($scope, $http, $location, Owner) {
 	$http.get('rest/owners').success(function(data, status) {
@@ -33,7 +33,7 @@ ownerModule.controller('ListController', ['$scope', '$http', '$location', 'Owner
 	};
 }]);
 
-ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Owner', 'League', function($scope, $http, $location, Owner, League) {
+ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Owner', 'League', 'Team', function($scope, $http, $location, Owner, League, Team) {
 	console.log("Got in the details..");
 	$scope.ownerDetails = Owner.getDetails();
 	//Get the leagues
@@ -72,9 +72,17 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 	};
 	
 	$scope.editLeague = function(league){
+		//Make a clone of the existing league for editing
 		$scope.newLeague = angular.copy(league);
-		//Pass the old league for editing
 		League.setLeague($scope.newLeague);
 		$location.path("/edit_league_details");
+	};
+	
+	$scope.editTeam = function(team){
+		//Make a clone of the existing team for editing
+		$scope.newTeam = angular.copy(team);
+		console.log($scope.newTeam);
+		Team.setTeam($scope.newTeam);
+		$location.path("/edit_team_details");
 	};
 }]);

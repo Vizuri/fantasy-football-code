@@ -1,4 +1,4 @@
-var ffApp = angular.module('ffApp', ['ui.bootstrap', 'ngRoute', 'ownerController', 'leagueController' ]);
+var ffApp = angular.module('ffApp', ['ui.bootstrap', 'ngRoute', 'ngAnimate', 'ownerController', 'leagueController', 'teamController' ]);
 
 ffApp.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
@@ -21,6 +21,10 @@ ffApp.config(['$routeProvider', function($routeProvider) {
 	when('/create_league', {
 		templateUrl: 'app/partials/create_league.html',
 		controller: 'CreateLeagueController'
+	}).
+	when('/edit_team_details', {
+		templateUrl: 'app/partials/edit_team.html',
+		controller: 'EditTeamController'
 	}).
 	otherwise({
 		redirectTo: '/owners'

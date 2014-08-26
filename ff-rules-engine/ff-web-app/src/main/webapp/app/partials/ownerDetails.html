@@ -25,7 +25,7 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="league in leagues | orderBy:leagueOrder" data-ng-class-odd="'trOdd'"
-					data-ng-class-even="'trEven'">
+					data-ng-class-even="'trEven'" data-ng-animate=" 'animate' ">
 					<td>{{league.name}}</td>
 					<td>{{league.currentWeek}}</td>
 					<td>{{league.year}}</td>
@@ -49,14 +49,16 @@
 					<th>
 						Total Points
 					</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="team in teams | orderBy:teamOrder" data-ng-class-odd="'trOdd'"
-					data-ng-class-even="'trEven'">
+					data-ng-class-even="'trEven'" data-ng-animate=" 'animate' ">
 					<td>{{team.name}}</td>
 					<td>{{team.leagueName}}</td>
 					<td>{{team.totalPoints}}</td>
+					<td><button class="btn btn-primary btn-lg" data-ng-click="editTeam(team)">Edit Details</button></td>
 				</tr>
 			</tbody>
 			<tfoot>
