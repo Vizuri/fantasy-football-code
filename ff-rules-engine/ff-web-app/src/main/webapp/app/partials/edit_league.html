@@ -3,24 +3,24 @@
 	<form class="alert" id="leagueForm">
 		<div class="form-group">
 	    	<label for="leagueName" class="col-sm-4 control-label"><strong>League Name</strong></label>
-	    	<div class="col-sm-5">
-				<input type="text" id="leagueName" data-ng-model="newLeague.name">
+	    	<div class="col-lg-4">
+				<input type="text" class="form-control" id="leagueName" data-ng-model="newLeague.name">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="currentWeek" class="col-sm-4 control-label"><strong>Current Week</strong></label>
-	    	<div class="col-sm-5">
-				<input type="text" id="currentWeek" data-ng-model="newLeague.currentWeek">
+	    	<div class="col-lg-2">
+				<input type="text" class="form-control" id="currentWeek" data-ng-model="newLeague.currentWeek">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="year" class="col-sm-4 control-label"><strong>Year</strong></label>
-	    	<div class="col-sm-5">
-				<input type="text" id="year" data-ng-model="newLeague.year">
+	    	<div class="col-lg-2">
+				<input type="text" class="form-control" id="year" data-ng-model="newLeague.year">
 			</div>
 		</div>
 		<div>
-		    <div class="col-sm-offset-1 col-sm-10">
+		    <div class="col-sm-offset-3 col-lg-4">
 		      <button type="submit" class="btn btn-primary" data-ng-click="updateLeague(newLeague)">Update</button>
 		    </div>
   		</div>

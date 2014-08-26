@@ -21,6 +21,7 @@ leagueModule.controller('EditLeagueController', ['$scope', '$http', 'League', fu
 				console.log("Status: " + status);
 				$scope.status = status;
 				$scope.league = data;
+				alert(data);
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);
@@ -83,6 +84,7 @@ leagueModule.controller('CreateLeagueController', ['$scope', '$http', 'Owner', f
 				console.log("Status: " + status);
 				$scope.status = status;
 				$scope.league = data;
+				alert(data);
 		}).
 		error(function(data, status, headers, config) {
 			console.log("Error returned: " + data);
