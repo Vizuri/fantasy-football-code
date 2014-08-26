@@ -4,6 +4,7 @@
 package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class LeagueRoster implements Serializable {
 	
 	private Long leagueId;
 	private Integer slot;
-	private List<String> validPositions;
+	private List<String> validPositions = new ArrayList<String>();
 	private Boolean bench;
 	
 	public LeagueRoster(){

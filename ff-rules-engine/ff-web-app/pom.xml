@@ -194,9 +194,28 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>com.vizuri</groupId>
+			<artifactId>ff-rules-validation</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.vizuri</groupId>
+			<artifactId>ff-rules-calc</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	

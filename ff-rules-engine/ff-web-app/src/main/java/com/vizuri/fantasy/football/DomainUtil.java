@@ -9,13 +9,22 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 import com.vizuri.fantasy.domain.League;
+import com.vizuri.fantasy.domain.LeagueRoster;
 import com.vizuri.fantasy.domain.Owner;
+import com.vizuri.fantasy.domain.Player;
+import com.vizuri.fantasy.domain.PlayerStatus;
 import com.vizuri.fantasy.domain.RuleSet;
 import com.vizuri.fantasy.domain.Team;
+import com.vizuri.fantasy.domain.TeamRoster;
 import com.vizuri.fantasy.entity.FantasyLeagueEntity;
+import com.vizuri.fantasy.entity.FantasyLeagueRosterEntity;
 import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 import com.vizuri.fantasy.entity.FantasyTeamEntity;
 //import com.vizuri.fantasy.entity.FantasyOwnerEntity;
+import com.vizuri.fantasy.entity.FantasyTeamRosterEntity;
+import com.vizuri.fantasy.entity.PlayerEntity;
+import com.vizuri.fantasy.entity.PlayerStatusEntity;
+import com.vizuri.fantasy.entity.PositionEntity;
 
 /**
  * @author amirge
@@ -89,5 +98,48 @@ public class DomainUtil {
 			entity.setEmail(owner.getEmail());
 		}
 		return entity;
+	}
+
+	public static TeamRoster convertTeamRosterEntityToBean(FantasyTeamRosterEntity teamRosterEntity) throws Exception {
+		TeamRoster teamRoster = new TeamRoster();
+		teamRoster.setLeagueId(teamRosterEntity.getTeam().getLeague().getId());
+		teamRoster.setPlayerId(teamRosterEntity.getPlayer().getId());
+		teamRoster.setSlotNumber(teamRosterEntity.getSlot());
+		teamRoster.setTeamId(teamRosterEntity.getTeam().getId());
+		teamRoster.setWeek(teamRosterEntity.getWeek());
+		return teamRoster;
+	}
+
+	public static LeagueRoster convertLeagueRosterEntityToBean(FantasyLeagueRosterEntity leagueRosterEntity) throws Exception {
+		LeagueRoster leagueRoster = new LeagueRoster();
+		leagueRoster.setBench(leagueRosterEntity.getBenchPosition());
+		leagueRoster.setLeagueId(leagueRosterEntity.getLeague().getId());
+		leagueRoster.setSlot(leagueRosterEntity.getSlot());
+		for (PositionEntity position : leagueRosterEntity.getPositions()) {
+			leagueRoster.getValidPositions().add(position.getShortName());
+		}
+		return leagueRoster;
+	}
+
+	public static Player convertPlayerEntityToBean(PlayerEntity playerEntity) {
+		Player player = new Player();
+		
+		player.setActive(playerEntity.getActive());
+		player.setDoNotCut(playerEntity.getDoNotCut());
+		player.setId(playerEntity.getId());
+		player.setName(playerEntity.getName());
+		player.setNumber(playerEntity.getNumber());
+		player.setPosition(playerEntity.getPosition().getShortName());
+		player.setProTeamNickname(player.getProTeamNickname());
+		
+		return player;
+	}
+
+	public static void convertPlayerStatusEntityToBean(PlayerStatus dest, PlayerStatusEntity src) {
+		dest.setDescription(src.getDescription());
+		dest.setPlayerId(src.getPlayer().getId());
+		dest.setStatusType(src.getStatusType());
+		dest.setWeek(src.getWeek());
+		dest.setYear(src.getYear());
 	}
 }

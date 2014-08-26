@@ -5,20 +5,74 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 import com.vizuri.fantasy.domain.League;
+import com.vizuri.fantasy.domain.LeagueRoster;
 import com.vizuri.fantasy.domain.Player;
 import com.vizuri.fantasy.domain.Team;
 import com.vizuri.fantasy.domain.Violation;
+import com.vizuri.fantasy.dtos.LeagueValidationSummary;
+import com.vizuri.fantasy.entity.FantasyLeagueEntity;
+import com.vizuri.fantasy.entity.FantasyLeagueRosterEntity;
+import com.vizuri.fantasy.entity.FantasyTeamEntity;
+import com.vizuri.fantasy.entity.FantasyTeamRosterEntity;
+import com.vizuri.fantasy.entity.manager.JpaRolledBackTestCase;
+import com.vizuri.fantasy.entity.manager.PlayerManager;
+import com.vizuri.fantasy.football.DomainUtil;
 
-public class FantasyLeagueValidationTest {
+public class FantasyLeagueValidationTest extends JpaRolledBackTestCase {
 
 	public final static transient Logger log = Logger.getLogger(FantasyLeagueValidationTest.class);
 	private RulesProcessor rulesProcessor = new RulesProcessorImpl();
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testDemoLeague() throws Exception {
+		FantasyLeagueEntity leagueEntity = (FantasyLeagueEntity)em.createQuery("select l from FantasyLeagueEntity l").getResultList().get(0);
+		log.info("testing league: " + leagueEntity);
+		LeagueValidationSummary leagueSummary = new LeagueValidationSummary();
+		
+		leagueSummary.setLeague(DomainUtil.convertLeagueEntityToBean(leagueEntity));
+		
+		List<FantasyTeamEntity> teamEntities = em.createQuery("select t from FantasyTeamEntity t where t.league.id = :leagueId").setParameter("leagueId", leagueEntity.getId()).getResultList();
+		Set<Long> playerIds = new HashSet<Long>();
+		for (FantasyTeamEntity teamEntity : teamEntities) {
+			leagueSummary.addTeam(DomainUtil.convertTeamEntityToBean(teamEntity));
+		}
+		
+		List<FantasyTeamRosterEntity> teamRosterEntities = em.createQuery("select tr from FantasyTeamRosterEntity tr where tr.team.league.id = :leagueId").setParameter("leagueId", leagueEntity.getId()).getResultList();
+		for (FantasyTeamRosterEntity teamRosterEntity : teamRosterEntities) {
+			leagueSummary.addTeamRoster(DomainUtil.convertTeamRosterEntityToBean(teamRosterEntity));
+			playerIds.add(teamRosterEntity.getPlayer().getId());
+		}
+		
+		List<FantasyLeagueRosterEntity> leagueRosterEntities = em.createQuery("select lr from FantasyLeagueRosterEntity lr where lr.league.id = :leagueId").setParameter("leagueId", leagueEntity.getId()).getResultList();
+		for (FantasyLeagueRosterEntity leagueRosterEntity : leagueRosterEntities) {
+			leagueSummary.addLeagueRoster(DomainUtil.convertLeagueRosterEntityToBean(leagueRosterEntity));
+		}
+		
+		for (LeagueRoster leagueRoster : leagueSummary.getLeagueRosters()) {
+			log.info("We have league roster: " + leagueRoster);
+		}
+		
+		leagueSummary.setPlayers(PlayerManager.findPlayersWithRankings(playerIds, leagueEntity.getYear(), em));
+		leagueSummary.setPlayerStatuses(PlayerManager.findPlayerStatuses(playerIds, leagueEntity.getYear(), em));
+		
+		rulesProcessor.fireViolationRules(leagueSummary);
+		
+		log.info("Found " + leagueSummary.getViolations().size() + " violations.");
+		for (Violation violation :leagueSummary.getViolations()) {
+			log.info(violation);
+		}
+		
+	}
 	
 	//@Test
 	public void testFantasyTeamLowerBound(){
@@ -71,7 +125,7 @@ public class FantasyLeagueValidationTest {
 			teams.add(team);
 		}
 		league.setFantasyTeams(teams);
-		leagueViolationMap = rulesProcessor.fireViolationRules(league);
+		//leagueViolationMap = rulesProcessor.fireViolationRules(league);
 		return leagueViolationMap;
 	}
 
@@ -93,7 +147,7 @@ public class FantasyLeagueValidationTest {
 		league.setId(100l);
 		league.setName("leagueA");
 		league.getFantasyTeams().add(team);
-		teamViolationMap = rulesProcessor.fireViolationRules(league);		
+		//teamViolationMap = rulesProcessor.fireViolationRules(league);		
 		return teamViolationMap;
 	}
 
