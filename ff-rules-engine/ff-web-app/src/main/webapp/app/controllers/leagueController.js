@@ -37,7 +37,8 @@ leagueModule.controller('JoinLeagueController', ['$scope', '$http', 'Owner', 'Le
 	
 	$scope.join = function(league){
 		console.log("The passed league is: "+league);
-		//toJson() to remove the '$$hashKey' key from league object that angular adds with ng-repeat directive
+		//The toJson() to remove the '$$hashKey' key from league object that angular adds with ng-repeat directive
+		//Source: https://docs.angularjs.org/api/ng/function/angular.toJson
 		$scope.league = angular.toJson(league);
 		$scope.league.commissioner = Owner.getOwner();
 		

@@ -4,9 +4,7 @@
 package com.vizuri.fantasy.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,8 +21,14 @@ import org.apache.log4j.Logger;
 
 import com.vizuri.fantasy.domain.TeamRoster;
 import com.vizuri.fantasy.dtos.PlayerSummaryDTO;
+import com.vizuri.fantasy.entity.FantasyLeagueEntity;
 import com.vizuri.fantasy.entity.FantasyTeamEntity;
 import com.vizuri.fantasy.entity.FantasyTeamRosterEntity;
+import com.vizuri.fantasy.entity.OverallRankingEntity;
+import com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity;
+import com.vizuri.fantasy.entity.PositionRankingEntity;
+import com.vizuri.fantasy.entity.manager.LookupManager;
+import com.vizuri.fantasy.entity.manager.PlayerManager;
 import com.vizuri.fantasy.entity.manager.TeamManager;
 
 /**
@@ -44,21 +48,31 @@ public class TeamService {
 	@Path("/{id}")
 	public Response getTeamRosters(@PathParam(value = "id") String teamId) {
 		log.info("Now getting the team roster entities using the team: "+ teamId);
-		Map<Long, List<PlayerSummaryDTO>> playerSummaryMap = new HashMap<Long, List<PlayerSummaryDTO>>();
+		List<PlayerSummaryDTO> playerSummaryDTOs = new ArrayList<PlayerSummaryDTO>();
 		try {
 			FantasyTeamEntity fantasyTeamEntity = em.find(FantasyTeamEntity.class, Long.valueOf(teamId));
-			List<TeamRoster> rosterDTOs = new ArrayList<TeamRoster>();
 			for (FantasyTeamRosterEntity rosterEntity: TeamManager.getRostersForTeam(fantasyTeamEntity.getId(), em)){
 				TeamRoster roster = new TeamRoster();
 				PropertyUtils.copyProperties(roster, rosterEntity);
-				rosterDTOs.add(roster);
 				PlayerSummaryDTO summaryDTO = new PlayerSummaryDTO();
 				summaryDTO.setSlotNumber(roster.getSlotNumber());
 				summaryDTO.setPlayer(roster.getPlayer());
+				FantasyLeagueEntity leagueEntity = em.find(FantasyLeagueEntity.class, Long.valueOf(roster.getLeagueId()));
+				//Get the ranking by position first..
+				PositionRankingEntity positionRankingEntity = LookupManager.getPositionRankingByPlayerAndYear(roster.getPlayer().getId(), leagueEntity.getYear(), em);
+				summaryDTO.setPositionRankingEntity(positionRankingEntity);
 				
+				//TODO:::Get the overall ranking next..might need some conversion between entity and pojo.
+				OverallRankingEntity overallRankingEntity = LookupManager.getOverallRankingByPlayerAndYear(roster.getPlayer().getId(), leagueEntity.getYear(), em);
+				summaryDTO.setOverallRankingEntity(overallRankingEntity);
+				
+				//TODO:::Get the players weekly score...might need some conversion between entity and pojo.
+				PlayerWeeklyScoreEntity weeklyScoreEntity = PlayerManager.getWeeklyScore(roster.getPlayer().getId(), leagueEntity.getYear(), roster.getWeek(), em);
+				summaryDTO.setWeeklyScoreEntity(weeklyScoreEntity);
+				playerSummaryDTOs.add(summaryDTO);
 			}
-			log.info("Returning rosters size: " +rosterDTOs.size());
-			return Response.ok(rosterDTOs).build();
+			log.info("Returning rosters size: " +playerSummaryDTOs.size());
+			return Response.ok(playerSummaryDTOs).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}

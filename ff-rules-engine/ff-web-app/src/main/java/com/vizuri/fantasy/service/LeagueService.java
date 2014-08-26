@@ -101,7 +101,7 @@ public class LeagueService {
 			//Get the league info..
 			FantasyLeagueEntity fantasyLeagueEntity = em.find(FantasyLeagueEntity.class, Long.valueOf(team.getLeagueId()));	
 			teamEntity.setLeague(fantasyLeagueEntity);
-			teamEntity.setCurrentScore(new BigDecimal(0));
+			teamEntity.setCurrentScore(BigDecimal.ZERO);
 			em.persist(teamEntity);
 			em.flush();log.info("League Joined Successfully with a new Team Id: "+ teamEntity.getId());
 			return Response.ok("League Joined Successfully..").build();
