@@ -77,7 +77,8 @@ public class LeagueService {
 			entity.setYear(league.getYear());
 			em.persist(entity);
 			em.flush();
-			return Response.ok("League Updated Successfully..").build();
+			log.info("League Updated Successfully..");
+			return Response.ok(entity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -103,12 +104,12 @@ public class LeagueService {
 			teamEntity.setLeague(fantasyLeagueEntity);
 			teamEntity.setCurrentScore(BigDecimal.ZERO);
 			em.persist(teamEntity);
-			em.flush();log.info("League Joined Successfully with a new Team Id: "+ teamEntity.getId());
+			em.flush();
+			log.info("League Joined Successfully with a new Team Id: "+ teamEntity.getId());
 			return Response.ok(teamEntity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
-		
 	}
 	
 	@POST
@@ -121,16 +122,16 @@ public class LeagueService {
 			if (log.isDebugEnabled()) {
 				log.debug("Creating league with league name: " + league.getName());
 			}
-			FantasyLeagueEntity entity = new FantasyLeagueEntity();		
-			entity.setName(league.getName());
-			entity.setCurrentWeek(league.getCurrentWeek());
-			entity.setYear(league.getYear());
+			FantasyLeagueEntity leagueEntity = new FantasyLeagueEntity();		
+			leagueEntity.setName(league.getName());
+			leagueEntity.setCurrentWeek(league.getCurrentWeek());
+			leagueEntity.setYear(league.getYear());
 			FantasyOwnerEntity fantasyOwnerEntity = em.find(FantasyOwnerEntity.class, Long.valueOf(league.getCommissioner().getId()));	
-			entity.setCommissioner(fantasyOwnerEntity);
-			em.persist(entity);
+			leagueEntity.setCommissioner(fantasyOwnerEntity);
+			em.persist(leagueEntity);
 		    em.flush();
-			log.info("League Created Successfully "+ entity.getName());
-			return Response.ok(entity).build();
+			log.info("League Created Successfully "+ leagueEntity.getName());
+			return Response.ok(leagueEntity).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
