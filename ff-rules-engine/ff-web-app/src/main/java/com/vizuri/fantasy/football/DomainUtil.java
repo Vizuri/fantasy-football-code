@@ -10,12 +10,16 @@ import org.apache.log4j.Logger;
 
 import com.vizuri.fantasy.domain.League;
 import com.vizuri.fantasy.domain.Owner;
+import com.vizuri.fantasy.domain.Player;
+import com.vizuri.fantasy.domain.PlayerStatus;
 import com.vizuri.fantasy.domain.RuleSet;
 import com.vizuri.fantasy.domain.Team;
 import com.vizuri.fantasy.entity.FantasyLeagueEntity;
 import com.vizuri.fantasy.entity.FantasyOwnerEntity;
 import com.vizuri.fantasy.entity.FantasyTeamEntity;
 //import com.vizuri.fantasy.entity.FantasyOwnerEntity;
+import com.vizuri.fantasy.entity.PlayerEntity;
+import com.vizuri.fantasy.entity.PlayerStatusEntity;
 
 /**
  * @author amirge
@@ -90,4 +94,26 @@ public class DomainUtil {
 		}
 		return entity;
 	}
+
+	public static Player convertPlayerEntityToBean(PlayerEntity entity) {
+		Player player = new Player();
+		if(null != entity){
+			player.setId(entity.getId());
+			player.setName(entity.getName());
+			player.setNumber(entity.getNumber());
+			player.setPosition(entity.getPosition().getName());			
+		}
+		return player;
+	}
+	
+	public static PlayerStatus convertPlayerStatusEntityToBean(PlayerStatusEntity playerStatusEntity){
+		PlayerStatus playerStatus = new PlayerStatus();
+		playerStatus.setStatusType(playerStatusEntity.getStatusType());
+		playerStatus.setDescription(playerStatusEntity.getDescription());
+		playerStatus.setWeek(playerStatusEntity.getWeek());
+		playerStatus.setYear(playerStatusEntity.getYear());
+		playerStatus.setStatusTypeString(playerStatusEntity.getStatusType().getValue());
+		return playerStatus;
+	}
+	
 }

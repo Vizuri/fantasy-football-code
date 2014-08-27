@@ -52,6 +52,7 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 		}
 	}
 	console.log("AFTER:::::The teams size on load is: "+$scope.teams.length);
+
 	$scope.joinLeague = function(owner){
 		Owner.setOwner(owner);
 		$http.get('rest/leagues').success(function(data, status) {
