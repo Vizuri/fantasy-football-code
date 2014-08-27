@@ -30,5 +30,7 @@ public class TeamManager {
 			return em.createQuery("select r from FantasyTeamRosterEntity r where r.team.id = :teamId order by r.slot")
 					.setParameter("teamId", teamId)
 					.getResultList();
+//		return em.createQuery("select r from FantasyTeamRosterEntity r")
+//				.getResultList();
 	}
 }
