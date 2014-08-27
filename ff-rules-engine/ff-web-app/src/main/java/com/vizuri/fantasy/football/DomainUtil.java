@@ -156,4 +156,15 @@ public class DomainUtil {
 		playStatistic.setYear(playStatisticEntity.getScheduledMatch().getYear());
 		return playStatistic;
 	}
+	
+	public static PlayerStatus convertPlayerStatusEntityToBean(PlayerStatusEntity playerStatusEntity){
+		PlayerStatus playerStatus = new PlayerStatus();
+		playerStatus.setStatusType(playerStatusEntity.getStatusType());
+		playerStatus.setDescription(playerStatusEntity.getDescription());
+		playerStatus.setWeek(playerStatusEntity.getWeek());
+		playerStatus.setYear(playerStatusEntity.getYear());
+		playerStatus.setStatusTypeString(playerStatusEntity.getStatusType().getValue());
+		return playerStatus;
+	}
+	
 }

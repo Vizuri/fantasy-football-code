@@ -58,7 +58,6 @@ public class LeagueService {
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
-		
 	}
 	
 	@PUT
