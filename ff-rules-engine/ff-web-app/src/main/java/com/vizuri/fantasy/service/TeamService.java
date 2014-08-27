@@ -58,28 +58,33 @@ public class TeamService {
 			for (FantasyTeamRosterEntity rosterEntity: rosters){
 				PlayerSummaryDTO summaryDTO = new PlayerSummaryDTO();
 				if(null != rosterEntity){	
-					log.info("Roster entity is not null :"+rosterEntity.getSlot());
+					log.info("Roster entity is not null with fantasy team id #"+rosterEntity.getTeam().getId());
 					summaryDTO.setSlotNumber(rosterEntity.getSlot());
 					Player player = DomainUtil.convertPlayerEntityToBean(rosterEntity.getPlayer());
+					log.info("Looking for Player Status using playerId: " + player.getId() + ", year: " + rosterEntity.getTeam().getLeague().getYear() + " and week: " + rosterEntity.getWeek()); 
 					PlayerStatusEntity playerStatusEntity = PlayerManager.findPlayerStatus(player.getId(), rosterEntity.getTeam().getLeague().getYear(), rosterEntity.getWeek(), em);
+					log.info("playerStatusEntity is "+playerStatusEntity);
 					player.setStatus(DomainUtil.convertPlayerStatusEntityToBean(playerStatusEntity));
 					summaryDTO.setPlayer(player);
-				
+					log.info("rosterEntity.getTeam().getLeague().getId() "+rosterEntity.getTeam().getLeague().getId());
 					FantasyLeagueEntity leagueEntity = em.find(FantasyLeagueEntity.class, Long.valueOf(rosterEntity.getTeam().getLeague().getId()));
+					log.info("Fantasy leagueEntity is :"+leagueEntity);
 					//Get the ranking by position first..
 					PositionRankingEntity positionRankingEntity = LookupManager.getPositionRankingByPlayerAndYear(rosterEntity.getPlayer().getId(), leagueEntity.getYear(), em);
+					log.info("PositionRankingEntity is :"+positionRankingEntity);
 					summaryDTO.setPositionRank(positionRankingEntity.getRank());
 					
 					//Get the overall ranking next...
 					OverallRankingEntity overallRankingEntity = LookupManager.getOverallRankingByPlayerAndYear(rosterEntity.getPlayer().getId(), leagueEntity.getYear(), em);
+					log.info("OverallRankingEntity is :"+overallRankingEntity);
 					summaryDTO.setOverallRank(overallRankingEntity.getRank());
 					
 					//Get the players weekly score....
 					PlayerWeeklyScoreEntity weeklyScoreEntity = PlayerManager.getWeeklyScore(rosterEntity.getPlayer().getId(), leagueEntity.getYear(), rosterEntity.getWeek(), em);
+					log.info("PlayerWeeklyScoreEntity is :"+weeklyScoreEntity);
 					summaryDTO.setWeeklyScoreEntity(weeklyScoreEntity);
 				}
 				log.info("Roster entity is:"+rosterEntity.getSlot());
-
 				playerSummaryDTOs.add(summaryDTO);
 			}
 			log.info("Returning rosters size: " +playerSummaryDTOs.size());
