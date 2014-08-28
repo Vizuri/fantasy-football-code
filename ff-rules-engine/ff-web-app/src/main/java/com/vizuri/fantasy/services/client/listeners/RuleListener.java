@@ -16,8 +16,7 @@ public class RuleListener implements RuleRuntimeEventListener {
 		logger.info("objectInserted");
 		
 		Object factObject = event.getObject();
-		@SuppressWarnings("deprecation")
-		Rule ruleFired = event.getPropagationContext().getRule();
+		Rule ruleFired = event.getRule(); //event.getPropagationContext().getRule();
 		if (ruleFired != null) {
 			logger.info("Rule fired : " + ruleFired.getName());
 		}

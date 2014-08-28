@@ -18,7 +18,7 @@ public class ScoringTest extends JpaRolledBackTestCase {
 	private final static transient Logger log = Logger.getLogger(ScoringTest.class);
 	private RulesProcessor rulesProcessor = new RulesProcessorImpl();
 	
-	//@Test
+	@Test
 	@SuppressWarnings("unchecked")
 	public void testWeek1Score() {
 		final Integer playLimit = 10;

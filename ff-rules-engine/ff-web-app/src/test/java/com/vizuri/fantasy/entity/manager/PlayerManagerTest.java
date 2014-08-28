@@ -28,7 +28,9 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 		log.info("Found: " + player);
 	}
 	
+	
 	@Test
+	@SuppressWarnings("unchecked")
 	public void testCopyProperties() throws Exception {
 		List<FantasyOwnerEntity> ownerEntities = em.createQuery("select o from FantasyOwnerEntity o order by o").getResultList();
 		for (FantasyOwnerEntity ownerEntity : ownerEntities) {
@@ -39,6 +41,7 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 	}
 	
 	@Test
+	@SuppressWarnings("unchecked")
 	public void getLeaguesForOwner() {
 		List<FantasyOwnerEntity> owners = em.createQuery("select o from FantasyOwnerEntity o").getResultList();
 		for (FantasyOwnerEntity owner : owners) {
@@ -51,6 +54,7 @@ public class PlayerManagerTest extends JpaRolledBackTestCase {
 	}
 	
 	@Test
+	@SuppressWarnings("unchecked")
 	public void getTeamsForOwner() {
 		List<FantasyOwnerEntity> owners = em.createQuery("select o from FantasyOwnerEntity o").getResultList();
 		for (FantasyOwnerEntity owner : owners) {
