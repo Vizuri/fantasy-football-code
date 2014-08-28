@@ -77,7 +77,7 @@ public class LeagueService {
 			em.persist(entity);
 			em.flush();
 			log.info("League Updated Successfully..");
-			return Response.ok(entity).build();
+			return Response.ok(league).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -105,7 +105,7 @@ public class LeagueService {
 			em.persist(teamEntity);
 			em.flush();
 			log.info("League Joined Successfully with a new Team Id: "+ teamEntity.getId());
-			return Response.ok(teamEntity).build();
+			return Response.ok(team).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -130,7 +130,7 @@ public class LeagueService {
 			em.persist(leagueEntity);
 		    em.flush();
 			log.info("League Created Successfully "+ leagueEntity.getName());
-			return Response.ok(leagueEntity).build();
+			return Response.ok(league).build();
 		} catch (Exception ex) {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
