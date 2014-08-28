@@ -3,8 +3,9 @@
  */
 package com.vizuri.fantasy.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,17 +20,13 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.vizuri.fantasy.domain.Player;
-import com.vizuri.fantasy.dtos.PlayerSummaryDTO;
-import com.vizuri.fantasy.entity.FantasyLeagueEntity;
+import com.vizuri.fantasy.domain.PlayerStatus;
+import com.vizuri.fantasy.dtos.PlayerSummary;
+import com.vizuri.fantasy.dtos.PlayerWeeklySummary;
+import com.vizuri.fantasy.dtos.TeamSummary;
 import com.vizuri.fantasy.entity.FantasyTeamEntity;
 import com.vizuri.fantasy.entity.FantasyTeamRosterEntity;
-import com.vizuri.fantasy.entity.OverallRankingEntity;
-import com.vizuri.fantasy.entity.PlayerStatusEntity;
-import com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity;
-import com.vizuri.fantasy.entity.PositionRankingEntity;
-import com.vizuri.fantasy.entity.manager.LookupManager;
 import com.vizuri.fantasy.entity.manager.PlayerManager;
-import com.vizuri.fantasy.entity.manager.TeamManager;
 import com.vizuri.fantasy.football.DomainUtil;
 
 /**
@@ -47,49 +44,61 @@ public class TeamService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
-	public Response getTeamRosters(@PathParam(value = "id") String teamId) {
+	@SuppressWarnings("unchecked")
+	public Response getTeamSummary(@PathParam(value = "id") String teamId) {
 		log.info("Now getting the team roster entities using the team: "+ teamId);
-		List<PlayerSummaryDTO> playerSummaryDTOs = new ArrayList<PlayerSummaryDTO>();
 		try {
-			FantasyTeamEntity fantasyTeamEntity = em.find(FantasyTeamEntity.class, Long.valueOf(teamId));
-			log.info("Fantasy team entity is :"+fantasyTeamEntity);
-			List<FantasyTeamRosterEntity> rosters = TeamManager.getRostersForTeam(fantasyTeamEntity.getId(), em);
-			log.info("The fantasy team roster entity size is: "+rosters.size());
-			for (FantasyTeamRosterEntity rosterEntity: rosters){
-				PlayerSummaryDTO summaryDTO = new PlayerSummaryDTO();
-				if(null != rosterEntity){	
-					log.info("Roster entity is not null with fantasy team id #"+rosterEntity.getTeam().getId());
-					summaryDTO.setSlotNumber(rosterEntity.getSlot());
-					Player player = DomainUtil.convertPlayerEntityToBean(rosterEntity.getPlayer());
-					log.info("Looking for Player Status using playerId: " + player.getId() + ", year: " + rosterEntity.getTeam().getLeague().getYear() + " and week: " + rosterEntity.getWeek()); 
-					PlayerStatusEntity playerStatusEntity = PlayerManager.findPlayerStatus(player.getId(), rosterEntity.getTeam().getLeague().getYear(), rosterEntity.getWeek(), em);
-					log.info("playerStatusEntity is "+playerStatusEntity);
-					player.setStatus(DomainUtil.convertPlayerStatusEntityToBean(playerStatusEntity));
-					summaryDTO.setPlayer(player);
-					log.info("rosterEntity.getTeam().getLeague().getId() "+rosterEntity.getTeam().getLeague().getId());
-					FantasyLeagueEntity leagueEntity = em.find(FantasyLeagueEntity.class, Long.valueOf(rosterEntity.getTeam().getLeague().getId()));
-					log.info("Fantasy leagueEntity is :"+leagueEntity);
-					//Get the ranking by position first..
-					PositionRankingEntity positionRankingEntity = LookupManager.getPositionRankingByPlayerAndYear(rosterEntity.getPlayer().getId(), leagueEntity.getYear(), em);
-					log.info("PositionRankingEntity is :"+positionRankingEntity);
-					summaryDTO.setPositionRank(positionRankingEntity.getRank());
-					
-					//Get the overall ranking next...
-					OverallRankingEntity overallRankingEntity = LookupManager.getOverallRankingByPlayerAndYear(rosterEntity.getPlayer().getId(), leagueEntity.getYear(), em);
-					log.info("OverallRankingEntity is :"+overallRankingEntity);
-					summaryDTO.setOverallRank(overallRankingEntity.getRank());
-					
-					//Get the players weekly score....
-					PlayerWeeklyScoreEntity weeklyScoreEntity = PlayerManager.getWeeklyScore(rosterEntity.getPlayer().getId(), leagueEntity.getYear(), rosterEntity.getWeek(), em);
-					log.info("PlayerWeeklyScoreEntity is :"+weeklyScoreEntity);
-					summaryDTO.setWeeklyScoreEntity(weeklyScoreEntity);
+			TeamSummary teamSummary = new TeamSummary();
+			
+			FantasyTeamEntity teamEntity = em.find(FantasyTeamEntity.class, Long.valueOf(teamId));
+			teamSummary.setTeam(DomainUtil.convertTeamEntityToBean(teamEntity));
+			
+			Map<Long, Player> playerMap = new HashMap<Long, Player>();
+			List<FantasyTeamRosterEntity> teamRosterEntities = em.createQuery("select tr from FantasyTeamRosterEntity tr where tr.team.id = :teamId order by tr.week").setParameter("teamId", Long.valueOf(teamId)).getResultList();
+			for (FantasyTeamRosterEntity teamRosterEntity : teamRosterEntities) {
+				if (teamRosterEntity.getPlayer() != null) {
+					playerMap.put(teamRosterEntity.getPlayer().getId(), null);
 				}
-				log.info("Roster entity is:"+rosterEntity.getSlot());
-				playerSummaryDTOs.add(summaryDTO);
 			}
-			log.info("Returning rosters size: " +playerSummaryDTOs.size());
-			return Response.ok(playerSummaryDTOs).build();
+			
+			List<Player> players = PlayerManager.findPlayersWithRankings(playerMap.keySet(), teamEntity.getLeague().getYear(), em);
+			for (Player player : players) {
+				playerMap.put(player.getId(), player);
+			}
+			
+			Map<Long,PlayerWeeklySummary> summaryMap = PlayerManager.getPlayerWeeklySummaries(playerMap.keySet(), teamEntity.getLeague().getYear(), em);
+			
+			for (FantasyTeamRosterEntity teamRosterEntity : teamRosterEntities) {
+				PlayerSummary playerSummary = new PlayerSummary();
+				playerSummary.setSlotNumber(teamRosterEntity.getSlot());
+				if (teamRosterEntity.getPlayer() != null) {
+					Long playerId = teamRosterEntity.getPlayer().getId();
+					Integer week = teamRosterEntity.getWeek();
+					
+					playerSummary.populate(playerMap.get(playerId));
+					if (summaryMap.containsKey(playerId)) {
+						playerSummary.setWeeklyScore(summaryMap.get(playerId).getWeeklyScoreString(week));
+						playerSummary.setWeeklyStatistics(summaryMap.get(playerId).getWeeklyStats(week));
+						PlayerStatus playerStatus = summaryMap.get(playerId).getPlayerStatus();
+						
+						if (playerStatus != null) {
+							playerSummary.setStatus(playerStatus.getStatusTypeString());
+							playerSummary.setStatusDescription(playerStatus.getDescription());
+						}
+						
+						//TODO: Remove... testing
+						playerSummary.setWeeklyScore(String.valueOf(week));
+					} else {
+						log.info("No weekly data found for playerId: " + playerId);
+					}
+					
+				}
+				teamSummary.addPlayerSummary(teamRosterEntity.getWeek(), playerSummary);
+			}
+			
+			return Response.ok(teamSummary).build();
 		} catch (Exception ex) {
+			log.error("Could not prepare team summary for team id: " + teamId, ex);
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
 	}

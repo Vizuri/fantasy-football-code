@@ -33,4 +33,6 @@ public class TeamManager {
 //		return em.createQuery("select r from FantasyTeamRosterEntity r")
 //				.getResultList();
 	}
+	
+	
 }

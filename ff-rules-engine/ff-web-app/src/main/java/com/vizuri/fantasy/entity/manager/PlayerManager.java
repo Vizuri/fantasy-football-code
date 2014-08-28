@@ -1,7 +1,6 @@
 package com.vizuri.fantasy.entity.manager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +14,14 @@ import org.apache.log4j.Logger;
 
 import com.vizuri.fantasy.domain.Player;
 import com.vizuri.fantasy.domain.PlayerStatus;
+import com.vizuri.fantasy.domain.PlayerWeeklyStatistic;
+import com.vizuri.fantasy.dtos.PlayerWeeklySummary;
 import com.vizuri.fantasy.entity.OverallRankingEntity;
 import com.vizuri.fantasy.entity.PlayerEntity;
 import com.vizuri.fantasy.entity.PlayerStatusEntity;
+import com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity;
 import com.vizuri.fantasy.entity.PositionRankingEntity;
 import com.vizuri.fantasy.football.DomainUtil;
-import com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity;
 
 public class PlayerManager {
 	private final static transient Logger log = Logger.getLogger(PlayerManager.class);
@@ -94,6 +95,7 @@ public class PlayerManager {
 		return new ArrayList<Player>(playerMap.values());
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<PlayerStatus> findPlayerStatuses(Set<Long> playerIds, Integer year, EntityManager em) {
 		List<PlayerStatusEntity> playerStatuses = em.createQuery("select ps from PlayerStatusEntity ps where ps.player.id in (:playerIds) and ps.year = :year").setParameter("playerIds", playerIds).setParameter("year", year).getResultList();
 		List<PlayerStatus> statusBeans = new ArrayList<PlayerStatus>();
@@ -116,10 +118,60 @@ public class PlayerManager {
 
 	public static PlayerStatusEntity findPlayerStatus(Long playerId, Integer year, Integer week, EntityManager em) {
 		if (log.isDebugEnabled()) { log.debug("Looking for Player Status using playerId: " + playerId + ", year: " + year + " and week: " + week); }
-		return (PlayerStatusEntity)em.createQuery("select ps from PlayerStatusEntity ps where ps.player.id = :playerId and ps.year = :year and ps.week = :week")
-				.setParameter("playerId", playerId)
-				.setParameter("year", year)
-				.setParameter("week", week)
-				.getSingleResult();
+		try {
+			return (PlayerStatusEntity)em.createQuery("select ps from PlayerStatusEntity ps where ps.player.id = :playerId and ps.year = :year and ps.week = :week")
+					.setParameter("playerId", playerId)
+					.setParameter("year", year)
+					.setParameter("week", week)
+					.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Map<Long,PlayerWeeklySummary> getPlayerWeeklySummaries(Set<Long> playerIds, Integer year, EntityManager em) {
+		Map<Long,PlayerWeeklySummary> summaryMap = new HashMap<Long, PlayerWeeklySummary>();
+		
+		List<PlayerWeeklyScoreEntity> scoreEntities = 
+				em.createQuery("select s from PlayerWeeklyScoreEntity s where s.player.id in (:playerIds) and s.year = :year")
+					.setParameter("playerIds", playerIds)
+					.setParameter("year", year)
+					.getResultList();
+		
+		for (PlayerWeeklyScoreEntity scoreEntity : scoreEntities) {
+			if (!summaryMap.containsKey(scoreEntity.getPlayer().getId())) {
+				summaryMap.put(scoreEntity.getPlayer().getId(), new PlayerWeeklySummary());
+			}
+			summaryMap.get(scoreEntity.getPlayer().getId()).addScore(scoreEntity.getWeek(), scoreEntity.getScore());
+		}
+		
+		List<PlayerWeeklyStatistic> statisticEntities = 
+				em.createQuery("select s from PlayerWeeklyStatisticEntity s where s.player.id in (:playerIds) and s.year = :year")
+					.setParameter("playerIds", playerIds)
+					.setParameter("year", year)
+					.getResultList();
+		
+		for (PlayerWeeklyStatistic statistic : statisticEntities) {
+			if (!summaryMap.containsKey(statistic.getPlayerId())) {
+				summaryMap.put(statistic.getPlayerId(), new PlayerWeeklySummary());
+			}
+			summaryMap.get(statistic.getPlayerId()).addStatistic(DomainUtil.convertWeeklyStatisticEntityToBean(statistic));
+		}
+		
+		List<PlayerStatusEntity> statusEntities = 
+				em.createQuery("select s from PlayerStatusEntity s where s.player.id in (:playerIds) and s.year = :year")
+					.setParameter("playerIds", playerIds)
+					.setParameter("year", year)
+					.getResultList();
+		
+		for (PlayerStatusEntity status : statusEntities) {
+			if (!summaryMap.containsKey(status.getPlayer().getId())) {
+				summaryMap.put(status.getPlayer().getId(), new PlayerWeeklySummary());
+			}
+			summaryMap.get(status.getPlayer().getId()).setPlayerStatus(DomainUtil.convertPlayerStatusEntityToBean(status));
+		}
+		
+		return summaryMap;
 	}
 }

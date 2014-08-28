@@ -7,11 +7,23 @@ teamModule.controller('EditTeamController', ['$scope', '$http', 'Team', function
 	success(function(data, status, headers, config){
 		console.log("Status: "+status);
 		$scope.status = status;
-		$scope.teamRosters = data;
+		$scope.teamSummary = data;
 	}).
 	error(function(data, status, headers, config){
 		console.log("Error returned: "+data);
 		$scope.data = data || "Request failed";
 		$scope.status = status;
 	});
+	
+	$scope.changeWeek = function(value) {
+		var i = Number(value);
+		$scope.currentWeek = i;
+		while (i > 0) {
+			if ($scope.teamSummary.teamRosterMap[String(i)]) {
+				$scope.teamRosters = $scope.teamSummary.teamRosterMap[String(i)];
+				break;
+			}
+			i--;
+		}
+	};
 }]);

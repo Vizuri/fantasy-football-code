@@ -5,6 +5,8 @@ package com.vizuri.fantasy.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author amirge
@@ -29,7 +31,7 @@ public class Player implements Serializable {
     private BigDecimal overallRankingWeight = BigDecimal.ZERO;
     
     private Boolean active = true;
-	
+    
     public Player(){
     }
     

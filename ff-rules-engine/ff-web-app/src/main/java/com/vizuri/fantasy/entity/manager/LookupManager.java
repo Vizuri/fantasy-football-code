@@ -76,7 +76,7 @@ public class LookupManager {
 	
 	public static OverallRankingEntity getOverallRankingByPlayerAndYear(Long playerId, Integer year, EntityManager em) {
 		if (log.isDebugEnabled()) { log.debug("Looking for overall ranking using playerId: " + playerId + " and year: " + year); }
-		return (OverallRankingEntity)em.createQuery("select or from OverallRankingEntity or where or.player.id = :playerId and or.year = :year")
+		return (OverallRankingEntity)em.createQuery("select o from OverallRankingEntity o where o.player.id = :playerId and o.year = :year")
 				.setParameter("playerId", playerId)
 				.setParameter("year", year)
 				.getSingleResult();

@@ -14,6 +14,7 @@ import com.vizuri.fantasy.domain.Owner;
 import com.vizuri.fantasy.domain.PlayStatistic;
 import com.vizuri.fantasy.domain.Player;
 import com.vizuri.fantasy.domain.PlayerStatus;
+import com.vizuri.fantasy.domain.PlayerWeeklyStatistic;
 import com.vizuri.fantasy.domain.RuleSet;
 import com.vizuri.fantasy.domain.Team;
 import com.vizuri.fantasy.domain.TeamRoster;
@@ -158,6 +159,7 @@ public class DomainUtil {
 	}
 	
 	public static PlayerStatus convertPlayerStatusEntityToBean(PlayerStatusEntity playerStatusEntity){
+		if (playerStatusEntity == null) { return null; }
 		PlayerStatus playerStatus = new PlayerStatus();
 		playerStatus.setStatusType(playerStatusEntity.getStatusType());
 		playerStatus.setDescription(playerStatusEntity.getDescription());
@@ -165,6 +167,19 @@ public class DomainUtil {
 		playerStatus.setYear(playerStatusEntity.getYear());
 		playerStatus.setStatusTypeString(playerStatusEntity.getStatusType().getValue());
 		return playerStatus;
+	}
+
+	public static PlayerWeeklyStatistic convertWeeklyStatisticEntityToBean(PlayerWeeklyStatistic statisticEntity) {
+		PlayerWeeklyStatistic statistic = new PlayerWeeklyStatistic();
+		
+		statistic.setPlayerId(statisticEntity.getPlayerId());
+		statistic.setStatisticType(statisticEntity.getStatisticType());
+		statistic.setStatisticValue(statisticEntity.getStatisticValue());
+		statistic.setTimeStamp(statisticEntity.getTimeStamp());
+		statistic.setWeek(statisticEntity.getWeek());
+		statistic.setYear(statisticEntity.getYear());
+		
+		return statistic;
 	}
 	
 }

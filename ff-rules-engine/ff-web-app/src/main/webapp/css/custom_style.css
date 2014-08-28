@@ -4,12 +4,12 @@
 html, body
 {
     height: 100%;
+    background: #1a1a1a !important;
 }
 
 
 body{
 	margin:0;
-	background:#1a1a1a!important;
 	font-size:16px;
 	color:white;
 }
@@ -41,21 +41,6 @@ padding-right:0!important;
 	height:45px;
 	width:100%;
 	margin-bottom: 30px;
-}
-
-#footer{
-	background:black;
-	position:fixed;
-   bottom:15px;
-   width:80%;
-}
-
-.footercontent{
-	margin-left:auto;
-	margin-right:auto;
-	text-align:center;
-	padding-right:4%;
-	padding-bootom:20px;	
 }
 
 .bold_text{
@@ -146,22 +131,26 @@ th{
 #menu_icon{
 	float:left;
 	padding-top:5px;
+	padding-left: 5px;
+	width: 30%;
 }
 
 #menu_logo{
 	float:left;
 	text-align:center;
+	width: 40%;
 
 }
 
 #social_icons{
-	float:right;
+	float:left;
 	text-align:right;
-
+	width: 30%;
+	padding-right: 5px;
 }
 
 .icon_contain{
-	float:left;
+	float:right;
 	padding-left:5px;
 	padding-top:2px;
 }
@@ -183,4 +172,37 @@ h2, .h2 {
 
 input, optgroup, select, textarea {
 	color: #333;	
+}
+
+#content {
+	min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -175px;
+    min-width: 600px;
+}
+
+form {
+	position: relative;
+	z-index: 100;
+}
+
+#footer{
+	background:black;
+	height: 175px;
+	width: 80%;
+	margin: 0 auto;
+	clear:both;
+}
+
+.footercontent{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	padding-bootom:20px;
+}
+
+th button {
+	float: right;	
 }

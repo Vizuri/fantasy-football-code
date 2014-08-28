@@ -22,6 +22,7 @@
         <class>com.vizuri.fantasy.entity.OverallRankingEntity</class>
         <class>com.vizuri.fantasy.entity.PositionRankingEntity</class>
         <class>com.vizuri.fantasy.entity.PlayerWeeklyScoreEntity</class>
+        <class>com.vizuri.fantasy.entity.PlayerWeeklyStatisticEntity</class>
         <class>com.vizuri.fantasy.entity.FantasyRuleSetEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
