@@ -85,6 +85,13 @@ ownerModule.controller('DetailsController', ['$scope', '$http', '$location', 'Ow
 		$scope.newTeam = angular.copy(team);
 		console.log($scope.newTeam);
 		Team.setTeam($scope.newTeam);
+		var league = {};
+		for(var j=0; j < $scope.leagues.length; j++){
+			if($scope.newTeam.leagueId === $scope.leagues[j].id){
+				league = $scope.leagues[j];
+			}
+		}
+		League.setLeague(league);
 		$location.path("/edit_team_details");
 	};
 	$scope.setOrder = function (orderby) {

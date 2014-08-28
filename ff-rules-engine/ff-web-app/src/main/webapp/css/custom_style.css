@@ -72,11 +72,6 @@ td{
 
 }
 
-tr:nth-child(even) {
-  background-color: #191919;
-
-}
-
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 border-top:none!important;
 text-align:center;
@@ -101,6 +96,11 @@ text-align:left;
 
 tr:nth-child(odd) {
   background-color: #262626;
+}
+
+tr:nth-child(even) {
+  background-color: #CCC;
+
 }
 
 th{
@@ -205,4 +205,11 @@ form {
 
 th button {
 	float: right;	
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: #fff;
+}
+.table-hover > tbody > tr:hover > td {
+  background-color: #bbb;
 }
