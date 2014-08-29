@@ -1,6 +1,9 @@
 var teamModule = angular.module('teamController', ['teamService', 'leagueService']);
 
 teamModule.controller('EditTeamController', ['$scope', '$http', 'Team', 'League', function($scope, $http, Team, League){
+	//Sorting capability
+	$scope.orderby = 'slotNumber';
+	$scope.reverse = false;
 	$scope.newTeam = Team.getTeam();
 	console.log("About to query on team: "+angular.toJson($scope.newTeam));
 	$http.get('rest/teams/'+ $scope.newTeam.id).
@@ -30,4 +33,11 @@ teamModule.controller('EditTeamController', ['$scope', '$http', 'Team', 'League'
 			i--;
 		}
 	};
+	$scope.setOrder = function (orderby) {
+        if (orderby === $scope.orderby)
+        {
+            $scope.reverse = !$scope.reverse;
+        }
+        $scope.orderby = orderby;
+	 };
 }]);

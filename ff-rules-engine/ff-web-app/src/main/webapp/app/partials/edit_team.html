@@ -38,21 +38,48 @@
 		<table class="table table-striped table-bordered table-condensed table-hover">
 			<thead>
 				<tr>
-					<th>Slot Number</th>
-					<th>Player Name</th>
-					<th>Position Type</th>
-					<th>Status</th>
-					<th>Rank by Position</th>
-					<th>Overall Rank</th>
-					<th>Weekly Score</th>
+					<th>
+						Slot Number
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('slotNumber')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
+					<th>
+						Player Name
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('playerName')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
+					<th>
+						Position Type
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('positionName')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
+					<th>
+						Status
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('status')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
+					<th>
+						Rank by Position
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('positionRankingOrder')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
+					<th>
+						Overall Rank
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('overallRankingOrder')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
+					<th>
+						Weekly Score
+						<button type="button" class="btn btn-default btn-sm" data-ng-click="setOrder('weeklyScore')"><span class="glyphicon glyphicon-sort"></span></button>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-ng-repeat="roster in teamRosters" data-ng-class-odd="'trOdd'" data-ng-class-even="'trOdd'">
+				<tr data-ng-repeat="roster in teamRosters | orderBy:orderby:reverse" data-ng-class-odd="'trOdd'" data-ng-class-even="'trOdd'">
 					<td>{{roster.slotNumber}}</td>
 					<td>{{roster.playerName}}</td>
 					<td>{{roster.positionName}}</td>
-					<td>{{roster.status}}</td>
+					<td>
+						<span class="badge alert-success" data-ng-show="roster.status == 'PROBABLE'">{{roster.status}}</span>
+						<span class="badge" data-ng-show="roster.status == 'QUESTIONABLE'">{{roster.status}}</span>
+						<span class="badge alert-warning" data-ng-show="roster.status == 'DOUBTFUL'">{{roster.status}}</span>
+						<span class="badge alert-danger" data-ng-show="roster.status == 'OUT'">{{roster.status}}</span>
+						<span class="badge alert-info" data-ng-show="roster.status == 'INJURED_RESERVE'">{{roster.status}}</span>
+					</td>
 					<td>{{roster.positionRankingOrder}}</td>
 					<td>{{roster.overallRankingOrder}}</td>
 					<td>{{roster.weeklyScore}}</td>
