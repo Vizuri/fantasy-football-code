@@ -32,6 +32,7 @@ public class FantasyLeagueValidationTest extends JpaRolledBackTestCase {
 	public final static transient Logger log = Logger.getLogger(FantasyLeagueValidationTest.class);
 	private RulesProcessor rulesProcessor = new RulesProcessorImpl();
 	
+	
 	@Test
 	@SuppressWarnings("unchecked")
 	public void testDemoLeague() throws Exception {

@@ -12,7 +12,7 @@ import com.vizuri.fantasy.domain.PlayerWeeklyStatistic;
 public class ScoringSummary implements Serializable {
 	private static final long serialVersionUID = 8112502676235277062L;
 	
-	private Date lastUpdate;  // coming soon...
+	private Date lastUpdate; 
 	private List<PlayStatistic> playStats = new ArrayList<PlayStatistic>();
 	private List<PlayerWeeklyScore> playerWeeklyScores = new ArrayList<PlayerWeeklyScore>();
 	private List<PlayerWeeklyStatistic> playerWeeklyStatistic = new ArrayList<PlayerWeeklyStatistic>();

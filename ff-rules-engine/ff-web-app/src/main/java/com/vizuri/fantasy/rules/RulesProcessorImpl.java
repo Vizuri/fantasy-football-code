@@ -6,13 +6,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.drools.core.ClassObjectFilter;
-import org.kie.api.KieBaseConfiguration;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.AgendaFilter;
 import org.kie.api.runtime.rule.Match;
-import org.kie.internal.builder.conf.RuleEngineOption;
+import org.kie.api.runtime.rule.QueryResults;
+import org.kie.api.runtime.rule.QueryResultsRow;
 
 import com.vizuri.fantasy.domain.LeagueRoster;
 import com.vizuri.fantasy.domain.PlayStatistic;
@@ -42,58 +42,57 @@ public class RulesProcessorImpl implements RulesProcessor {
 	KieContainer kieContainer = kieServices.getKieClasspathContainer();
 	AgendaListener agendaListener  = new AgendaListener();
 	RuleListener ruleListener = new RuleListener();
-	
+	KieSession scoreKieSession;
 	
 	public RulesProcessorImpl() {
-		setupAlgorithm();
-	}
-	
-	private void setupAlgorithm() {
-		KieBaseConfiguration kconfig = KieServices.Factory.get().newKieBaseConfiguration();
-
-		// you can either specify phreak (default)
-		kconfig.setOption(RuleEngineOption.PHREAK);
-
-		// or legacy ReteOO
-		//kconfig.setOption(RuleEngineOption.RETEOO);
 	}
 	
 	@Override
 	public void fireScoringRules(ScoringSummary scoreSummary) {
-		log.info("Entered fireViolationRules...using FantasyLeague as an argument");
-		KieSession kieSession = null;
+		log.info("Entered fireScoringRules... last update: " + String.valueOf(scoreSummary.getLastUpdate()));
 		try {
-			kieSession = kieContainer.getKieBase("CalculationBase").newKieSession();
-			clear();
+			if (scoreKieSession == null) {
+				scoreKieSession = kieContainer.getKieBase("CalculationBase").newKieSession();
+				scoreKieSession.insert(new RuleSet());
+				
+				if (log.isDebugEnabled()) {
+					scoreKieSession.addEventListener(agendaListener);
+					scoreKieSession.addEventListener(ruleListener);
+				}
+			}
 
-			if (log.isInfoEnabled()) {
-				kieSession.addEventListener(agendaListener);
-				kieSession.addEventListener(ruleListener);
+			if (scoreSummary.getPlayStats() != null && scoreSummary.getPlayStats().size() > 0) {
+				for (PlayStatistic playStatistic : scoreSummary.getPlayStats()) {
+					scoreKieSession.insert(playStatistic);
+				}
+			
+				scoreKieSession.fireAllRules();
 			}
 			
-			for (PlayStatistic playStatistic : scoreSummary.getPlayStats()) {
-				kieSession.insert(playStatistic);
-			}
-			kieSession.insert(new RuleSet());
-			
-			kieSession.fireAllRules();
-			
-			Collection<?> facts = kieSession.getObjects(new ClassObjectFilter(PlayerWeeklyScore.class));
-			for (Object fact : facts) {
-				scoreSummary.addPlayerWeeklyScore((PlayerWeeklyScore)fact);
-			}
-			
-			facts = kieSession.getObjects(new ClassObjectFilter(PlayerWeeklyStatistic.class));
-			for (Object fact : facts) {
-				scoreSummary.addPlayerWeeklyStatistic((PlayerWeeklyStatistic)fact);
+			if (scoreSummary.getLastUpdate() == null) {
+				Collection<?> facts = scoreKieSession.getObjects(new ClassObjectFilter(PlayerWeeklyScore.class));
+				for (Object fact : facts) {
+					scoreSummary.addPlayerWeeklyScore((PlayerWeeklyScore)fact);
+				}
+				
+				facts = scoreKieSession.getObjects(new ClassObjectFilter(PlayerWeeklyStatistic.class));
+				for (Object fact : facts) {
+					scoreSummary.addPlayerWeeklyStatistic((PlayerWeeklyStatistic)fact);
+				}
+			} else {
+				QueryResults results = scoreKieSession.getQueryResults("getUpdatedWeeklyStats", scoreSummary.getLastUpdate());
+				for (QueryResultsRow row : results) {
+					scoreSummary.addPlayerWeeklyStatistic((PlayerWeeklyStatistic)row.get("$playerWeeklyStat"));
+				}
+				
+				results = scoreKieSession.getQueryResults("getUpdatedWeeklyScores", scoreSummary.getLastUpdate());
+				for (QueryResultsRow row : results) {
+					scoreSummary.addPlayerWeeklyScore((PlayerWeeklyScore)row.get("$playerWeeklyScore"));
+				}
 			}
 		} catch (Exception ex) {
 			log.error("Error firing rules", ex);
 			throw(ex);
-		} finally {
-			if (kieSession != null) {
-				kieSession.dispose();
-			}
 		}
 	}
 	
